@@ -4,6 +4,6 @@ import project.domain.User;
 
 public interface UserService {
 	
-	User createUser(User user);
+	User save(User user);
 	
 }

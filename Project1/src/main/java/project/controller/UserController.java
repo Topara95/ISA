@@ -26,7 +26,7 @@ public class UserController {
 			)
 	public ResponseEntity<User> registerUser(@RequestBody User user) throws Exception{
 		System.out.println("Pozivas li me??");
-		userService.createUser(user);
+		userService.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
 	
