@@ -58,12 +58,39 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean verifyEmail(String email) {
 		email+=".com";
-		System.out.println("USAO U VERIFIKOVANJE");
 		User user = userRepository.findByEmail(email);
-		System.out.println("PROSAO UPIT!!! "+email);
 		user.setVerified(true);
 		userRepository.save(user);
 		return true;
+	}
+
+
+	@Override
+	public User modifyUser(User user, String email) {
+		email+=".com";
+		User old = userRepository.findByEmail(email);
+		if(user.getEmail() == null){
+			user.setEmail(old.getEmail());
+		}
+		if(user.getName() == null){
+			user.setName(old.getName());
+		}
+		if(user.getPassword() == null){
+			user.setPassword(old.getPassword());
+		}
+		if(user.getSurname()==null){
+			user.setSurname(old.getSurname());
+		}
+		if(user.getCity()==null){
+			user.setCity(old.getCity());
+		}
+		if(user.getPhone()==null){
+			user.setPhone(old.getPhone());
+		}
+		
+		old = user;
+		//userRepository.delete(old);
+		return userRepository.save(old);
 	}
 
 

@@ -13,6 +13,8 @@ public interface UserService {
 	
 	boolean verifyEmail(String email);
 	
+	User modifyUser(User user, String email);
+	
 	List<User> findAll();
 	
 	User findByEmail(String email);

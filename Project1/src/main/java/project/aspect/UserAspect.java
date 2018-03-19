@@ -1,7 +1,5 @@
 package project.aspect;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -37,5 +35,10 @@ public class UserAspect {
 		}
 		
 	}
+	
+	/*@Around("execution(* project.controller.UserController.modifyUser(..)) && args(user,email,..))")
+	public void beforeModify(ProceedingJoinPoint joinPoint,User user,String email) throws Throwable{
+		User old = userService.findByEmail(email+".com");
+	}*/
 	
 }

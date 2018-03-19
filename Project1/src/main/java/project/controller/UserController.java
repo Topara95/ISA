@@ -1,5 +1,7 @@
 package project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +28,6 @@ public class UserController {
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	public ResponseEntity<User> registerUser(@RequestBody User user) throws Exception{
-		System.out.println("Pozivas li me??");
 		userService.sendVerificationMail(user);
 		userService.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
@@ -38,11 +39,25 @@ public class UserController {
 		return new ResponseEntity<String>("verifikovan",HttpStatus.ACCEPTED);
 	}
 	
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getUsers(){
+		return new ResponseEntity<List<User>>(userService.findAll(),HttpStatus.FOUND);
+	}
+	
+	
+	@RequestMapping(value="/{email}",method = RequestMethod.PATCH)
+	public ResponseEntity<User> modifyUser(@RequestBody User user, @PathVariable String email){
+		return new ResponseEntity<User>(userService.modifyUser(user, email),HttpStatus.ACCEPTED);
+	}
+	
+	
 	@RequestMapping(value = "/test/",
 			method = RequestMethod.GET
 			)
 	public void Test() {
 		System.out.println("testiraj");
 	}
+	
 
 }

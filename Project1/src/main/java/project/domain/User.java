@@ -49,9 +49,9 @@ public class User implements Serializable {
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
-		this.verified = false;
 		this.city = city;
 		this.phone = phone;
+		this.verified = false;
 	}
 
 	public Long getId() {
@@ -100,6 +100,22 @@ public class User implements Serializable {
 
 	public void setVerified(boolean verified) {
 		this.verified = verified;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }
