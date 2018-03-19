@@ -21,14 +21,15 @@ public class UserAspect {
 
 	@Around("execution(* project.service.UserService.save(..)) && args(user,..)")
 	public void beforeRegister(ProceedingJoinPoint joinPoint,User user) throws Throwable {
-		List<User> users = userService.findByEmail(user.getEmail());
+		User users = userService.findByEmail(user.getEmail());
 		boolean isValid = true;
 		if(users!=null){
-			for(int i=0;i<users.size();i++){
-				if(user.getEmail().equals(users.get(i).getEmail())){
+			
+				if(user.getEmail().equals(users.getEmail())){
+					System.out.println("IMA VEC!!!!");
 					isValid = false;
 				}
-			}
+			
 		}
 		
 		if(isValid){

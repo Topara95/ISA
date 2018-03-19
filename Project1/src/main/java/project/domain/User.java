@@ -30,16 +30,28 @@ public class User implements Serializable {
 	@Column(nullable = true)
 	private String surname;
 	
+	@Column(nullable = false)
+	private boolean verified;
+	
+	@Column(nullable = true)
+	private String city;
+	
+	@Column(nullable = true)
+	private String phone;
+	
 	public User() {
 		
 	}
 	
-	public User(String email, String password, String name, String surname) {
+	public User(String email, String password, String name, String surname, String city, String phone) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
 		this.surname = surname;
+		this.verified = false;
+		this.city = city;
+		this.phone = phone;
 	}
 
 	public Long getId() {
@@ -80,6 +92,14 @@ public class User implements Serializable {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	public void setVerified(boolean verified) {
+		this.verified = verified;
 	}
 
 }

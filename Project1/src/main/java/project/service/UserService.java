@@ -9,7 +9,11 @@ public interface UserService {
 	
 	User save(User user);
 	
+	void sendVerificationMail(User user);
+	
+	boolean verifyEmail(String email);
+	
 	List<User> findAll();
 	
-	List<User> findByEmail(String email);
+	User findByEmail(String email);
 }

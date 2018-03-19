@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,8 +27,15 @@ public class UserController {
 			)
 	public ResponseEntity<User> registerUser(@RequestBody User user) throws Exception{
 		System.out.println("Pozivas li me??");
+		userService.sendVerificationMail(user);
 		userService.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/verify/{email}", method = RequestMethod.GET)
+	public ResponseEntity<String> verifyUser(@PathVariable String email) throws Exception{
+		userService.verifyEmail(email);
+		return new ResponseEntity<String>("verifikovan",HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value = "/test/",
