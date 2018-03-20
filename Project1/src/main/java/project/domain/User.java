@@ -1,12 +1,17 @@
 package project.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User implements Serializable {
@@ -39,6 +44,16 @@ public class User implements Serializable {
 	@Column(nullable = true)
 	private String phone;
 	
+	@ElementCollection
+	@CollectionTable
+	@Column
+	private List<String> friends;
+	
+	@ElementCollection
+	@CollectionTable
+	@Column
+	private List<String> pendingRequests;
+	
 	public User() {
 		
 	}
@@ -52,6 +67,8 @@ public class User implements Serializable {
 		this.city = city;
 		this.phone = phone;
 		this.verified = false;
+		this.friends = new ArrayList<String>();
+		this.pendingRequests = new ArrayList<String>();
 	}
 
 	public Long getId() {
@@ -116,6 +133,22 @@ public class User implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public List<String> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<String> friends) {
+		this.friends = friends;
+	}
+
+	public List<String> getPendingRequests() {
+		return pendingRequests;
+	}
+
+	public void setPendingRequests(List<String> pendingRequests) {
+		this.pendingRequests = pendingRequests;
 	}
 
 }
