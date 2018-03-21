@@ -19,26 +19,27 @@ import project.domain.User;
 import project.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/register/",
+	@RequestMapping(value = "/register",
 			method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	public ResponseEntity<User> registerUser(@RequestBody User user) throws Exception{
-		userService.sendVerificationMail(user);
 		userService.save(user);
+		User savedUser = userService.findByEmail(user.getEmail());
+		userService.sendVerificationMail(savedUser);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
 	
-	@RequestMapping(value="/verify/{email}", method = RequestMethod.GET)
-	public ResponseEntity<String> verifyUser(@PathVariable String email) throws Exception{
-		userService.verifyEmail(email);
+	@RequestMapping(value="/verify/{id}", method = RequestMethod.GET)
+	public ResponseEntity<String> verifyUser(@PathVariable Long id) throws Exception{
+		userService.verifyEmail(id);
 		return new ResponseEntity<String>("verifikovan",HttpStatus.ACCEPTED);
 	}
 	
@@ -49,9 +50,9 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/{email}",method = RequestMethod.PUT)
-	public ResponseEntity<User> modifyUser(@RequestBody User user, @PathVariable String email){
-		return new ResponseEntity<User>(userService.modifyUser(user, email),HttpStatus.ACCEPTED);
+	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
+	public ResponseEntity<User> modifyUser(@RequestBody User user, @PathVariable Long id){
+		return new ResponseEntity<User>(userService.modifyUser(user, id),HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -84,18 +85,18 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value="/sendFriendRequest/{receiverEmail}",method = RequestMethod.GET)
-	public ResponseEntity<String> sendFriendRequest(@PathVariable String receiverEmail,HttpServletRequest request){
+	@RequestMapping(value="/sendFriendRequest/{receiverId}",method = RequestMethod.GET)
+	public ResponseEntity<String> sendFriendRequest(@PathVariable Long receiverId,HttpServletRequest request){
 		User sender = (User) request.getSession().getAttribute("loggedUser");
-		userService.sendFriendRequest(sender.getEmail(), receiverEmail);
-		return new ResponseEntity<String>("zahtev uspesno poslat",HttpStatus.CONTINUE);
+		userService.sendFriendRequest(sender.getId(), receiverId);
+		return new ResponseEntity<String>("zahtev uspesno poslat",HttpStatus.ACCEPTED);
 		
 	}
 	
-	@RequestMapping(value="/approveFriendRequest/{pendingEmail}",method = RequestMethod.GET)
-	public ResponseEntity<String> approveFriendRequest(@PathVariable String pendingEmail, HttpServletRequest request){
+	@RequestMapping(value="/approveFriendRequest/{pendingId}",method = RequestMethod.GET)
+	public ResponseEntity<String> approveFriendRequest(@PathVariable Long pendingId, HttpServletRequest request){
 		User user = (User) request.getSession().getAttribute("loggedUser");
-		userService.approveFriendRequest(pendingEmail, user.getEmail());
+		userService.approveFriendRequest(pendingId, user.getId());
 		return new ResponseEntity<String>("request approved",HttpStatus.ACCEPTED);
 	}
 	

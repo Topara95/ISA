@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class User implements Serializable {
@@ -47,12 +46,12 @@ public class User implements Serializable {
 	@ElementCollection
 	@CollectionTable
 	@Column
-	private List<String> friends;
+	private List<Long> friends;
 	
 	@ElementCollection
 	@CollectionTable
 	@Column
-	private List<String> pendingRequests;
+	private List<Long> pendingRequests;
 	
 	public User() {
 		
@@ -67,8 +66,8 @@ public class User implements Serializable {
 		this.city = city;
 		this.phone = phone;
 		this.verified = false;
-		this.friends = new ArrayList<String>();
-		this.pendingRequests = new ArrayList<String>();
+		this.friends = new ArrayList<Long>();
+		this.pendingRequests = new ArrayList<Long>();
 	}
 
 	public Long getId() {
@@ -135,19 +134,19 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public List<String> getFriends() {
+	public List<Long> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(List<String> friends) {
+	public void setFriends(List<Long> friends) {
 		this.friends = friends;
 	}
 
-	public List<String> getPendingRequests() {
+	public List<Long> getPendingRequests() {
 		return pendingRequests;
 	}
 
-	public void setPendingRequests(List<String> pendingRequests) {
+	public void setPendingRequests(List<Long> pendingRequests) {
 		this.pendingRequests = pendingRequests;
 	}
 

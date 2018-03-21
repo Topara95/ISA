@@ -50,15 +50,14 @@ public class UserServiceImpl implements UserService{
 		mail.setTo(user.getEmail());
 		mail.setFrom(env.getProperty("spring.mail.username"));
 		mail.setSubject("Link za verifikaciju naloga");
-		mail.setText("Pozdrav " + user.getName() + ",\n\n http://localhost:8080/api/verify/"+user.getEmail()+"");
+		mail.setText("Pozdrav " + user.getName() + ",\n\n http://localhost:8080/api/users/verify/"+user.getId()+"");
 		javaMailSender.send(mail);
 	}
 
 
 	@Override
-	public boolean verifyEmail(String email) {
-		email+=".com";
-		User user = userRepository.findByEmail(email);
+	public boolean verifyEmail(Long id) {
+		User user = userRepository.findById(id);
 		user.setVerified(true);
 		userRepository.save(user);
 		return true;
@@ -66,9 +65,8 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public User modifyUser(User user, String email) {
-		email+=".com";
-		User old = userRepository.findByEmail(email);
+	public User modifyUser(User user, Long id) {
+		User old = userRepository.findById(id);
 		if(user.getEmail() != null){
 			old.setEmail(old.getEmail());
 		}
@@ -120,27 +118,52 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public User sendFriendRequest(String senderEmail, String receiverEmail) {
-		receiverEmail+=".com";
-		User user = userRepository.findByEmail(receiverEmail);
+	public User sendFriendRequest(Long sender, Long receiver) {
+		User user = userRepository.findById(receiver);
 		if(user!=null) {
-			user.getPendingRequests().add(senderEmail);
+			for(Long id : user.getPendingRequests()) {
+				if(id == sender) {
+					return null;
+				}
+			}
+			for(Long id:user.getFriends()) {
+				if(id == sender) {
+					return null;
+				}
+			}
+			user.getPendingRequests().add(sender);
 			userRepository.save(user);
+			return user;
 		}
-		return user;
+		return null;
 	}
 
 
 	@Override
-	public User approveFriendRequest(String pendingEmail, String userEmail) {
-		pendingEmail+=".com";
-		User user = userRepository.findByEmail(userEmail);
-		if(user != null) {
-			user.getPendingRequests().remove(pendingEmail);
-			user.getFriends().add(pendingEmail);
-			userRepository.save(user);
+	public User approveFriendRequest(Long pending, Long userId) {
+		User receiverUser = userRepository.findById(userId);
+		User senderUser = userRepository.findById(pending);
+		boolean flag = false;
+		for(Long id:receiverUser.getPendingRequests()) {
+			if(id == pending) {
+				flag =true;
+			}
 		}
-		return user;
+		if(receiverUser != null && flag == true) {
+			receiverUser.getPendingRequests().remove(pending);
+			senderUser.getPendingRequests().remove(userId);
+			receiverUser.getFriends().add(pending);
+			senderUser.getFriends().add(userId);
+			userRepository.save(receiverUser);
+			return receiverUser;
+		}
+		return null;
+	}
+
+
+	@Override
+	public User findById(Long id) {
+		return userRepository.findById(id);
 	}
 
 

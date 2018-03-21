@@ -11,19 +11,21 @@ public interface UserService {
 	
 	void sendVerificationMail(User user);
 	
-	boolean verifyEmail(String email);
+	boolean verifyEmail(Long id);
 	
 	User signIn(User user);
 	
-	User modifyUser(User user, String email);
+	User modifyUser(User user, Long id);
 	
 	List<User> findAll();
 	
 	User findByEmail(String email);
 	
+	User findById(Long id);
+	
 	List<User> searchUsers(String name,String surname);
 	
-	User sendFriendRequest(String senderEmail,String receiverEmail);
+	User sendFriendRequest(Long sender,Long receiver);
 	
-	User approveFriendRequest(String pendingEmail,String userEmail);
+	User approveFriendRequest(Long pending,Long userId);
 }
