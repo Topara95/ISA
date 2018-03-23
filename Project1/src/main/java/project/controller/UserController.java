@@ -66,16 +66,19 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public ResponseEntity<String> signIn(@RequestBody User user,HttpSession session,HttpServletRequest request){
+	@RequestMapping(value="/login", method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDTO> signIn(@RequestBody User user,HttpSession session,HttpServletRequest request){
 		User loggedUser = userService.signIn(user);
 		if(loggedUser != null) {
-			session.invalidate();
 		    HttpSession newSession = request.getSession();
 		    newSession.setAttribute("loggedUser", loggedUser);
-		    return new ResponseEntity<String>("User logged in",HttpStatus.ACCEPTED);
+		    UserDTO logged = new UserDTO(loggedUser);
+		    return new ResponseEntity<UserDTO>(logged,HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("User not found",HttpStatus.NOT_FOUND);
+		UserDTO logged = null;
+		return new ResponseEntity<UserDTO>(logged,HttpStatus.NOT_FOUND);
 	}
 	
 	@RequestMapping(value="/logout",method = RequestMethod.GET)
@@ -133,6 +136,17 @@ public class UserController {
 			requestsDTO.add(new UserDTO(request));
 		}
 		return new ResponseEntity<List<UserDTO>>(requestsDTO,HttpStatus.FOUND);
+	}
+	
+	@RequestMapping(value="/isLoggedIn",method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getLoggedIn(HttpServletRequest request){
+		User logged = (User) request.getSession().getAttribute("loggedUser");
+		if(logged!=null) {
+			UserDTO loggedDTO = new UserDTO(logged);
+			return new ResponseEntity<UserDTO>(loggedDTO,HttpStatus.OK);
+		}
+		UserDTO loggedDTO = null;
+		return new ResponseEntity<UserDTO>(loggedDTO,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/test/",
