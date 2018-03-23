@@ -2,17 +2,20 @@ package project.service;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.User;
 import project.repository.UserRepository;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
 
 	@Autowired
@@ -120,18 +123,21 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User sendFriendRequest(Long sender, Long receiver) {
 		User user = userRepository.findById(receiver);
+		User senderuser = userRepository.findById(sender);
+		Hibernate.initialize(user.getReceivedRequests());
+		System.out.println("ULOGOVAN REKVEST: "+senderuser.getFriends()+" "+senderuser.getFriendOf());
 		if(user!=null) {
-			for(Long id : user.getPendingRequests()) {
-				if(id == sender) {
+			for(User req : user.getReceivedRequests()) {
+				if(req.getId() == sender) {
 					return null;
 				}
 			}
-			for(Long id:user.getFriends()) {
-				if(id == sender) {
+			for(User req : user.getFriends()) {
+				if(req.getId() == sender) {
 					return null;
 				}
 			}
-			user.getPendingRequests().add(sender);
+			user.getReceivedRequests().add(senderuser);
 			userRepository.save(user);
 			return user;
 		}
@@ -143,18 +149,25 @@ public class UserServiceImpl implements UserService{
 	public User approveFriendRequest(Long pending, Long userId) {
 		User receiverUser = userRepository.findById(userId);
 		User senderUser = userRepository.findById(pending);
+		Hibernate.initialize(receiverUser.getReceivedRequests());
+		Hibernate.initialize(senderUser.getReceivedRequests());
+		Hibernate.initialize(receiverUser.getFriends());
+		Hibernate.initialize(receiverUser.getFriendOf());
+		Hibernate.initialize(senderUser.getFriends());
+		Hibernate.initialize(senderUser.getFriendOf());
 		boolean flag = false;
-		for(Long id:receiverUser.getPendingRequests()) {
-			if(id == pending) {
+		for(User user:receiverUser.getReceivedRequests()) {
+			if(user.getId() == pending) {
 				flag =true;
 			}
 		}
 		if(receiverUser != null && flag == true) {
-			receiverUser.getPendingRequests().remove(pending);
-			senderUser.getPendingRequests().remove(userId);
-			receiverUser.getFriends().add(pending);
-			senderUser.getFriends().add(userId);
+			receiverUser.getReceivedRequests().remove(senderUser);
+			senderUser.getReceivedRequests().remove(receiverUser);
+			receiverUser.getFriends().add(senderUser);
+			senderUser.getFriends().add(receiverUser);
 			userRepository.save(receiverUser);
+			userRepository.save(senderUser);
 			return receiverUser;
 		}
 		return null;
@@ -164,6 +177,31 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User findById(Long id) {
 		return userRepository.findById(id);
+	}
+
+
+	@Override
+	public List<User> getFriends(Long id) {
+		User user = userRepository.findById(id);
+		Hibernate.initialize(user.getFriends());
+		Hibernate.initialize(user.getFriendOf());
+		if(user != null) {
+			List<User> friends = user.getFriends();
+			return friends;
+		}
+		return null;
+	}
+
+
+	@Override
+	public List<User> getFriendRequests(Long id) {
+		User user = userRepository.findById(id);
+		Hibernate.initialize(user.getReceivedRequests());
+		if(user!=null) {
+			List<User> requests = user.getReceivedRequests();
+			return requests;
+		}
+		return null;
 	}
 
 

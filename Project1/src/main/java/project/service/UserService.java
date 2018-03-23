@@ -28,4 +28,8 @@ public interface UserService {
 	User sendFriendRequest(Long sender,Long receiver);
 	
 	User approveFriendRequest(Long pending,Long userId);
+	
+	List<User> getFriends(Long id);
+	
+	List<User> getFriendRequests(Long id);
 }

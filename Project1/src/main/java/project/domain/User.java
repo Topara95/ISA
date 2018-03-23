@@ -4,13 +4,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 
 @Entity
 public class User implements Serializable {
@@ -43,15 +45,17 @@ public class User implements Serializable {
 	@Column(nullable = true)
 	private String phone;
 	
-	@ElementCollection
-	@CollectionTable
-	@Column
-	private List<Long> friends;
-	
-	@ElementCollection
-	@CollectionTable
-	@Column
-	private List<Long> pendingRequests;
+	@ManyToMany
+    @JoinTable(name="friends", joinColumns=@JoinColumn(name="personId"), inverseJoinColumns=@JoinColumn(name="friendId"))
+    private List<User> friends;
+
+    @ManyToMany
+    @JoinTable(name="friends", joinColumns=@JoinColumn(name="friendId"), inverseJoinColumns=@JoinColumn(name="personId"))
+    private List<User> friendOf; 
+
+    @OneToMany(targetEntity = User.class)
+    @JoinTable(name="requests", joinColumns=@JoinColumn(name="receiver"))
+    public List<User> receivedRequests;
 	
 	public User() {
 		
@@ -66,8 +70,9 @@ public class User implements Serializable {
 		this.city = city;
 		this.phone = phone;
 		this.verified = false;
-		this.friends = new ArrayList<Long>();
-		this.pendingRequests = new ArrayList<Long>();
+		this.friends = new ArrayList<User>();
+		this.friendOf = new ArrayList<User>();
+		this.receivedRequests = new ArrayList<User>();
 	}
 
 	public Long getId() {
@@ -134,20 +139,28 @@ public class User implements Serializable {
 		this.phone = phone;
 	}
 
-	public List<Long> getFriends() {
-		return friends;
+	public List<User> getFriendOf() {
+		return friendOf;
 	}
 
-	public void setFriends(List<Long> friends) {
+	public void setFriendOf(List<User> friendOf) {
+		this.friendOf = friendOf;
+	}
+
+	public List<User> getReceivedRequests() {
+		return receivedRequests;
+	}
+
+	public void setReceivedRequests(List<User> receivedRequests) {
+		this.receivedRequests = receivedRequests;
+	}
+
+	public void setFriends(List<User> friends) {
 		this.friends = friends;
 	}
 
-	public List<Long> getPendingRequests() {
-		return pendingRequests;
-	}
-
-	public void setPendingRequests(List<Long> pendingRequests) {
-		this.pendingRequests = pendingRequests;
+	public List<User> getFriends() {
+		return friends;
 	}
 
 }

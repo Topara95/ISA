@@ -1,10 +1,12 @@
 package project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.domain.User;
+import project.dto.UserDTO;
 import project.service.UserService;
 
 @RestController
@@ -30,11 +33,12 @@ public class UserController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<User> registerUser(@RequestBody User user) throws Exception{
+	public ResponseEntity<UserDTO> registerUser(@RequestBody User user) throws Exception{
 		userService.save(user);
 		User savedUser = userService.findByEmail(user.getEmail());
 		userService.sendVerificationMail(savedUser);
-		return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		UserDTO userdto = new UserDTO(user);
+		return new ResponseEntity<UserDTO>(userdto, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/verify/{id}", method = RequestMethod.GET)
@@ -45,14 +49,20 @@ public class UserController {
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<User>> getUsers(){
-		return new ResponseEntity<List<User>>(userService.findAll(),HttpStatus.FOUND);
+	public ResponseEntity<List<UserDTO>> getUsers(){
+		List<User> users = userService.findAll();
+		List<UserDTO> usersdto = new ArrayList<UserDTO>();
+		for(User user : users) {
+			usersdto.add(new UserDTO(user));
+		}
+		return new ResponseEntity<List<UserDTO>>(usersdto,HttpStatus.FOUND);
 	}
 	
 	
 	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
-	public ResponseEntity<User> modifyUser(@RequestBody User user, @PathVariable Long id){
-		return new ResponseEntity<User>(userService.modifyUser(user, id),HttpStatus.ACCEPTED);
+	public ResponseEntity<UserDTO> modifyUser(@RequestBody User user, @PathVariable Long id){
+		User modified = userService.modifyUser(user, id);
+		return new ResponseEntity<UserDTO>(new UserDTO(modified),HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -76,18 +86,22 @@ public class UserController {
 	
 	
 	@RequestMapping(value="/search/{name}/{surname}")
-	public ResponseEntity<List<User>> searchUsers(@PathVariable String name, @PathVariable String surname){
+	public ResponseEntity<List<UserDTO>> searchUsers(@PathVariable String name, @PathVariable String surname){
 		List<User> searched = userService.searchUsers(name, surname);
+		List<UserDTO> searcheddto = new ArrayList<UserDTO>();
+		for(User user : searched) {
+			searcheddto.add(new UserDTO(user));
+		}
 		if(searched!=null) {
-			return new ResponseEntity<List<User>>(searched,HttpStatus.FOUND);
+			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.FOUND);
 		}else {
-			return new ResponseEntity<List<User>>(searched,HttpStatus.NOT_FOUND);
+			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.NOT_FOUND);
 		}
 	}
 	
 	@RequestMapping(value="/sendFriendRequest/{receiverId}",method = RequestMethod.GET)
 	public ResponseEntity<String> sendFriendRequest(@PathVariable Long receiverId,HttpServletRequest request){
-		User sender = (User) request.getSession().getAttribute("loggedUser");
+		User sender = (User) request.getSession().getAttribute("loggedUser");		
 		userService.sendFriendRequest(sender.getId(), receiverId);
 		return new ResponseEntity<String>("zahtev uspesno poslat",HttpStatus.ACCEPTED);
 		
@@ -98,6 +112,27 @@ public class UserController {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		userService.approveFriendRequest(pendingId, user.getId());
 		return new ResponseEntity<String>("request approved",HttpStatus.ACCEPTED);
+	}
+	
+	
+	@RequestMapping(value="/getFriends/{id}" , method = RequestMethod.GET)
+	public ResponseEntity<List<UserDTO>> getFriends(@PathVariable Long id){
+		List<User> friends = userService.getFriends(id);
+		List<UserDTO> friendsDTO = new ArrayList<UserDTO>();
+		for(User friend : friends) {
+			friendsDTO.add(new UserDTO(friend));
+		}
+		return new ResponseEntity<List<UserDTO>>(friendsDTO,HttpStatus.FOUND);
+	}
+	
+	@RequestMapping(value="/getRequests/{id}",method=RequestMethod.GET)
+	public ResponseEntity<List<UserDTO>> getRequests(@PathVariable Long id){
+		List<User> requests = userService.getFriendRequests(id);
+		List<UserDTO> requestsDTO = new ArrayList<UserDTO>();
+		for(User request : requests) {
+			requestsDTO.add(new UserDTO(request));
+		}
+		return new ResponseEntity<List<UserDTO>>(requestsDTO,HttpStatus.FOUND);
 	}
 	
 	@RequestMapping(value = "/test/",
