@@ -1,4 +1,5 @@
-var islogged_url = "http://localhost:8080/api/users/isLoggedIn"
+var islogged_url = "../api/users/isLoggedIn"
+var logout_url = "../api/users/logout"
 
 function generateNavbar(){
 	 $.ajax({
@@ -7,7 +8,6 @@ function generateNavbar(){
 		 success: function(data){
 			 var user = data;
 			 if(user.email!=null){
-				 console.log("aaaaaaa"+user.email);
 				 $(".navitems").empty();
 				 $(".navitems").append(`<li class="nav-item active">
 	                <a class="nav-link" href="#">Home
@@ -21,10 +21,12 @@ function generateNavbar(){
 	                <a class="nav-link" href="#">Services</a>
 	              </li>
 	              <li class="nav-item">
-	                <a class="nav-link" href="#">User `+user.email+` signed in</a>
+	                <a class="nav-link" href="userpage.html">User `+user.email+` signed in</a>
+	              </li>
+	              <li class="nav-item">
+	                <a class="nav-link" href="index.html" onclick="logout()">Sign out</a>
 	              </li>`);
 			 }else{
-				 console.log("BEEEEEEEEE"+user.email);
 			    	$(".navitems").empty();
 			    	$(".navitems").append(`<li class="nav-item active">
 			                <a class="nav-link" href="#">Home
@@ -35,7 +37,7 @@ function generateNavbar(){
 			                <a class="nav-link" href="#">About</a>
 			              </li>
 			              <li class="nav-item">
-			                <a class="nav-link" href="#">Register</a>
+			                <a class="nav-link" href="register.html">Register</a>
 			              </li>
 			              <li class="nav-item">
 			                <a class="nav-link" href="signin.html">Sign in</a>
@@ -47,4 +49,14 @@ function generateNavbar(){
 	    	
 	    }
 	 });
+}
+
+function logout(){
+	$.ajax({
+		 url: logout_url,
+		 method: "GET",
+		 success: function(){
+			 sessionStorage.removeItem('loggedUser');
+		 }
+	});
 }

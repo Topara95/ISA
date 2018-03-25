@@ -62,7 +62,7 @@ public class UserController {
 	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
 	public ResponseEntity<UserDTO> modifyUser(@RequestBody User user, @PathVariable Long id){
 		User modified = userService.modifyUser(user, id);
-		return new ResponseEntity<UserDTO>(new UserDTO(modified),HttpStatus.ACCEPTED);
+		return new ResponseEntity<UserDTO>(new UserDTO(modified),HttpStatus.OK);
 	}
 	
 	

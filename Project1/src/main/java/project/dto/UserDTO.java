@@ -7,12 +7,18 @@ public class UserDTO {
 	private String email;
 	private String name;
 	private String surname;
+	private String password;
+	private String city;
+	private String phone;
 	
 	public UserDTO(User user){
 		this.id = user.getId();
 		this.email=user.getEmail();
 		this.name = user.getName();
 		this.surname = user.getSurname();
+		this.password = user.getPassword();
+		this.city = user.getCity();
+		this.phone = user.getPhone();
 	}
 
 	public Long getId() {
@@ -45,5 +51,29 @@ public class UserDTO {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }
