@@ -1,5 +1,6 @@
 package project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -165,9 +166,7 @@ public class UserServiceImpl implements UserService{
 			receiverUser.getReceivedRequests().remove(senderUser);
 			senderUser.getReceivedRequests().remove(receiverUser);
 			receiverUser.getFriends().add(senderUser);
-			senderUser.getFriends().add(receiverUser);
 			userRepository.save(receiverUser);
-			userRepository.save(senderUser);
 			return receiverUser;
 		}
 		return null;
@@ -186,8 +185,12 @@ public class UserServiceImpl implements UserService{
 		Hibernate.initialize(user.getFriends());
 		Hibernate.initialize(user.getFriendOf());
 		if(user != null) {
+			List<User> joined = new ArrayList<User>();
 			List<User> friends = user.getFriends();
-			return friends;
+			List<User> friendof = user.getFriendOf();
+			joined.addAll(friends);
+			joined.addAll(friendof);
+			return joined;
 		}
 		return null;
 	}
