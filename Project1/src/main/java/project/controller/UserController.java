@@ -96,7 +96,7 @@ public class UserController {
 			searcheddto.add(new UserDTO(user));
 		}
 		if(searched!=null) {
-			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.FOUND);
+			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.OK);
 		}else {
 			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.NOT_FOUND);
 		}
@@ -125,7 +125,7 @@ public class UserController {
 		for(User friend : friends) {
 			friendsDTO.add(new UserDTO(friend));
 		}
-		return new ResponseEntity<List<UserDTO>>(friendsDTO,HttpStatus.FOUND);
+		return new ResponseEntity<List<UserDTO>>(friendsDTO,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/getRequests/{id}",method=RequestMethod.GET)
@@ -135,7 +135,7 @@ public class UserController {
 		for(User request : requests) {
 			requestsDTO.add(new UserDTO(request));
 		}
-		return new ResponseEntity<List<UserDTO>>(requestsDTO,HttpStatus.FOUND);
+		return new ResponseEntity<List<UserDTO>>(requestsDTO,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/isLoggedIn",method = RequestMethod.GET)
@@ -147,6 +147,18 @@ public class UserController {
 		}
 		UserDTO loggedDTO = null;
 		return new ResponseEntity<UserDTO>(loggedDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/declineRequest/{pendingId}", method=RequestMethod.GET)
+	public ResponseEntity<UserDTO> declineRequest(@PathVariable Long pendingId,HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("loggedUser");
+		if(user != null) {
+			User deleted = userService.declineFriendRequest(pendingId, user.getId());
+			UserDTO deletedDTO = new UserDTO(deleted);
+			return new ResponseEntity<UserDTO>(deletedDTO,HttpStatus.OK);
+		}
+		UserDTO deldto = null;
+		return new ResponseEntity<UserDTO>(deldto,HttpStatus.BAD_GATEWAY);
 	}
 	
 	@RequestMapping(value = "/test/",

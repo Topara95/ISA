@@ -29,6 +29,8 @@ public interface UserService {
 	
 	User approveFriendRequest(Long pending,Long userId);
 	
+	User declineFriendRequest(Long pending, Long userId);
+	
 	List<User> getFriends(Long id);
 	
 	List<User> getFriendRequests(Long id);

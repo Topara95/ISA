@@ -12,17 +12,19 @@
     <script src="scripts/index.js"></script>
     <script src="scripts/userpage.js"></script>
     <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/toastr.min.js"></script>
     
 
     <title>ISA</title>
 
     <!-- Bootstrap core CSS -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/toastr.css" rel="stylesheet">
 
 
   </head>
 
-<body onload="generateNavbar(); generateUserInfo();">
+<body onload="generateNavbar(); generateUserInfo(); getFriendRequests(); getFriends();">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -66,7 +68,10 @@
                     <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Messages</a>
+                    <a href="" data-target="#friends" data-toggle="tab" class="nav-link">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#frequests" data-toggle="tab" class="nav-link">Friend Requests</a>
                 </li>
                 <li class="nav-item">
                     <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
@@ -124,13 +129,13 @@
                     </div>
                     <!--/row-->
                 </div>
-                <div class="tab-pane" id="messages">
-                    <h4 class="m-y-2">Recent Messages &amp; Notifications</h4>
+                <div class="tab-pane" id="friends">
+                    <h4 class="m-y-2">Your Friends</h4>
                     <div class="alert alert-info alert-dismissable">
                         <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user.
                     </div>
                     <table class="table table-hover table-striped">
-                        <tbody>                                    
+                        <tbody class="friendsTable">                                    
                             <tr>
                                 <td>
                                    <span class="pull-xs-right font-weight-bold">3 hrs ago</span> Here is your a link to the latest summary report from the..
@@ -153,6 +158,56 @@
                             </tr>
                         </tbody> 
                     </table>
+                    <br>
+                </div>
+                <div class="tab-pane" id="frequests">
+                    <h4 class="m-y-2">Pending requests </h4>
+                    <br>
+                    <table class="table table-hover table-striped">
+                        <tbody class="freqtable">                                    
+                            
+                        </tbody> 
+                    </table>
+                    
+                    <br>
+                    <h4 class="m-y-2">Send friend request: </h4>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					  Search people
+					</button>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Search people</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <div class="form-group">
+							  <label for="searchname">Name:</label>
+							  <input type="text" class="form-control" id="searchname">
+							</div>
+							<div class="form-group">
+							  <label for="searchsurname">Surname:</label>
+							  <input type="text" class="form-control" id="searchsurname">
+							</div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					        <button type="button" id="searchPeople" data-dismiss="modal" class="btn btn-primary">Search</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+                    <table class="table table-hover table-striped">
+                        <tbody class="searchedpeople">                                    
+                            
+                        </tbody> 
+                    </table>
+                   
                 </div>
                 <div class="tab-pane" id="edit">
                     <h4 class="m-y-2">Edit Profile</h4>

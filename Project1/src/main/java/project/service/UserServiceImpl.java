@@ -208,6 +208,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	@Override
+	public User declineFriendRequest(Long pending, Long userId) {
+		User receiverUser = userRepository.findById(userId);
+		User senderUser = userRepository.findById(pending);
+		receiverUser.getReceivedRequests().remove(senderUser);
+		userRepository.save(receiverUser);
+		return senderUser;
+	}
+
+
 	
 
 	
