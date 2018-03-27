@@ -76,11 +76,12 @@ function getFriends(){
 		 url: friends_url,
 		 method: "GET",
 		 success: function(data){
+			 $(".friendsTable").empty();
 			 for(i=0;i<data.length;i++){
 				 $(".friendsTable").append(`<tr>
                                <td>
                                   <span class="font-weight-bold">`+data[i].name+`  `+data[i].surname+` | `+data[i].email+` | `+data[i].city+` | `+data[i].phone+`</span>
-                                  <span class="float-right"></span>
+                                  <span class="float-right"><a href="#"><img onclick="removeFriend(`+data[i].id+`)" src="images/remove.png" title="remove from friends"></img></a></span>
                                </td>
                            </tr>`);
 			 }
@@ -172,6 +173,20 @@ function sendFriendRequest(receiverid){
 		 },
 		 error: function(){
 			 toastr.error("Sending request failed. You have already sent one!");
+		 }
+	});
+}
+
+function removeFriend(removingId){
+	$.ajax({
+		 url: "../api/users/removeFriend/"+removingId,
+		 method: "GET",
+		 success: function(){
+			 toastr.info("Friend removed!");
+			 getFriends();
+		 },
+		 error: function(){
+			 toastr.error("Error removing friend");
 		 }
 	});
 }

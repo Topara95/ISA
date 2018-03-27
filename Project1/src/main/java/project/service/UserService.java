@@ -29,9 +29,13 @@ public interface UserService {
 	
 	User approveFriendRequest(Long pending,Long userId);
 	
+	User removeFriend(Long friendId, Long userId);
+	
 	User declineFriendRequest(Long pending, Long userId);
 	
 	List<User> getFriends(Long id);
 	
 	List<User> getFriendRequests(Long id);
+	
+	List<User> searchUsersStartingWith(String name,String surname);
 }

@@ -212,9 +212,45 @@ public class UserServiceImpl implements UserService{
 	public User declineFriendRequest(Long pending, Long userId) {
 		User receiverUser = userRepository.findById(userId);
 		User senderUser = userRepository.findById(pending);
+		Hibernate.initialize(receiverUser.getReceivedRequests());
 		receiverUser.getReceivedRequests().remove(senderUser);
 		userRepository.save(receiverUser);
 		return senderUser;
+	}
+
+
+	@Override
+	public User removeFriend(Long friendId, Long userId) {
+		User logged = userRepository.findById(userId);
+		User friend = userRepository.findById(friendId);
+		Hibernate.initialize(logged.getFriends());
+		Hibernate.initialize(logged.getFriendOf());
+		List<User> joined = new ArrayList<User>();
+		List<User> friends = logged.getFriends();
+		List<User> friendof = logged.getFriendOf();
+		joined.addAll(friends);
+		joined.addAll(friendof);
+		for(int i=0;i<friends.size();i++) {
+			if(friends.get(i).getId() == friendId) {
+				friends.remove(i);
+			}
+		}
+		userRepository.save(logged);
+		return friend;
+	}
+
+
+	@Override
+	public List<User> searchUsersStartingWith(String name, String surname) {
+		if(!name.equals("nema") && !surname.equals("nema")) {
+			return userRepository.findByNameAndSurnameStartingWith(name, surname);
+		}else if(name.equals("nema") && !surname.equals("nema")) {
+			return userRepository.findBySurnameStartingWith(surname);
+		}else if(!name.equals("nema") && surname.equals("nema")) {
+			return userRepository.findByNameStartingWith(name);
+		}else {
+			return userRepository.findAll();
+		}
 	}
 
 

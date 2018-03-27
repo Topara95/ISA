@@ -90,7 +90,7 @@ public class UserController {
 	
 	@RequestMapping(value="/search/{name}/{surname}")
 	public ResponseEntity<List<UserDTO>> searchUsers(@PathVariable String name, @PathVariable String surname){
-		List<User> searched = userService.searchUsers(name, surname);
+		List<User> searched = userService.searchUsersStartingWith(name, surname);
 		List<UserDTO> searcheddto = new ArrayList<UserDTO>();
 		for(User user : searched) {
 			searcheddto.add(new UserDTO(user));
@@ -159,6 +159,14 @@ public class UserController {
 		}
 		UserDTO deldto = null;
 		return new ResponseEntity<UserDTO>(deldto,HttpStatus.BAD_GATEWAY);
+	}
+	
+	@RequestMapping(value="/removeFriend/{friendId}",method=RequestMethod.GET)
+	public ResponseEntity<UserDTO> removeFriend(@PathVariable Long friendId, HttpServletRequest request){
+		User logged = (User) request.getSession().getAttribute("loggedUser");
+		User removed = userService.removeFriend(friendId, logged.getId());
+		UserDTO removedDTO = new UserDTO(removed);
+		return new ResponseEntity<UserDTO>(removedDTO,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/test/",
