@@ -235,7 +235,13 @@ public class UserServiceImpl implements UserService{
 				friends.remove(i);
 			}
 		}
+		for(int i=0;i<friendof.size();i++) {
+			if(friendof.get(i).getId() == friendId) {
+				friendof.remove(i);
+			}
+		}
 		userRepository.save(logged);
+		userRepository.save(friend);
 		return friend;
 	}
 
