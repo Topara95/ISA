@@ -2,6 +2,7 @@ package project.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class EventProjection implements Serializable{
@@ -33,6 +35,9 @@ public class EventProjection implements Serializable{
 	
 	@Column(nullable = false)
 	private float price;
+	
+	@OneToMany
+	private List<ProjectionTime> projectionTimes;
 	
 	/*@ManyToMany
     private List<Sediste> zauzetaSedista;
@@ -80,5 +85,13 @@ public class EventProjection implements Serializable{
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public List<ProjectionTime> getProjectionTimes() {
+		return projectionTimes;
+	}
+
+	public void setProjectionTimes(List<ProjectionTime> projectionTimes) {
+		this.projectionTimes = projectionTimes;
 	}
 }
