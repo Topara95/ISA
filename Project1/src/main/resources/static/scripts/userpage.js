@@ -2,6 +2,8 @@ var loggeduser = JSON.parse(sessionStorage.getItem('loggedUser'));
 var edit_url="../api/users/"+loggeduser.id
 var requests_url = "../api/users/getRequests/"+loggeduser.id
 var friends_url = "../api/users/getFriends/"+loggeduser.id
+var theaters_url = "../api/culturalVenues/getTheaters"
+var cinemas_url = "../api/culturalVenues/getCinemas"
 
 $(document).on('submit','.editform', function(e) {
 	e.preventDefault();
@@ -94,7 +96,6 @@ function getFriends(){
 
 $(document).on('click','.accreq', function(e) {
 	e.preventDefault();
-	//alert($(this).attr('name'));
 	var id = $(this).attr('name');
 	$.ajax({
 		 url: "../api/users/approveFriendRequest/"+id,
@@ -187,6 +188,46 @@ function removeFriend(removingId){
 		 },
 		 error: function(){
 			 toastr.error("Error removing friend");
+		 }
+	});
+}
+
+function getTheaters(){
+	$.ajax({
+		 url: theaters_url,
+		 method: "GET",
+		 success: function(data){
+			 $(".theatersTable").empty();
+			 for(i=0;i<data.length;i++){
+				 $(".theatersTable").append(`<tr>
+                               <td>
+                                  <span class="pull-xs-right font-weight-bold">`+data[i].name+` `+data[i].address+` `+data[i].description+`</span>
+                               </td>
+                           </tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting theaters!");
+		 }
+	});
+}
+
+function getCinemas(){
+	$.ajax({
+		 url: cinemas_url,
+		 method: "GET",
+		 success: function(data){
+			 $(".cinemasTable").empty();
+			 for(i=0;i<data.length;i++){
+				 $(".cinemasTable").append(`<tr>
+                              <td>
+                                 <span class="pull-xs-right font-weight-bold">`+data[i].name+` `+data[i].address+` `+data[i].description+`</span>
+                              </td>
+                          </tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting cinemas!");
 		 }
 	});
 }

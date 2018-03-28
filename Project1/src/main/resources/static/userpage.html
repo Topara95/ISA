@@ -24,7 +24,7 @@
 
   </head>
 
-<body onload="generateNavbar(); generateUserInfo(); getFriendRequests(); getFriends();">
+<body onload="generateNavbar(); generateUserInfo(); getFriendRequests(); getFriends(); getTheaters(); getCinemas()">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -66,6 +66,12 @@
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#theaters" data-toggle="tab" class="nav-link">Theaters</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" data-target="#cinemas" data-toggle="tab" class="nav-link">Cinemas</a>
                 </li>
                 <li class="nav-item">
                     <a href="" data-target="#friends" data-toggle="tab" class="nav-link">Friends</a>
@@ -128,6 +134,24 @@
                         </div>
                     </div>
                     <!--/row-->
+                </div>
+                <div class="tab-pane" id="theaters">
+                    <h4 class="m-y-2">Theaters</h4>
+                    <table class="table table-hover table-striped">
+                        <tbody class="theatersTable">                                    
+                           
+                        </tbody> 
+                    </table>
+                    <br>
+                </div>
+                <div class="tab-pane" id="cinemas">
+                    <h4 class="m-y-2">Cinemas</h4>
+                    <table class="table table-hover table-striped">
+                        <tbody class="cinemasTable">                                    
+                           
+                        </tbody> 
+                    </table>
+                    <br>
                 </div>
                 <div class="tab-pane" id="friends">
                     <h4 class="m-y-2">Your Friends</h4>

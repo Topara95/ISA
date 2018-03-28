@@ -1,6 +1,7 @@
 package project.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -47,6 +48,8 @@ public class CulturalVenue implements Serializable{
 		this.name = name;
 		this.address = address;
 		this.description = description;
+		this.halls = new ArrayList<Hall>();
+		this.eventProjections = new ArrayList<EventProjection>();
 	}
 
 	public Long getId() {
