@@ -200,9 +200,10 @@ function getTheaters(){
 			 $(".theatersTable").empty();
 			 for(i=0;i<data.length;i++){
 				 $(".theatersTable").append(`<tr>
-                               <td>
-                                  <span class="pull-xs-right font-weight-bold">`+data[i].name+` `+data[i].address+` `+data[i].description+`</span>
-                               </td>
+                               <td><span class="font-weight-bold">`+data[i].name+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].address+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].description+`</span></td>
+                              <td><button id=`+data[i].id+` type="button" class="btn btn-info btn-sm">Look</button></td>
                            </tr>`);
 			 }
 		 },
@@ -220,9 +221,10 @@ function getCinemas(){
 			 $(".cinemasTable").empty();
 			 for(i=0;i<data.length;i++){
 				 $(".cinemasTable").append(`<tr>
-                              <td>
-                                 <span class="pull-xs-right font-weight-bold">`+data[i].name+` `+data[i].address+` `+data[i].description+`</span>
-                              </td>
+                              <td><span class="font-weight-bold">`+data[i].name+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].address+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].description+`</span></td>
+                              <td><button id=`+data[i].id+` type="button" class="btn btn-info btn-sm">Look</button></td>
                           </tr>`);
 			 }
 		 },

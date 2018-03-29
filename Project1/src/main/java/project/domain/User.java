@@ -45,6 +45,9 @@ public class User implements Serializable {
 	@Column(nullable = true)
 	private String phone;
 	
+	@Column(nullable = false)
+	private UserType usertype;
+	
 	@ManyToMany
     @JoinTable(name="friends", joinColumns=@JoinColumn(name="personId"), inverseJoinColumns=@JoinColumn(name="friendId"))
     private List<User> friends;
@@ -61,7 +64,7 @@ public class User implements Serializable {
 		
 	}
 	
-	public User(String email, String password, String name, String surname, String city, String phone) {
+	public User(String email, String password, String name, String surname, String city, String phone,UserType usertype) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -73,6 +76,7 @@ public class User implements Serializable {
 		this.friends = new ArrayList<User>();
 		this.friendOf = new ArrayList<User>();
 		this.receivedRequests = new ArrayList<User>();
+		this.usertype = usertype;
 	}
 
 	public Long getId() {
@@ -161,6 +165,14 @@ public class User implements Serializable {
 
 	public List<User> getFriends() {
 		return friends;
+	}
+
+	public UserType getUsertype() {
+		return usertype;
+	}
+
+	public void setUsertype(UserType usertype) {
+		this.usertype = usertype;
 	}
 
 }

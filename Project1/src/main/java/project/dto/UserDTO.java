@@ -1,6 +1,7 @@
 package project.dto;
 
 import project.domain.User;
+import project.domain.UserType;
 
 public class UserDTO {
 	private Long id;
@@ -10,6 +11,7 @@ public class UserDTO {
 	private String password;
 	private String city;
 	private String phone;
+	private UserType usertype;
 	
 	public UserDTO(User user){
 		this.id = user.getId();
@@ -19,6 +21,7 @@ public class UserDTO {
 		this.password = user.getPassword();
 		this.city = user.getCity();
 		this.phone = user.getPhone();
+		this.usertype = user.getUsertype();
 	}
 
 	public Long getId() {
@@ -75,5 +78,13 @@ public class UserDTO {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public UserType getUsertype() {
+		return usertype;
+	}
+
+	public void setUsertype(UserType usertype) {
+		this.usertype = usertype;
 	}
 }
