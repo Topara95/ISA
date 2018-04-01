@@ -28,7 +28,7 @@ public class Event implements Serializable {
 	private String actors;
 	
 	@Column(nullable = true)
-	private String genre;
+	private EventGenre genre;
 	
 	@Column(nullable = true)
 	private String director;
@@ -49,6 +49,20 @@ public class Event implements Serializable {
 	private float price;
 	
 	public Event(){}
+	
+	public Event(EventType eventType, String name, String actors, EventGenre genre, String director, String duration, String poster, 
+			float averageRating, String description, float price) {
+		this.eventType = eventType;
+		this.name = name;
+		this.actors = actors;
+		this.genre = genre;
+		this.director = director;
+		this.duration = duration;
+		this.poster = poster;
+		this.averageRating = averageRating;
+		this.description = description;
+		this.price = price;
+	}
 
 	public Long getId() {
 		return id;
@@ -82,11 +96,11 @@ public class Event implements Serializable {
 		this.actors = actors;
 	}
 
-	public String getGenre() {
+	public EventGenre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(EventGenre genre) {
 		this.genre = genre;
 	}
 
