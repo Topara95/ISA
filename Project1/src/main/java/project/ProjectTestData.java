@@ -10,8 +10,13 @@ import project.domain.CulturalVenueType;
 import project.domain.Event;
 import project.domain.EventGenre;
 import project.domain.EventType;
+import project.domain.Hall;
+import project.domain.User;
+import project.domain.UserType;
 import project.service.CulturalVenueService;
 import project.service.EventService;
+import project.service.HallService;
+import project.service.UserService;
 
 @Component
 public class ProjectTestData {
@@ -22,8 +27,22 @@ public class ProjectTestData {
 	@Autowired
 	private EventService eventservice;
 	
+	@Autowired
+	private HallService hallservice;
+	
+	@Autowired
+	private UserService userservice;
+	
 	@PostConstruct
 	private void init(){
+		
+		User user1 = new User("jovantopolic@gmail.com","jova","Jovan","Topolic","Novi Sad","6611632",UserType.REGULAR);
+		user1.setVerified(true);
+		userservice.save(user1);
+		
+		User user2 = new User("ciganveliki@gmail.com","jova","Boris","Hadzic","Novi Sad","6611632",UserType.REGULAR);
+		user2.setVerified(true);
+		userservice.save(user2);
 		
 		CulturalVenue cv1 = new CulturalVenue(CulturalVenueType.CINEMA,"Arena Cineplex","Novi Sad","dobar");
 		cvservice.save(cv1);
@@ -52,6 +71,18 @@ public class ProjectTestData {
 		Event e4 = new Event(EventType.PLAY,"Travijata","Glumac 1, Glumac 2",
 				EventGenre.COMEDY,"Djuzepe Verdi","144 min","poster",5,"extra",500);
 		eventservice.save(e4);
+		
+		/*Hall h1 = new Hall(1,10,10,cv1);
+		hallservice.save(h1);
+		
+		Hall h2 = new Hall(2,20,15,cv1);
+		hallservice.save(h2);
+		
+		Hall h3 = new Hall(1,25,12,cv3);
+		hallservice.save(h3);
+		
+		Hall h4 = new Hall(1,10,10,cv4);
+		hallservice.save(h4);*/
 	}
 	
 }

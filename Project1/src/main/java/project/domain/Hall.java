@@ -22,6 +22,9 @@ public class Hall implements Serializable{
 	private Long id;
 	
 	@Column(nullable = false)
+	private int hallId;
+	
+	@Column(nullable = false)
 	private int rows;
 	
 	@Column(nullable = false)
@@ -35,7 +38,8 @@ public class Hall implements Serializable{
 	
 	public Hall(){}
 	
-	public Hall(int rows, int seatsPerRow, CulturalVenue culturalVenue){
+	public Hall(int hallId,int rows, int seatsPerRow, CulturalVenue culturalVenue){
+		this.hallId = hallId;
 		this.rows = rows;
 		this.seatsPerRow = seatsPerRow;
 		this.culturalVenue = culturalVenue;
@@ -79,6 +83,14 @@ public class Hall implements Serializable{
 
 	public void setCulturalVenue(CulturalVenue culturalVenue) {
 		this.culturalVenue = culturalVenue;
+	}
+
+	public int getHallId() {
+		return hallId;
+	}
+
+	public void setHallId(int hallId) {
+		this.hallId = hallId;
 	}
 
 }
