@@ -37,7 +37,7 @@ public class CulturalVenue implements Serializable{
 	private List<Hall> halls;
 	
 	@OneToMany(targetEntity = EventProjection.class)
-	private List<EventProjection> eventProjections;
+	private List<Event> events;
 	
 	public CulturalVenue(){
 		
@@ -49,7 +49,7 @@ public class CulturalVenue implements Serializable{
 		this.address = address;
 		this.description = description;
 		this.halls = new ArrayList<Hall>();
-		this.eventProjections = new ArrayList<EventProjection>();
+		this.events = new ArrayList<Event>();
 	}
 
 	public Long getId() {
@@ -100,11 +100,11 @@ public class CulturalVenue implements Serializable{
 		this.halls = halls;
 	}
 
-	public List<EventProjection> getEventProjections() {
-		return eventProjections;
+	public List<Event> getEvents() {
+		return events;
 	}
 
-	public void setEventProjections(List<EventProjection> eventProjections) {
-		this.eventProjections = eventProjections;
+	public void setEvents(List<Event> eventProjections) {
+		this.events = eventProjections;
 	}
 }

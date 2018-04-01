@@ -31,7 +31,10 @@ public class EventProjection implements Serializable{
 	private Hall hall;
 	
 	@Column(nullable = false)
-	private Date projectionDate;
+	private Date projectionStartDate;
+	
+	@Column(nullable = false)
+	private Date projectionEndDate;
 	
 	@Column(nullable = false)
 	private float price;
@@ -71,14 +74,6 @@ public class EventProjection implements Serializable{
 		this.hall = hall;
 	}
 
-	public Date getProjectionDate() {
-		return projectionDate;
-	}
-
-	public void setProjectionDate(Date projectionDate) {
-		this.projectionDate = projectionDate;
-	}
-
 	public float getPrice() {
 		return price;
 	}
@@ -93,5 +88,21 @@ public class EventProjection implements Serializable{
 
 	public void setProjectionTimes(List<ProjectionTime> projectionTimes) {
 		this.projectionTimes = projectionTimes;
+	}
+
+	public Date getProjectionStartDate() {
+		return projectionStartDate;
+	}
+
+	public void setProjectionStartDate(Date projectionStartDate) {
+		this.projectionStartDate = projectionStartDate;
+	}
+
+	public Date getProjectionEndDate() {
+		return projectionEndDate;
+	}
+
+	public void setProjectionEndDate(Date projectionEndDate) {
+		this.projectionEndDate = projectionEndDate;
 	}
 }

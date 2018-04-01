@@ -24,6 +24,11 @@ public class Seat implements Serializable{
 	private int seatInRow;
 	
 	public Seat(){}
+	
+	public Seat(int row, int seatInRow){
+		this.row = row;
+		this.seatInRow = seatInRow;
+	}
 
 	public Long getId() {
 		return id;

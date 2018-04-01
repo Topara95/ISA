@@ -34,6 +34,12 @@ public class Hall implements Serializable{
 	private CulturalVenue culturalVenue;
 	
 	public Hall(){}
+	
+	public Hall(int rows, int seatsPerRow, CulturalVenue culturalVenue){
+		this.rows = rows;
+		this.seatsPerRow = seatsPerRow;
+		this.culturalVenue = culturalVenue;
+	}
 
 	public Long getId() {
 		return id;

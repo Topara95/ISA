@@ -1,6 +1,7 @@
 package project.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,13 @@ public class ProjectionTime implements Serializable{
 	private Long id;
 	
 	@Column(nullable = false)
+	private Date projectionDate;
+	
+	@Column(nullable = false)
 	private String time;
+	
+	@Column(nullable = false)
+	private double price;
 	
 	public ProjectionTime() {
 		
@@ -39,5 +46,21 @@ public class ProjectionTime implements Serializable{
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public Date getProjectionDate() {
+		return projectionDate;
+	}
+
+	public void setProjectionDate(Date projectionDate) {
+		this.projectionDate = projectionDate;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 }
