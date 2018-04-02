@@ -59,6 +59,12 @@ public class User implements Serializable {
     @OneToMany(targetEntity = User.class)
     @JoinTable(name="requests", joinColumns=@JoinColumn(name="receiver"))
     public List<User> receivedRequests;
+    
+    @OneToMany
+    private List<ThematicProps> postedProps;
+    
+    @OneToMany
+    private List<Offer> madeOffers;
 	
 	public User() {
 		
@@ -77,6 +83,23 @@ public class User implements Serializable {
 		this.friendOf = new ArrayList<User>();
 		this.receivedRequests = new ArrayList<User>();
 		this.usertype = usertype;
+	}
+
+	
+	public List<ThematicProps> getPostedProps() {
+		return postedProps;
+	}
+
+	public void setPostedProps(List<ThematicProps> postedProps) {
+		this.postedProps = postedProps;
+	}
+
+	public List<Offer> getMadeOffers() {
+		return madeOffers;
+	}
+
+	public void setMadeOffers(List<Offer> madeOffers) {
+		this.madeOffers = madeOffers;
 	}
 
 	public Long getId() {
