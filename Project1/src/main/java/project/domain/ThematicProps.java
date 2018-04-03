@@ -41,7 +41,8 @@ public class ThematicProps implements Serializable {
 	@OneToMany
 	private List<Offer> offers;
 
-	public ThematicProps() {}
+	public ThematicProps() 
+	{}
 	
 	public ThematicProps(ThematicPropsType tptype,String createdBy, String name,String description,Date date,String picture) {
 		this.tptype = tptype;
