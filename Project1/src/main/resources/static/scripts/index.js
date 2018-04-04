@@ -15,13 +15,16 @@ function generateNavbar(){
 	                </a>
 	              </li>
 	              <li class="nav-item">
+	                <a class="nav-link" href="fanzone.html">FanZone</a>
+	              </li>
+	              <li class="nav-item">
 	                <a class="nav-link" href="#">About</a>
 	              </li>
 	              <li class="nav-item">
 	                <a class="nav-link" href="#">Services</a>
 	              </li>
 	              <li class="nav-item">
-	                <a class="nav-link" href="userpage.html">User `+user.email+` signed in</a>
+	                <a class="nav-link" href="userpage.html">User `+user.name+` signed in</a>
 	              </li>
 	              <li class="nav-item">
 	                <a class="nav-link" href="index.html" onclick="logout()">Sign out</a>

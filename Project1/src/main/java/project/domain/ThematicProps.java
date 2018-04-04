@@ -21,10 +21,13 @@ public class ThematicProps implements Serializable {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String cratedBy;
+	private String createdBy;
 	
 	@Column(nullable = false)
 	private String name;
+	
+	@Column(nullable = false)
+	private String reserved;
 	
 	@Column(nullable = false)
 	private String description;
@@ -44,13 +47,22 @@ public class ThematicProps implements Serializable {
 	public ThematicProps() 
 	{}
 	
-	public ThematicProps(ThematicPropsType tptype,String createdBy, String name,String description,Date date,String picture) {
+	public ThematicProps(ThematicPropsType tptype,String createdBy,String reserved, String name,String description,Date date,String picture) {
 		this.tptype = tptype;
 		this.name = name;
 		this.description = description;
 		this.date = date;
 		this.picture = picture;	
-		this.cratedBy = createdBy;
+		this.createdBy = createdBy;
+		this.reserved = reserved;
+	}
+
+	public String getReserved() {
+		return reserved;
+	}
+
+	public void setReserved(String reserved) {
+		this.reserved = reserved;
 	}
 
 	public List<Offer> getOffers() {
@@ -61,12 +73,12 @@ public class ThematicProps implements Serializable {
 		this.offers = offers;
 	}
 
-	public String getCratedBy() {
-		return cratedBy;
+	public String getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCratedBy(String cratedBy) {
-		this.cratedBy = cratedBy;
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public Long getId() {
