@@ -3,6 +3,7 @@ package project.service;
 import java.util.List;
 
 import project.domain.CulturalVenue;
+import project.domain.Event;
 
 public interface CulturalVenueService {
 	
@@ -11,6 +12,8 @@ public interface CulturalVenueService {
 	List<CulturalVenue> getAllTheaters();
 	
 	List<CulturalVenue> getAllCinemas();
+	
+	List<Event> getEvents(Long cvId);
 	
 	CulturalVenue findOne(Long id);
 }

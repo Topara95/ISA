@@ -203,7 +203,7 @@ function getTheaters(){
                                <td><span class="font-weight-bold">`+data[i].name+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].address+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].description+`</span></td>
-                              <td><button id=`+data[i].id+` type="button" class="btn btn-info btn-sm">Look</button></td>
+                              <td><button onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Look</button></td>
                            </tr>`);
 			 }
 		 },
@@ -224,7 +224,7 @@ function getCinemas(){
                               <td><span class="font-weight-bold">`+data[i].name+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].address+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].description+`</span></td>
-                              <td><button id=`+data[i].id+` type="button" class="btn btn-info btn-sm">Look</button></td>
+                              <td><button onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Look</button></td>
                           </tr>`);
 			 }
 		 },
@@ -232,4 +232,21 @@ function getCinemas(){
 			 alert("Error while getting cinemas!");
 		 }
 	});
+}
+
+function generateRepertoire(id){
+	$.ajax({
+		 url: "../api/culturalVenues/"+id+"/getEvents",
+		 method: "GET",
+		 success: function(data){
+			 $("#events").empty();
+			 for(i=0;i<data.length;i++){
+				 $("#events").append(`<option id=`+data[i].id+`>`+data[i].name+`</option>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting repertoire!");
+		 }
+	});
+	
 }
