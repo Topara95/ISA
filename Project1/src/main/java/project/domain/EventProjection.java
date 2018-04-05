@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="projection")
 public class EventProjection implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -23,11 +25,9 @@ public class EventProjection implements Serializable{
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn
 	private Event event;
 	
 	@ManyToOne
-	@JoinColumn
 	private Hall hall;
 	
 	@Column(nullable = false)
@@ -49,6 +49,14 @@ public class EventProjection implements Serializable{
     private List<Rezervacija> rezervacije;*/
 	
 	public EventProjection(){}
+	
+	public EventProjection(Event event, Hall hall, Date psd, Date ped, float price) {
+		this.event = event;
+		this.hall = hall;
+		this.projectionStartDate = psd;
+		this.projectionEndDate = ped;
+		this.price = price;
+	}
 
 	public Long getId() {
 		return id;

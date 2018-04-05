@@ -7,11 +7,13 @@ function props(){
 		  success : function(data){
 			  console.log("uspjesno!");
 			  podijeliOglase(data);
+		  },
+		  error: function(){
+			  console.log("neuspesno");
 		  }
-		  error : console.log("neuspjesno!")
 		  
 	});
-});
+}
 
 function podijeliOglase(data) {
 	console.log("usao u podjelu");
@@ -22,6 +24,7 @@ function podijeliOglase(data) {
 	 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 			</div>`);
+	});
 }
 	
 $(document).on("click",".fanzoneButton",function(){

@@ -34,4 +34,9 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 		return cvrepository.findByCvtype(CulturalVenueType.CINEMA);
 	}
 
+	@Override
+	public CulturalVenue findOne(Long id) {
+		return cvrepository.findOne(id);
+	}
+
 }

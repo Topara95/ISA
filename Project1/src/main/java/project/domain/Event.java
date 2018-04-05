@@ -1,6 +1,7 @@
 package project.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -53,10 +55,13 @@ public class Event implements Serializable {
 	@OneToMany
 	private List<EventProjection> projections;
 	
+	@ManyToOne
+	private CulturalVenue culturalVenue;
+	
 	public Event(){}
 	
 	public Event(EventType eventType, String name, String actors, EventGenre genre, String director, String duration, String poster, 
-			float averageRating, String description, float price) {
+			float averageRating, String description, float price, CulturalVenue culturalVenue) {
 		this.eventType = eventType;
 		this.name = name;
 		this.actors = actors;
@@ -67,6 +72,8 @@ public class Event implements Serializable {
 		this.averageRating = averageRating;
 		this.description = description;
 		this.price = price;
+		projections = new ArrayList<EventProjection>();
+		this.culturalVenue = culturalVenue;
 	}
 
 	public Long getId() {
@@ -163,6 +170,14 @@ public class Event implements Serializable {
 
 	public void setProjections(List<EventProjection> projections) {
 		this.projections = projections;
+	}
+
+	public CulturalVenue getCulturalVenue() {
+		return culturalVenue;
+	}
+
+	public void setCulturalVenue(CulturalVenue culturalVenue) {
+		this.culturalVenue = culturalVenue;
 	}
 	
 	

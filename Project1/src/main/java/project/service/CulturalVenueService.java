@@ -11,4 +11,6 @@ public interface CulturalVenueService {
 	List<CulturalVenue> getAllTheaters();
 	
 	List<CulturalVenue> getAllCinemas();
+	
+	CulturalVenue findOne(Long id);
 }
