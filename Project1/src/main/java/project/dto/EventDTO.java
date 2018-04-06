@@ -19,6 +19,7 @@ public class EventDTO {
 	
 	
 	public EventDTO(Event event) {
+		this.id = event.getId();
 		this.eventType = event.getEventType();
 		this.name = event.getName();
 		this.actors = event.getActors();

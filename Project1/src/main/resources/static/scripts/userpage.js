@@ -251,7 +251,20 @@ function generateRepertoire(id){
 	
 }
 
-$(document).on('click','#getProjectionDates',function(e){
+$(document).on('click','#genProjectionDates',function(e){
 	e.preventDefault();
-	
+	var id = $('#events option:selected').attr('id')
+	$.ajax({
+		 url: "../api/events/"+id+"/eventProjections",
+		 method: "GET",
+		 success: function(data){
+			 $("#projectiondiv").empty();
+			 for(i=0;i<data.length;i++){
+				 $("#projectiondiv").append(`<p>`+data[i].projectionDate+`</p>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting projections!");
+		 }
+	});
 });
