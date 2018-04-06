@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,5 +42,17 @@ public class ThematicPropsController {
 		}
 		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsDTO,HttpStatus.OK);
 	}
-
+	/*
+	@RequestMapping(value="/reservation", method = RequestMethod.GET) 
+	public ResponseEntity<ThematicPropsDTO> PropsReservation() {
+		
+	}
+	*/
+	
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public ResponseEntity<ThematicPropsDTO> deleteThematicProps(@PathVariable Long id) {
+		ThematicProps thematicProps = thematicPropsService.deleteThematicProps(id);
+		ThematicPropsDTO thematicPropsDTO = new ThematicPropsDTO(thematicProps);	
+		return new ResponseEntity<ThematicPropsDTO>(thematicPropsDTO,HttpStatus.OK);
+	}
 }

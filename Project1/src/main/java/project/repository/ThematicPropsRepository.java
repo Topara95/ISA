@@ -7,5 +7,6 @@ import project.domain.ThematicProps;
 
 @Repository
 public interface ThematicPropsRepository extends JpaRepository<ThematicProps,Long>{
-
+	
+	ThematicProps findById(Long id);
 }

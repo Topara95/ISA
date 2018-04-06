@@ -9,4 +9,8 @@ public interface ThematicPropsService {
 	ThematicProps save(ThematicProps thematicProps);
 	
 	List<ThematicProps> findAll();
+	
+	ThematicProps deleteThematicProps(Long id);
+	
+	ThematicProps findById(Long id);
 }

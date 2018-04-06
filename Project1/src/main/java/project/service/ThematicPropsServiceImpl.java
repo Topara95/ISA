@@ -26,4 +26,16 @@ public class ThematicPropsServiceImpl implements ThematicPropsService{
 		return thematicPropsRepository.findAll();
 	}
 
+	@Override
+	public ThematicProps deleteThematicProps(Long id) {
+		ThematicProps thematicProps = thematicPropsRepository.findById(id);
+		thematicPropsRepository.delete(thematicProps);
+		return thematicProps;
+	}
+
+	@Override
+	public ThematicProps findById(Long id) {		
+		return thematicPropsRepository.findById(id);
+	}
+
 }
