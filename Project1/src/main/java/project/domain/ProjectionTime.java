@@ -2,12 +2,17 @@ package project.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class ProjectionTime implements Serializable{
@@ -19,17 +24,31 @@ public class ProjectionTime implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(nullable = false)
-	private Date projectionDate;
+	@ManyToOne
+	private EventProjection eventProjection;
+	
+	@ManyToOne
+	private Hall hall;
 	
 	@Column(nullable = false)
-	private String time;
+	@Temporal(TemporalType.TIME)
+	private Date time;
 	
 	@Column(nullable = false)
 	private double price;
 	
+	@OneToMany
+	private List<Seat> takenSeats;
+	
 	public ProjectionTime() {
 		
+	}
+	
+	public ProjectionTime(EventProjection projection,Hall hall,Date time, double price) {
+		this.eventProjection = projection;
+		this.hall = hall;
+		this.time = time;
+		this.price = price;
 	}
 
 	public Long getId() {
@@ -40,20 +59,20 @@ public class ProjectionTime implements Serializable{
 		this.id = id;
 	}
 
-	public String getTime() {
+	public EventProjection getEventProjection() {
+		return eventProjection;
+	}
+
+	public void setEventProjection(EventProjection eventProjection) {
+		this.eventProjection = eventProjection;
+	}
+
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
-	}
-
-	public Date getProjectionDate() {
-		return projectionDate;
-	}
-
-	public void setProjectionDate(Date projectionDate) {
-		this.projectionDate = projectionDate;
 	}
 
 	public double getPrice() {
@@ -63,4 +82,21 @@ public class ProjectionTime implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
+	public List<Seat> getTakenSeats() {
+		return takenSeats;
+	}
+
+	public void setTakenSeats(List<Seat> takenSeats) {
+		this.takenSeats = takenSeats;
+	}
+
+	public Hall getHall() {
+		return hall;
+	}
+
+	public void setHall(Hall hall) {
+		this.hall = hall;
+	}
+
 }

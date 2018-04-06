@@ -250,3 +250,8 @@ function generateRepertoire(id){
 	});
 	
 }
+
+$(document).on('click','#getProjectionDates',function(e){
+	e.preventDefault();
+	
+});

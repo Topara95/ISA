@@ -49,9 +49,6 @@ public class Event implements Serializable {
 	@Column(nullable = true)
 	private String description;
 	
-	@Column(nullable = false)
-	private float price;
-	
 	@OneToMany
 	private List<EventProjection> projections;
 	
@@ -61,7 +58,7 @@ public class Event implements Serializable {
 	public Event(){}
 	
 	public Event(EventType eventType, String name, String actors, EventGenre genre, String director, String duration, String poster, 
-			float averageRating, String description, float price, CulturalVenue culturalVenue) {
+			float averageRating, String description, CulturalVenue culturalVenue) {
 		this.eventType = eventType;
 		this.name = name;
 		this.actors = actors;
@@ -71,7 +68,6 @@ public class Event implements Serializable {
 		this.poster = poster;
 		this.averageRating = averageRating;
 		this.description = description;
-		this.price = price;
 		projections = new ArrayList<EventProjection>();
 		this.culturalVenue = culturalVenue;
 	}
@@ -154,14 +150,6 @@ public class Event implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
 	}
 
 	public List<EventProjection> getProjections() {

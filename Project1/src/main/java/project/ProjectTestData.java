@@ -1,5 +1,7 @@
 package project;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -43,7 +45,7 @@ public class ProjectTestData {
 	private EventProjectionService epservice;
 	
 	@PostConstruct
-	private void init(){
+	private void init() throws ParseException{
 		
 		if(userservice.findAll().size() == 0) {
 		
@@ -68,21 +70,21 @@ public class ProjectTestData {
 			cvservice.save(cv4);
 			
 			Event e1 = new Event(EventType.MOVIE,"Kad porastem bicu kengur","Sergej Trifunovic,Nebojsa Glogovac itd",
-					EventGenre.COMEDY,"direktor","93 min","poster",5,"extra",200,cv1);
+					EventGenre.COMEDY,"direktor","93 min","poster",5,"extra",cv1);
 			Hibernate.initialize(e1.getProjections());
 			
 			eventservice.save(e1);
 			
 			Event e2 = new Event(EventType.PLAY,"Seviljski Berberin","Glumac 1, Glumac 2...",
-					EventGenre.OPERA,"direktor","138 min","poster",5,"extra",400,cv3);
+					EventGenre.OPERA,"direktor","138 min","poster",5,"extra",cv3);
 			eventservice.save(e2);
 			
 			Event e3 = new Event(EventType.MOVIE,"Zoolander","Ben Stiller, Owen Wilson",
-					EventGenre.COMEDY,"direktor","98 min","poster",5,"extra",250,cv1);
+					EventGenre.COMEDY,"direktor","98 min","poster",5,"extra",cv1);
 			eventservice.save(e3);
 			
 			Event e4 = new Event(EventType.PLAY,"Travijata","Glumac 1, Glumac 2",
-					EventGenre.COMEDY,"Djuzepe Verdi","144 min","poster",5,"extra",500,cv3);
+					EventGenre.COMEDY,"Djuzepe Verdi","144 min","poster",5,"extra",cv3);
 			eventservice.save(e4);
 			
 			
@@ -121,11 +123,11 @@ public class ProjectTestData {
 			cvservice.save(cv4);
 			
 			 //event projections
-			EventProjection ep1 = new EventProjection(e1,h1,new Date(), new Date(),100);
-			EventProjection ep2 = new EventProjection(e1,h2,new Date(), new Date(),150);
+			EventProjection ep1 = new EventProjection(e1,new SimpleDateFormat("yyyy-MM-dd").parse("2018-04-27"));
+			EventProjection ep2 = new EventProjection(e1,new SimpleDateFormat("yyyy-MM-dd").parse("2018-04-29"));
 			
-			EventProjection ep3 = new EventProjection(e2,h3,new Date(), new Date(),150);
-			EventProjection ep4 = new EventProjection(e2,h3,new Date(), new Date(),500);
+			EventProjection ep3 = new EventProjection(e2,new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-11"));
+			EventProjection ep4 = new EventProjection(e2,new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-15"));
 			
 			epservice.save(ep1);
 			epservice.save(ep2);

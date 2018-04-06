@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="projection")
@@ -27,17 +29,9 @@ public class EventProjection implements Serializable{
 	@ManyToOne
 	private Event event;
 	
-	@ManyToOne
-	private Hall hall;
-	
 	@Column(nullable = false)
-	private Date projectionStartDate;
-	
-	@Column(nullable = false)
-	private Date projectionEndDate;
-	
-	@Column(nullable = false)
-	private float price;
+	@Temporal(TemporalType.DATE)
+	private Date projectionDate;
 	
 	@OneToMany
 	private List<ProjectionTime> projectionTimes;
@@ -50,12 +44,9 @@ public class EventProjection implements Serializable{
 	
 	public EventProjection(){}
 	
-	public EventProjection(Event event, Hall hall, Date psd, Date ped, float price) {
+	public EventProjection(Event event, Date pdate) {
 		this.event = event;
-		this.hall = hall;
-		this.projectionStartDate = psd;
-		this.projectionEndDate = ped;
-		this.price = price;
+		this.projectionDate = pdate;
 	}
 
 	public Long getId() {
@@ -74,22 +65,6 @@ public class EventProjection implements Serializable{
 		this.event = event;
 	}
 
-	public Hall getHall() {
-		return hall;
-	}
-
-	public void setHall(Hall hall) {
-		this.hall = hall;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
 	public List<ProjectionTime> getProjectionTimes() {
 		return projectionTimes;
 	}
@@ -98,19 +73,12 @@ public class EventProjection implements Serializable{
 		this.projectionTimes = projectionTimes;
 	}
 
-	public Date getProjectionStartDate() {
-		return projectionStartDate;
+	public Date getProjectionDate() {
+		return projectionDate;
 	}
 
-	public void setProjectionStartDate(Date projectionStartDate) {
-		this.projectionStartDate = projectionStartDate;
+	public void setProjectionDate(Date projectionDate) {
+		this.projectionDate = projectionDate;
 	}
 
-	public Date getProjectionEndDate() {
-		return projectionEndDate;
-	}
-
-	public void setProjectionEndDate(Date projectionEndDate) {
-		this.projectionEndDate = projectionEndDate;
-	}
 }

@@ -16,7 +16,6 @@ public class EventDTO {
 	private String poster;
 	private float averageRating;
 	private String description;
-	private float price;
 	
 	
 	public EventDTO(Event event) {
@@ -29,7 +28,6 @@ public class EventDTO {
 		this.poster = event.getPoster();
 		this.averageRating = event.getAverageRating();
 		this.description = event.getDescription();
-		this.price = event.getPrice();
 	}
 
 
@@ -130,15 +128,5 @@ public class EventDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-
-	public float getPrice() {
-		return price;
-	}
-
-
-	public void setPrice(float price) {
-		this.price = price;
 	}
 }
