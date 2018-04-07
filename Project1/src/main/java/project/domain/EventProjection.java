@@ -1,6 +1,7 @@
 package project.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class EventProjection implements Serializable{
 	public EventProjection(Event event, Date pdate) {
 		this.event = event;
 		this.projectionDate = pdate;
+		this.projectionTimes = new ArrayList<ProjectionTime>();
 	}
 
 	public Long getId() {

@@ -6,10 +6,12 @@ import project.domain.EventProjection;
 
 public class EventProjectionDTO {
 	
+	private Long id;
 	private EventDTO event;
 	private Date projectionDate;
 	
 	public EventProjectionDTO(EventProjection eventProjection) {
+		this.id = eventProjection.getId();
 		this.event = new EventDTO(eventProjection.getEvent());
 		this.projectionDate = eventProjection.getProjectionDate();
 	}
@@ -28,6 +30,14 @@ public class EventProjectionDTO {
 
 	public void setProjectionDate(Date projectionDate) {
 		this.projectionDate = projectionDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

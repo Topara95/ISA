@@ -259,8 +259,14 @@ $(document).on('click','#genProjectionDates',function(e){
 		 method: "GET",
 		 success: function(data){
 			 $("#projectiondiv").empty();
+			 if(data.length != 0){
+				 $("#projectiondiv").append(`<label for="projectiondates">Date: </label>`);
+				 $("#projectiondiv").append(`<select id="projectiondates">
+	                              	</select>
+	                              	<button type="button" class="btn btn-info btn-sm" id="genProjectionTimes">Continue</button>`);
+			 }
 			 for(i=0;i<data.length;i++){
-				 $("#projectiondiv").append(`<p>`+data[i].projectionDate+`</p>`);
+				 $("#projectiondates").append(`<option id=`+data[i].id+`>`+data[i].projectionDate+`</option>`);
 			 }
 		 },
 		 error: function(){

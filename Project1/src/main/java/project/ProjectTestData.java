@@ -18,12 +18,14 @@ import project.domain.EventGenre;
 import project.domain.EventProjection;
 import project.domain.EventType;
 import project.domain.Hall;
+import project.domain.ProjectionTime;
 import project.domain.User;
 import project.domain.UserType;
 import project.service.CulturalVenueService;
 import project.service.EventProjectionService;
 import project.service.EventService;
 import project.service.HallService;
+import project.service.ProjectionTimeService;
 import project.service.UserService;
 
 @Component
@@ -43,6 +45,9 @@ public class ProjectTestData {
 	
 	@Autowired
 	private EventProjectionService epservice;
+	
+	@Autowired
+	private ProjectionTimeService ptservice;
 	
 	@PostConstruct
 	private void init() throws ParseException{
@@ -146,7 +151,22 @@ public class ProjectTestData {
 			eventservice.save(e1);
 			eventservice.save(e2);
 			
+			//projectionTimes
+			ProjectionTime pt1 = new ProjectionTime(ep1,h1,new SimpleDateFormat("HH:mm").parse("18:00"),200);
+			ProjectionTime pt2 = new ProjectionTime(ep1,h1,new SimpleDateFormat("HH:mm").parse("21:00"),350);
+			ProjectionTime pt3 = new ProjectionTime(ep1,h2,new SimpleDateFormat("HH:mm").parse("18:00"),200);
 			
+			ptservice.save(pt1);
+			ptservice.save(pt2);
+			ptservice.save(pt3);
+			
+			Hibernate.initialize(ep1.getProjectionTimes());
+			System.out.println("ALOALAOLAAOLAOALAKDOSAFJSAJFOASOAFSOFASJJOF:"+ep1.getProjectionTimes());
+			ep1.getProjectionTimes().add(pt1);
+			ep1.getProjectionTimes().add(pt2);
+			ep1.getProjectionTimes().add(pt3);
+			
+			epservice.save(ep1);
 		}
 	}
 	
