@@ -32,4 +32,9 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 		return ptrepository.save(projectionTime);
 	}
 
+	@Override
+	public ProjectionTime findOne(Long ptId) {
+		return ptrepository.findOne(ptId);
+	}
+
 }

@@ -240,6 +240,9 @@ function generateRepertoire(id){
 		 method: "GET",
 		 success: function(data){
 			 $("#events").empty();
+			 $("#projectiondiv").empty();
+			 $("#timesdiv").empty();
+			 $("#seatsdiv").empty();
 			 for(i=0;i<data.length;i++){
 				 $("#events").append(`<option id=`+data[i].id+`>`+data[i].name+`</option>`);
 			 }
@@ -259,6 +262,8 @@ $(document).on('click','#genProjectionDates',function(e){
 		 method: "GET",
 		 success: function(data){
 			 $("#projectiondiv").empty();
+			 $("#timesdiv").empty();
+			 $("#seatsdiv").empty();
 			 if(data.length != 0){
 				 $("#projectiondiv").append(`<label for="projectiondates">Date: </label>`);
 				 $("#projectiondiv").append(`<select id="projectiondates">
@@ -274,3 +279,54 @@ $(document).on('click','#genProjectionDates',function(e){
 		 }
 	});
 });
+
+$(document).on('click','#genProjectionTimes',function(e){
+	var eventId = $('#events option:selected').attr('id')
+	var projectionId = $('#projectiondates option:selected').attr('id')
+	$.ajax({
+		 url: "../api/events/"+eventId+"/eventProjections/"+projectionId+"/projectionTimes",
+		 method: "GET",
+		 success: function(data){
+			 $("#timesdiv").empty();
+			 $("#seatsdiv").empty();
+			 if(data.length != 0){
+				 $("#timesdiv").append(`<label for="projectiontimes">Time and hall: </label>`);
+				 $("#timesdiv").append(`<select id="projectiontimes">
+	                              	</select>
+	                              	<button type="button" class="btn btn-info btn-sm" id="genSeats">Continue</button>`);
+			 }
+			 for(i=0;i<data.length;i++){
+				 $("#projectiontimes").append(`<option name=`+data[i].hall.id+` id=`+data[i].id+`>`+data[i].time+` Hall:`+data[i].hall.hallId+`</option>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting projectiontimes!");
+		 }
+	});
+});
+
+/*$(document).on('click','#genSeats',function(e){
+	var eventId = $('#events option:selected').attr('id')
+	var projectionId = $('#projectiondates option:selected').attr('id')
+	var timeId = $('#projectiontimes option:selected').attr('id')
+	//var hallId = $('#projectiontimes option:selected').attr('name')
+	$.ajax({
+		 url: "../api/events/"+eventId+"/eventProjections/"+projectionId+"/projectionTimes/"+timeId+"/seats",
+		 method: "GET",
+		 success: function(data){
+			 $("#seatsdiv").empty();
+			 if(data.length != 0){
+				 $("#seatsdiv").append(`<label for="seats">Seats: </label>`);
+				 $("#seatsdiv").append(`<select id="seats">
+	                              	</select>
+	                              	<button type="button" class="btn btn-info btn-sm" id="reserve">Continue</button>`);
+			 }
+			 for(i=0;i<data.length;i++){
+				 $("#seats").append(`<option id=`+data[i].id+`>`+data[i].row+` `+data[i].seatInRow+`</option>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting seats!");
+		 }
+	});
+});*/

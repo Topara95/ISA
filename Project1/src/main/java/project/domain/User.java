@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -67,6 +65,9 @@ public class User implements Serializable {
     
     @OneToMany
     private List<Offer> madeOffers;
+    
+    @OneToMany
+    private List<Reservation> reservations;
 	
 	public User() {
 		
@@ -85,6 +86,7 @@ public class User implements Serializable {
 		this.friendOf = new ArrayList<User>();
 		this.receivedRequests = new ArrayList<User>();
 		this.usertype = usertype;
+		this.reservations = new ArrayList<Reservation>();
 	}
 
 	
@@ -198,6 +200,14 @@ public class User implements Serializable {
 
 	public void setUsertype(UserType usertype) {
 		this.usertype = usertype;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 }

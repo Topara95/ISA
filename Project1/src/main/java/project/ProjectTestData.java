@@ -19,6 +19,7 @@ import project.domain.EventProjection;
 import project.domain.EventType;
 import project.domain.Hall;
 import project.domain.ProjectionTime;
+import project.domain.Seat;
 import project.domain.User;
 import project.domain.UserType;
 import project.service.CulturalVenueService;
@@ -26,6 +27,7 @@ import project.service.EventProjectionService;
 import project.service.EventService;
 import project.service.HallService;
 import project.service.ProjectionTimeService;
+import project.service.SeatService;
 import project.service.UserService;
 
 @Component
@@ -48,6 +50,9 @@ public class ProjectTestData {
 	
 	@Autowired
 	private ProjectionTimeService ptservice;
+	
+	@Autowired 
+	private SeatService seatservice;
 	
 	@PostConstruct
 	private void init() throws ParseException{
@@ -104,24 +109,60 @@ public class ProjectTestData {
 			
 			
 			//halls
-			Hall h1 = new Hall(1,10,10,cv1);
+			Hall h1 = new Hall(1,8,8,cv1);
+			hallservice.save(h1);
+			Hibernate.initialize(h1.getSeats());
+			for(int i=1 ; i<=h1.getRows();i++){
+				for(int j=1;j<=h1.getSeatsPerRow();j++){
+					Seat seat = new Seat(i,j,h1);
+					seatservice.save(seat);
+					h1.getSeats().add(seat);
+				}
+			}
 			hallservice.save(h1);
 			Hibernate.initialize(cv1.getHalls());
 			cv1.getHalls().add(h1);
 			
-			Hall h2 = new Hall(2,20,15,cv1);
+			Hall h2 = new Hall(2,8,10,cv1);
+			hallservice.save(h2);
+			Hibernate.initialize(h2.getSeats());
+			for(int i=1 ; i<=h2.getRows();i++){
+				for(int j=1;j<=h2.getSeatsPerRow();j++){
+					Seat seat = new Seat(i,j,h2);
+					seatservice.save(seat);
+					h2.getSeats().add(seat);
+				}
+			}
 			hallservice.save(h2);
 			Hibernate.initialize(cv1.getHalls());
 			cv1.getHalls().add(h2);
 			cvservice.save(cv1);
 			
-			Hall h3 = new Hall(1,25,12,cv3);
+			Hall h3 = new Hall(1,10,12,cv3);
+			hallservice.save(h3);
+			Hibernate.initialize(h3.getSeats());
+			for(int i=1 ; i<=h3.getRows();i++){
+				for(int j=1;j<=h3.getSeatsPerRow();j++){
+					Seat seat = new Seat(i,j,h3);
+					seatservice.save(seat);
+					h3.getSeats().add(seat);
+				}
+			}
 			hallservice.save(h3);
 			Hibernate.initialize(cv3.getHalls());
 			cv3.getHalls().add(h3);
 			cvservice.save(cv3);
 			
 			Hall h4 = new Hall(1,10,10,cv4);
+			hallservice.save(h4);
+			Hibernate.initialize(h4.getSeats());
+			for(int i=1 ; i<=h4.getRows();i++){
+				for(int j=1;j<=h4.getSeatsPerRow();j++){
+					Seat seat = new Seat(i,j,h4);
+					seatservice.save(seat);
+					h4.getSeats().add(seat);
+				}
+			}
 			hallservice.save(h4);
 			Hibernate.initialize(cv4.getHalls());
 			cv1.getHalls().add(h4);
@@ -161,7 +202,6 @@ public class ProjectTestData {
 			ptservice.save(pt3);
 			
 			Hibernate.initialize(ep1.getProjectionTimes());
-			System.out.println("ALOALAOLAAOLAOALAKDOSAFJSAJFOASOAFSOFASJJOF:"+ep1.getProjectionTimes());
 			ep1.getProjectionTimes().add(pt1);
 			ep1.getProjectionTimes().add(pt2);
 			ep1.getProjectionTimes().add(pt3);

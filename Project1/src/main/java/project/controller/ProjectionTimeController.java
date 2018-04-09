@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.domain.ProjectionTime;
+import project.domain.Seat;
 import project.dto.ProjectionTimeDTO;
+import project.dto.SeatDTO;
 import project.service.ProjectionTimeService;
+import project.service.SeatService;
 
 @RestController
 @RequestMapping("/api/events/{eventId}/eventProjections/{projectionId}/projectionTimes")
@@ -22,6 +25,9 @@ public class ProjectionTimeController {
 	@Autowired
 	private ProjectionTimeService ptservice;
 	
+	@Autowired
+	private SeatService seatservice;
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ProjectionTimeDTO>> getTimesForProjection(@PathVariable Long eventId, @PathVariable Long projectionId){
 		List<ProjectionTimeDTO> projectiontimesDTO = new ArrayList<ProjectionTimeDTO>();
@@ -29,5 +35,16 @@ public class ProjectionTimeController {
 			projectiontimesDTO.add(new ProjectionTimeDTO(pt));
 		}
 		return new ResponseEntity<List<ProjectionTimeDTO>>(projectiontimesDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/{projectionId}/seats")
+	public ResponseEntity<List<SeatDTO>> getSeatsForProjection(@PathVariable Long projectionId){
+		ProjectionTime pt = ptservice.findOne(projectionId);
+		List<Seat> seats = seatservice.findByHall(pt.getHall().getId());
+		List<SeatDTO> seatsDTO = new ArrayList<SeatDTO>();
+		for(Seat seat : seats){
+			seatsDTO.add(new SeatDTO(seat));
+		}
+		return new ResponseEntity<List<SeatDTO>>(seatsDTO,HttpStatus.OK);
 	}
 }

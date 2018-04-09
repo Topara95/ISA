@@ -1,6 +1,7 @@
 package project.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -43,6 +44,7 @@ public class Hall implements Serializable{
 		this.rows = rows;
 		this.seatsPerRow = seatsPerRow;
 		this.culturalVenue = culturalVenue;
+		this.seats = new ArrayList<Seat>();
 	}
 
 	public Long getId() {

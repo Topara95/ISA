@@ -10,4 +10,6 @@ public interface ProjectionTimeService {
 	List<ProjectionTime> findByEventProjection(Long eventProjectionId);
 	
 	ProjectionTime save(ProjectionTime projectionTime);
+	
+	ProjectionTime findOne(Long ptId);
 }

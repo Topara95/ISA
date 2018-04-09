@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Seat implements Serializable{
@@ -23,11 +24,15 @@ public class Seat implements Serializable{
 	@Column(nullable = false)
 	private int seatInRow;
 	
+	@ManyToOne
+	private Hall hall;
+	
 	public Seat(){}
 	
-	public Seat(int row, int seatInRow){
+	public Seat(int row, int seatInRow, Hall hall){
 		this.row = row;
 		this.seatInRow = seatInRow;
+		this.hall = hall;
 	}
 
 	public Long getId() {
@@ -52,5 +57,13 @@ public class Seat implements Serializable{
 
 	public void setSeatInRow(int seatInRow) {
 		this.seatInRow = seatInRow;
+	}
+
+	public Hall getHall() {
+		return hall;
+	}
+
+	public void setHall(Hall hall) {
+		this.hall = hall;
 	}
 }
