@@ -55,4 +55,10 @@ public class ThematicPropsController {
 		ThematicPropsDTO thematicPropsDTO = new ThematicPropsDTO(thematicProps);	
 		return new ResponseEntity<ThematicPropsDTO>(thematicPropsDTO,HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
+	public ResponseEntity<ThematicPropsDTO> modifyThematicProps(@RequestBody ThematicProps thematicProps, @PathVariable Long id){
+		ThematicProps modified = thematicPropsService.modifyThematicProps(thematicProps, id);
+		return new ResponseEntity<ThematicPropsDTO>(new ThematicPropsDTO(modified),HttpStatus.OK);
+	}
 }
