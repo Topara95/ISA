@@ -38,4 +38,25 @@ public class ThematicPropsServiceImpl implements ThematicPropsService{
 		return thematicPropsRepository.findById(id);
 	}
 
+	@Override
+	public ThematicProps modifyThematicProps(ThematicProps thematicProps, Long id) {
+		ThematicProps oldThematicProps = thematicPropsRepository.findById(id);
+		if(thematicProps.getName() != null) {
+			oldThematicProps.setName(thematicProps.getName());
+		}
+		if(thematicProps.getDescription()!=null) {
+			oldThematicProps.setDescription(thematicProps.getDescription());
+		}
+		if(thematicProps.getDate()!=null) {
+			oldThematicProps.setDate(thematicProps.getDate());
+		}
+		if(thematicProps.getPicture()!=null) {
+			oldThematicProps.setPicture(thematicProps.getPicture());
+		}
+		if(thematicProps.getTptype() != null) {
+			oldThematicProps.setTptype(thematicProps.getTptype());
+		}
+		return thematicPropsRepository.save(oldThematicProps);
+	}
+
 }

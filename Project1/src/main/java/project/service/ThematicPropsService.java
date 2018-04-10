@@ -13,4 +13,6 @@ public interface ThematicPropsService {
 	ThematicProps deleteThematicProps(Long id);
 	
 	ThematicProps findById(Long id);
+	
+	ThematicProps modifyThematicProps(ThematicProps thematicProps,Long id);
 }
