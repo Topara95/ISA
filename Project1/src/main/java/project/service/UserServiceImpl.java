@@ -126,8 +126,7 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findById(receiver);
 		User senderuser = userRepository.findById(sender);
 		Hibernate.initialize(user.getReceivedRequests());
-		System.out.println("ULOGOVAN REKVEST: "+senderuser.getFriends()+" "+senderuser.getFriendOf());
-		if(user!=null) {
+		if(user!=null && sender!=receiver) {
 			for(User req : user.getReceivedRequests()) {
 				if(req.getId() == sender) {
 					return null;

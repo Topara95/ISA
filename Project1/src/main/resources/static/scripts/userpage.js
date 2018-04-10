@@ -136,6 +136,7 @@ $(document).on('click','#searchPeople',function(e){
 	e.preventDefault();
 	var name = $('#searchname').val();
 	var surname = $('#searchsurname').val();
+	var loggedId = loggeduser.id;
 	if(name == ''){
 		name = "nema";
 	}
@@ -149,12 +150,14 @@ $(document).on('click','#searchPeople',function(e){
 		 success: function(data){
 			 $(".searchedpeople").empty();
 			 for(i=0;i<data.length;i++){
-				 $(".searchedpeople").append(`<tr>
-                         <td>
-                            <span class="font-weight-bold">`+data[i].name+`  `+data[i].surname+` | `+data[i].email+` | `+data[i].city+` | `+data[i].phone+`</span>
-                            <span class="float-right"><a href="#"><img src="images/sendRequest.png" onclick="sendFriendRequest(`+data[i].id+`)" title="send friend request"></img></a></span>
-                         </td>
-                     </tr>`);
+				 if(data[i].id != loggedId){
+					 $(".searchedpeople").append(`<tr>
+	                         <td>
+	                            <span class="font-weight-bold">`+data[i].name+`  `+data[i].surname+` | `+data[i].email+` | `+data[i].city+` | `+data[i].phone+`</span>
+	                            <span class="float-right"><a href="#"><img src="images/sendRequest.png" onclick="sendFriendRequest(`+data[i].id+`)" title="send friend request"></img></a></span>
+	                         </td>
+	                     </tr>`);
+				 }
 			 }
 				 
 		 },

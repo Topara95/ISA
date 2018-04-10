@@ -56,7 +56,7 @@ public class User implements Serializable {
     @JoinTable(name="friends", joinColumns=@JoinColumn(name="friendId"), inverseJoinColumns=@JoinColumn(name="personId"))
     private List<User> friendOf; 
 
-    @OneToMany(targetEntity = User.class)
+    @ManyToMany(targetEntity = User.class)
     @JoinTable(name="requests", joinColumns=@JoinColumn(name="receiver"))
     public List<User> receivedRequests;
     

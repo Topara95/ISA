@@ -1,3 +1,4 @@
+var user = JSON.parse(sessionStorage.getItem('loggedUser'));
 $(document).on('click','#genSeats',function(e){
 	//
 	var list=[];
@@ -94,7 +95,7 @@ $(document).on('click','#reserveProjection',function(e){
 			 	$("#invitediv").empty();
 			 if(data.length>1){
 				 $("#invitediv").append(`<p> You have reserved `+data.length+` seats. Do you want to invite friends?</p>
-				 <button type="button" id="inviteFriends" class="btn btn-primary">Invite friends</button>`)
+				 <button onclick="generateFriendsForInv()" type="button" id="inviteFriends" class="btn btn-primary">Invite friends</button>`)
 			 }
 			 sc.find('a.selected').status('unavailable');
 		 },
@@ -121,6 +122,25 @@ function generateTakenSeats(){
 		 },
 		 error: function(){
 			 alert("Error while getting taken seats!");
+		 }
+	});
+}
+
+function generateFriendsForInv(){
+	$.ajax({
+		 url: "../api/users/getFriends/"+user.id,
+		 method: "GET",
+		 success: function(data){
+			 if(data.length > 0){
+				 for(i=0;i<data.length;i++){
+					 $("#invitediv").append(`<p>`+data[i].email+`</p>`);
+				 }
+			 }else{
+				 toastr.info("You have no friends.")
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting friends!");
 		 }
 	});
 }
