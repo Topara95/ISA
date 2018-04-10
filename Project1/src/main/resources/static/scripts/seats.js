@@ -11,10 +11,11 @@ $(document).on('click','#genSeats',function(e){
 		 async : false,
 		 success: function(data){
 			 $("#seatsdiv").empty();
+			 $("#invitediv").empty();
 			 $("#seatsdiv").append(`<div id="seat-map">
 									<div class="front">SCREEN</div>	
 								</div>
-									<button type="button" id="reserveProjection" class="btn btn-primary">Reserve</button>			
+									<button type="button" id="reserveProjection" class="btn btn-primary">Reserve</button>
 								`);
 			 if(data.length != 0){
 				 
@@ -61,7 +62,9 @@ $(document).on('click','#genSeats',function(e){
 			}
 		}
 	});
-
+	
+	generateTakenSeats();
+	
 	//Make all available 'c' seats unavailable
 	sc.find('c.available').status('unavailable');
 	
@@ -77,8 +80,47 @@ $(document).on('click','#genSeats',function(e){
 });
 
 $(document).on('click','#reserveProjection',function(e){
+	var eventId = $('#events option:selected').attr('id')
+	var projectionId = $('#projectiondates option:selected').attr('id')
+	var timeId = $('#projectiontimes option:selected').attr('id')
 	var sc = $('#seat-map').seatCharts();
-    sc.find('a.selected').status('unavailable');
-    alert(sc.find('a.unavailable'));
-    console.log(sc.find('a.unavailable').seatIds);
+	$.ajax({
+		 url: "../api/events/"+eventId+"/eventProjections/"+projectionId+"/projectionTimes/"+timeId+"/seats",
+		 method: "POST",
+		 contentType : 'application/json',
+		 dataType : "json",
+		 data:JSON.stringify(sc.find('a.selected').seatIds),
+		 success: function(data){
+			 	$("#invitediv").empty();
+			 if(data.length>1){
+				 $("#invitediv").append(`<p> You have reserved `+data.length+` seats. Do you want to invite friends?</p>
+				 <button type="button" id="inviteFriends" class="btn btn-primary">Invite friends</button>`)
+			 }
+			 sc.find('a.selected').status('unavailable');
+		 },
+		 error: function(){
+			 alert("Error while reserving seats!");
+		 }
+	});
+    
 });
+
+function generateTakenSeats(){
+	var eventId = $('#events option:selected').attr('id')
+	var projectionId = $('#projectiondates option:selected').attr('id')
+	var timeId = $('#projectiontimes option:selected').attr('id')
+	var sc = $('#seat-map').seatCharts();
+	$.ajax({
+		 url: "../api/events/"+eventId+"/eventProjections/"+projectionId+"/projectionTimes/"+timeId+"/takenSeats",
+		 method: "GET",
+		 success: function(data){
+			 for(i=0;i<data.length;i++){
+				 var temp = data[i].row+"_"+data[i].seatInRow;
+				 sc.get(temp).status('unavailable');
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting taken seats!");
+		 }
+	});
+}

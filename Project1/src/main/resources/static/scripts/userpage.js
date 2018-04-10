@@ -243,6 +243,7 @@ function generateRepertoire(id){
 			 $("#projectiondiv").empty();
 			 $("#timesdiv").empty();
 			 $("#seatsdiv").empty();
+			 $("#invitediv").empty();
 			 for(i=0;i<data.length;i++){
 				 $("#events").append(`<option id=`+data[i].id+`>`+data[i].name+`</option>`);
 			 }
@@ -264,6 +265,7 @@ $(document).on('click','#genProjectionDates',function(e){
 			 $("#projectiondiv").empty();
 			 $("#timesdiv").empty();
 			 $("#seatsdiv").empty();
+			 $("#invitediv").empty();
 			 if(data.length != 0){
 				 $("#projectiondiv").append(`<label for="projectiondates">Date: </label>`);
 				 $("#projectiondiv").append(`<select id="projectiondates">
@@ -289,6 +291,7 @@ $(document).on('click','#genProjectionTimes',function(e){
 		 success: function(data){
 			 $("#timesdiv").empty();
 			 $("#seatsdiv").empty();
+			 $("#invitediv").empty();
 			 if(data.length != 0){
 				 $("#timesdiv").append(`<label for="projectiontimes">Time and hall: </label>`);
 				 $("#timesdiv").append(`<select id="projectiontimes">

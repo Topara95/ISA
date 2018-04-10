@@ -13,5 +13,5 @@ public interface SeatRepository extends JpaRepository<Seat,Long>{
 	
 	List<Seat> findByHall(Hall hall);
 	
-	List<Seat> findByRowAndSeatInRow(int row, int seatInRow);
+	Seat findByHallAndRowAndSeatInRow(Hall hall,int row, int seatInRow);
 }
