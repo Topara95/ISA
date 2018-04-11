@@ -86,17 +86,19 @@ $(document).on('click','#reserveProjection',function(e){
 	var projectionId = $('#projectiondates option:selected').attr('id')
 	var timeId = $('#projectiontimes option:selected').attr('id')
 	var sc = $('#seat-map').seatCharts();
+	$(this).attr('disabled',true);
 	$.ajax({
 		 url: "../api/events/"+eventId+"/eventProjections/"+projectionId+"/projectionTimes/"+timeId+"/seats",
 		 method: "POST",
 		 contentType : 'application/json',
 		 dataType : "json",
 		 data:JSON.stringify(sc.find('a.selected').seatIds),
-		 success: function(data){
+		 success: function(res){
 			 	$("#invitediv").empty();
-			 	inv_counter = data.length;
-			 if(data.length>1){
-				 $("#invitediv").append(`<br><p> You have reserved `+data.length+` seats. Do you want to invite friends?</p>
+			 	$("#invitediv").attr("name",res.id)
+			 	inv_counter = res.seats.length;
+			 if(res.seats.length>1){
+				 $("#invitediv").append(`<br><p> You have reserved `+res.seats.length+` seats. Do you want to invite friends?</p>
 				 <button onclick="generateFriendsForInv()" type="button" id="inviteFriends" class="btn btn-primary">Invite friends</button>`)
 			 }
 			 sc.find('a.selected').status('unavailable');
@@ -129,6 +131,7 @@ function generateTakenSeats(){
 }
 
 function generateFriendsForInv(){
+	$("#inviteFriends").attr('disabled',true);
 	$.ajax({
 		 url: "../api/users/getFriends/"+user.id,
 		 method: "GET",
@@ -142,7 +145,7 @@ function generateFriendsForInv(){
 					 							<td>`+data[i].surname+`</td>
 					 							<td>`+data[i].email+`</td>
 					 							<td>`+data[i].city+`</td>
-					 							<td><button type="button" id="inviteFriends" class="btn btn-primary btn-sm invbutton">Invite</button></td></tr>`);
+					 							<td><button type="button" id=`+data[i].id+` class="btn btn-primary btn-sm invbutton">Invite</button></td></tr>`);
 				 }
 			 }else{
 				 toastr.info("You have no friends.")
@@ -156,10 +159,23 @@ function generateFriendsForInv(){
 
 
 $(document).on('click','.invbutton',function(e){
+	var resId = $("#invitediv").attr("name");
+	var userId = $(this).attr("id");
+	$(this).attr('disabled',true);
 	if(inv_counter-1 > 0){
-		$(this).attr('disabled',true);
-		toastr.success("Friend invited!")
-		inv_counter-=1;
+		$.ajax({
+			 url: "../api/reservations/"+resId+"/sendInvite/"+userId,
+			 method: "GET",
+			 success: function(data){
+				 
+				 toastr.success("Friend invited!");
+				 inv_counter-=1;
+			 },
+			 error: function(){
+				 alert("Error while sending invite!");
+			 }
+		});
+		
 	}else{
 		toastr.error("You have no more seats!")
 	}

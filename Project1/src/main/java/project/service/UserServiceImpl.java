@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 		mail.setTo(user.getEmail());
 		mail.setFrom(env.getProperty("spring.mail.username"));
 		mail.setSubject("Link za verifikaciju naloga");
-		mail.setText("Pozdrav " + user.getName() + ",\n\n http://localhost:8080/api/users/verify/"+user.getId()+"");
+		mail.setText("Pozdrav " + user.getName() + ",\n\n http://localhost:1234/api/users/verify/"+user.getId()+"");
 		javaMailSender.send(mail);
 	}
 

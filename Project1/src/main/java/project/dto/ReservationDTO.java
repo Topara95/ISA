@@ -1,5 +1,10 @@
 package project.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Hibernate;
+
 import project.domain.Reservation;
 
 public class ReservationDTO {
@@ -7,11 +12,17 @@ public class ReservationDTO {
 	private Long id;
 	private UserDTO owner;
 	private ProjectionTimeDTO projectionTime;
+	private List<SeatDTO> seats;
 	
 	public ReservationDTO(Reservation reservation) {
 		this.id = reservation.getId();
 		this.owner = new UserDTO(reservation.getOwner());
 		this.projectionTime = new ProjectionTimeDTO(reservation.getProjectionTime());
+		this.seats = new ArrayList<SeatDTO>();
+		Hibernate.initialize(reservation.getSeats());
+		for(int i=0;i<reservation.getSeats().size();i++){
+			this.seats.add(new SeatDTO(reservation.getSeats().get(i)));
+		}
 	}
 
 	public Long getId() {
@@ -36,6 +47,14 @@ public class ReservationDTO {
 
 	public void setProjectionTime(ProjectionTimeDTO projectionTime) {
 		this.projectionTime = projectionTime;
+	}
+
+	public List<SeatDTO> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(List<SeatDTO> seats) {
+		this.seats = seats;
 	}
 	
 }

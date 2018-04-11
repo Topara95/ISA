@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.domain.ProjectionTime;
+import project.domain.Reservation;
 import project.domain.Seat;
 import project.domain.User;
 import project.dto.ProjectionTimeDTO;
+import project.dto.ReservationDTO;
 import project.dto.SeatDTO;
 import project.service.ProjectionTimeService;
 import project.service.SeatService;
@@ -53,18 +55,15 @@ public class ProjectionTimeController {
 	}
 	
 	@RequestMapping(value="/{projectionId}/seats",method = RequestMethod.POST)
-	public ResponseEntity<List<SeatDTO>> reserveSeats(@RequestBody List<String> seatInfo, @PathVariable Long projectionId, HttpServletRequest request){
+	public ResponseEntity<ReservationDTO> reserveSeats(@RequestBody List<String> seatInfo, @PathVariable Long projectionId, HttpServletRequest request){
 		User loggedUser = (User) request.getSession().getAttribute("loggedUser");
-		List<Seat> resSeats = ptservice.reserveSeats(projectionId, seatInfo, loggedUser.getId());
-		List<SeatDTO> resSeatsDTO = new ArrayList<SeatDTO>();
-		for(Seat seat : resSeats) {
-			resSeatsDTO.add(new SeatDTO(seat));
-		}
-		return new ResponseEntity<List<SeatDTO>>(resSeatsDTO,HttpStatus.OK);
+		Reservation reservation = ptservice.reserveSeats(projectionId, seatInfo, loggedUser.getId());
+		ReservationDTO reservationDTO = new ReservationDTO(reservation);
+		return new ResponseEntity<ReservationDTO>(reservationDTO,HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{projectionId}/takenSeats",method = RequestMethod.GET)
-	public ResponseEntity<List<SeatDTO>> reserveSeats(@PathVariable Long projectionId){
+	public ResponseEntity<List<SeatDTO>> getTakenSeats(@PathVariable Long projectionId){
 		List<Seat> takenSeats = ptservice.getTakenSeats(projectionId);
 		List<SeatDTO> tekenSeatsDTO = new ArrayList<SeatDTO>();
 		for(Seat seat : takenSeats) {

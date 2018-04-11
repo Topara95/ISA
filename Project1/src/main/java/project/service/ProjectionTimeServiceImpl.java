@@ -1,5 +1,6 @@
 package project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -54,13 +55,15 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 	}
 
 	@Override
-	public List<Seat> reserveSeats(Long projectiontimeId,List<String> seatinfo, Long userId) {
+	public Reservation reserveSeats(Long projectiontimeId,List<String> seatinfo, Long userId) {
 		//adding to taken seats
 		ProjectionTime pt = ptrepository.findOne(projectiontimeId);
 		Hibernate.initialize(pt.getTakenSeats());
+		List<Seat> resSeats = new ArrayList<Seat>();
 		for(int i=0;i<seatinfo.size();i++) {
 			String arr[] = seatinfo.get(i).split("_");
 			Seat seat =seatrepository.findByHallAndRowAndSeatInRow(pt.getHall(), Integer.parseInt(arr[0]), Integer.parseInt(arr[1]));
+			resSeats.add(seat);
 			pt.getTakenSeats().add(seat);
 		}
 		ptrepository.save(pt);
@@ -69,13 +72,13 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 		User user = userrepository.findOne(userId);
 		Reservation reservation = new Reservation(user,pt);
 		Hibernate.initialize(reservation.getSeats());
-		reservation.getSeats().addAll(pt.getTakenSeats());
+		reservation.getSeats().addAll(resSeats);
 		reservationrepository.save(reservation);
 		Hibernate.initialize(user.getReservations());
 		user.getReservations().add(reservation);
 		userrepository.save(user);
 		//end
-		return pt.getTakenSeats();
+		return reservation;
 	}
 
 	@Override
