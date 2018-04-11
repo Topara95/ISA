@@ -1,4 +1,5 @@
 var user = JSON.parse(sessionStorage.getItem('loggedUser'));
+var inv_counter = 0;
 $(document).on('click','#genSeats',function(e){
 	//
 	var list=[];
@@ -93,8 +94,9 @@ $(document).on('click','#reserveProjection',function(e){
 		 data:JSON.stringify(sc.find('a.selected').seatIds),
 		 success: function(data){
 			 	$("#invitediv").empty();
+			 	inv_counter = data.length;
 			 if(data.length>1){
-				 $("#invitediv").append(`<p> You have reserved `+data.length+` seats. Do you want to invite friends?</p>
+				 $("#invitediv").append(`<br><p> You have reserved `+data.length+` seats. Do you want to invite friends?</p>
 				 <button onclick="generateFriendsForInv()" type="button" id="inviteFriends" class="btn btn-primary">Invite friends</button>`)
 			 }
 			 sc.find('a.selected').status('unavailable');
@@ -131,9 +133,16 @@ function generateFriendsForInv(){
 		 url: "../api/users/getFriends/"+user.id,
 		 method: "GET",
 		 success: function(data){
+			 $("#invitediv").append(`<table class="table table-hover table-striped"><tbody id ="invtable">
+			 
+			 </tbody></table>`);
 			 if(data.length > 0){
 				 for(i=0;i<data.length;i++){
-					 $("#invitediv").append(`<p>`+data[i].email+`</p>`);
+					 $("#invtable").append(`<tr><td>`+data[i].name+`</td>
+					 							<td>`+data[i].surname+`</td>
+					 							<td>`+data[i].email+`</td>
+					 							<td>`+data[i].city+`</td>
+					 							<td><button type="button" id="inviteFriends" class="btn btn-primary btn-sm invbutton">Invite</button></td></tr>`);
 				 }
 			 }else{
 				 toastr.info("You have no friends.")
@@ -144,3 +153,14 @@ function generateFriendsForInv(){
 		 }
 	});
 }
+
+
+$(document).on('click','.invbutton',function(e){
+	if(inv_counter-1 > 0){
+		$(this).attr('disabled',true);
+		toastr.success("Friend invited!")
+		inv_counter-=1;
+	}else{
+		toastr.error("You have no more seats!")
+	}
+});

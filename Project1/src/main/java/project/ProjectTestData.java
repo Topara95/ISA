@@ -74,7 +74,7 @@ public class ProjectTestData {
 			User user4 = new User("cigann95@gmail.com","jova","Darko","Kirin","Novi Sad","6611632",UserType.REGULAR);
 			user4.setVerified(true);
 			userservice.save(user4);
-			
+						
 			CulturalVenue cv1 = new CulturalVenue(CulturalVenueType.CINEMA,"Arena Cineplex","Novi Sad","dobar");
 			cvservice.save(cv1);
 			
