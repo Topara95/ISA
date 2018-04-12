@@ -22,7 +22,6 @@ import project.repository.ReservationRepository;
 import project.repository.UserRepository;
 
 @Service
-@Transactional
 public class InviteServiceImpl implements InviteService{
 	
 	@Autowired

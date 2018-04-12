@@ -16,7 +16,6 @@ import project.domain.User;
 import project.repository.UserRepository;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService{
 
 	@Autowired

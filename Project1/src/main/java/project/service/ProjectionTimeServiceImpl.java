@@ -20,7 +20,6 @@ import project.repository.SeatRepository;
 import project.repository.UserRepository;
 
 @Service
-@Transactional
 public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 	
 	@Autowired
@@ -55,6 +54,7 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 	}
 
 	@Override
+	@Transactional
 	public Reservation reserveSeats(Long projectiontimeId,List<String> seatinfo, Long userId) {
 		//adding to taken seats
 		ProjectionTime pt = ptrepository.findOne(projectiontimeId);

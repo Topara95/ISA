@@ -9,7 +9,6 @@ import project.domain.Hall;
 import project.repository.HallRepository;
 
 @Service
-@Transactional
 public class HallServiceImpl implements HallService{
 	
 	@Autowired

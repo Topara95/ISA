@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 @Entity
 public class ProjectionTime implements Serializable{
@@ -40,6 +41,9 @@ public class ProjectionTime implements Serializable{
 	
 	@ManyToMany
 	private List<Seat> takenSeats;
+	
+	@Version
+	private int version;
 	
 	public ProjectionTime() {
 		
@@ -98,6 +102,14 @@ public class ProjectionTime implements Serializable{
 
 	public void setHall(Hall hall) {
 		this.hall = hall;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 }

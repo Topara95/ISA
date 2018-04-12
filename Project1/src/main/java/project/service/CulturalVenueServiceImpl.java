@@ -15,7 +15,6 @@ import project.domain.Event;
 import project.repository.CulturalVenueRepository;
 
 @Service
-@Transactional
 public class CulturalVenueServiceImpl implements CulturalVenueService{
 
 	@Autowired

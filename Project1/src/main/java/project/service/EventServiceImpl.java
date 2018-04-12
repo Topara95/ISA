@@ -10,7 +10,6 @@ import project.domain.Event;
 import project.repository.EventRepository;
 
 @Service
-@Transactional
 public class EventServiceImpl implements EventService {
 	
 	@Autowired

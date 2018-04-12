@@ -12,7 +12,6 @@ import project.repository.HallRepository;
 import project.repository.SeatRepository;
 
 @Service
-@Transactional
 public class SeatServiceImpl implements SeatService{
 
 	@Autowired

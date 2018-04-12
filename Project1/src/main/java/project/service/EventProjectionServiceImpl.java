@@ -12,7 +12,6 @@ import project.repository.EventProjectionRepository;
 import project.repository.EventRepository;
 
 @Service
-@Transactional
 public class EventProjectionServiceImpl implements EventProjectionService{
 	
 	@Autowired

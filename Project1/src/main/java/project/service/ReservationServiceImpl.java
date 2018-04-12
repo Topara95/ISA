@@ -8,7 +8,6 @@ import project.domain.Reservation;
 import project.repository.ReservationRepository;
 
 @Service
-@Transactional
 public class ReservationServiceImpl implements ReservationService{
 	
 	@Autowired
