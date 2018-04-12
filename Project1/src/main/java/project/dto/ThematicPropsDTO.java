@@ -11,7 +11,7 @@ public class ThematicPropsDTO {
 	private ThematicPropsType tptype;
 	private String name;
 	private String description;
-	private Date date;
+	private String date;
 	private String picture;
 	private String createdBy;
 	private String reserved;
@@ -59,11 +59,11 @@ public class ThematicPropsDTO {
 		this.description = description;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

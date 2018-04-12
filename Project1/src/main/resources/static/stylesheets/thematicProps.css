@@ -1,0 +1,38 @@
+h2 {
+	text-align: center;
+	font-size: 50px;
+	color: black;
+}
+body {
+	background-color: #9bb7c4;
+}
+
+input {
+	padding: 10px;
+	font-size: inherit;
+	display: block;
+	margin-bottom: 25px;
+	margin-top: 10px;
+	border: 2px solid steelblue;
+	background: #FAF6D9;
+}
+
+input[type="submit"] {
+	width: 100px;
+	height: 45px;
+	border: none;
+	background: steelblue;
+	color: white;
+}
+
+input:focus {
+	background: white;
+	color: black;
+}
+.thematicPropsForm {
+	background-color: #e8f3f8;
+}
+
+#strana {
+	background-color: #e8f3f8;
+}

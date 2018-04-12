@@ -33,7 +33,7 @@ public class ThematicProps implements Serializable {
 	private String description;
 	
 	@Column(nullable = false)
-	private Date date;
+	private String date;
 	
 	@Column(nullable = true)
 	private String picture;
@@ -47,7 +47,7 @@ public class ThematicProps implements Serializable {
 	public ThematicProps() 
 	{}
 	
-	public ThematicProps(ThematicPropsType tptype,String createdBy,String reserved, String name,String description,Date date,String picture) {
+	public ThematicProps(ThematicPropsType tptype,String createdBy,String reserved, String name,String description,String date,String picture) {
 		this.tptype = tptype;
 		this.name = name;
 		this.description = description;
@@ -105,11 +105,11 @@ public class ThematicProps implements Serializable {
 		this.description = description;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
