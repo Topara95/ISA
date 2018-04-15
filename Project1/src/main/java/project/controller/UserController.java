@@ -34,11 +34,15 @@ public class UserController {
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	public ResponseEntity<UserDTO> registerUser(@RequestBody User user) throws Exception{
-		userService.save(user);
-		User savedUser = userService.findByEmail(user.getEmail());
-		userService.sendVerificationMail(savedUser);
-		UserDTO userdto = new UserDTO(user);
-		return new ResponseEntity<UserDTO>(userdto, HttpStatus.CREATED);
+		User registerUser = userService.save(user);
+		if(registerUser != null){
+			User savedUser = userService.findByEmail(user.getEmail());
+			userService.sendVerificationMail(savedUser);
+			UserDTO userdto = new UserDTO(user);
+			return new ResponseEntity<UserDTO>(userdto, HttpStatus.CREATED);
+		}
+		UserDTO userDTO = null;
+		return new ResponseEntity<UserDTO>(userDTO,HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value="/verify/{id}", method = RequestMethod.GET)

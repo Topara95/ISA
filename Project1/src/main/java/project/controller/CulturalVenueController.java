@@ -51,4 +51,22 @@ public class CulturalVenueController {
 		return new ResponseEntity<List<EventDTO>>(eventsDTO,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/searchCinemas/{name}/{address}",method = RequestMethod.GET)
+	public ResponseEntity<List<CulturalVenueDTO>> searchCinemas(@PathVariable String name, @PathVariable String address){
+		List<CulturalVenueDTO> cinemasDTO = new ArrayList<CulturalVenueDTO>();
+		for(CulturalVenue cinema : cvservice.searchCinemas(name, address)){
+			cinemasDTO.add(new CulturalVenueDTO(cinema));
+		}
+		return new ResponseEntity<List<CulturalVenueDTO>>(cinemasDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/searchTheaters/{name}/{address}",method = RequestMethod.GET)
+	public ResponseEntity<List<CulturalVenueDTO>> searchTheates(@PathVariable String name, @PathVariable String address){
+		List<CulturalVenueDTO> theatersDTO = new ArrayList<CulturalVenueDTO>();
+		for(CulturalVenue theater : cvservice.searchTheaters(name, address)){
+			theatersDTO.add(new CulturalVenueDTO(theater));
+		}
+		return new ResponseEntity<List<CulturalVenueDTO>>(theatersDTO,HttpStatus.OK);
+	}
+	
 }

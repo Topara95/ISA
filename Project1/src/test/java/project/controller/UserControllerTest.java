@@ -1,5 +1,6 @@
 package project.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,13 +18,15 @@ import javax.annotation.PostConstruct;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
@@ -34,7 +37,7 @@ import project.domain.User;
 import project.service.UserService;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 public class UserControllerTest {
 	
 	private static final String URL_PREFIX = "/api/users";
@@ -131,9 +134,121 @@ public class UserControllerTest {
 		user2.setVerified(true);
 		userService.save(user2);
 		
-		String json = TestUtil.json(user);
-		this.mockMvc.perform(post(URL_PREFIX+"/login").contentType(contentType).content(json)).andExpect(status().isOk());
 		
-		this.mockMvc.perform(get(URL_PREFIX+"/sendFriendRequest/"+user2.getId())).andExpect(status().isAccepted());
+		MockHttpSession mockHttpSession = new MockHttpSession(); 
+		mockHttpSession.setAttribute("loggedUser", user);
+		
+		this.mockMvc.perform(get(URL_PREFIX+"/sendFriendRequest/"+user2.getId()).session(mockHttpSession).requestAttr("loggedUser", user)).andExpect(status().isAccepted())
+		.andReturn();
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testApproveFriendRequest() throws Exception{
+		User user = new User(NEW_USER_EMAIL,NEW_USER_PASSWORD,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_CITY,
+				NEW_USER_PHONE,NEW_USER_TYPE);
+		user.setVerified(true);
+		userService.save(user);
+		User user2 = new User(NEW_USER2_EMAIL,NEW_USER2_PASSWORD,NEW_USER2_NAME,NEW_USER2_SURNAME,NEW_USER2_CITY,
+				NEW_USER2_PHONE,NEW_USER2_TYPE);
+		user2.setVerified(true);
+		userService.save(user2);
+		
+		userService.sendFriendRequest(user.getId(), user2.getId());
+		
+		MockHttpSession mockHttpSession = new MockHttpSession(); 
+		mockHttpSession.setAttribute("loggedUser", user2);
+		
+		this.mockMvc.perform(get(URL_PREFIX+"/approveFriendRequest/"+user.getId()).session(mockHttpSession).requestAttr("loggedUser", user)).andExpect(status().isAccepted())
+		.andReturn();
+	}
+	
+	@Test
+	public void testGetFriends() throws Exception{
+		this.mockMvc.perform(get(URL_PREFIX+"/getFriends/"+DB_ID)).andExpect(status().isOk())
+		.andExpect(jsonPath("$",hasSize(DB_1_FRIENDS)));
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testGetRequests() throws Exception{
+		User user = new User(NEW_USER_EMAIL,NEW_USER_PASSWORD,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_CITY,
+				NEW_USER_PHONE,NEW_USER_TYPE);
+		user.setVerified(true);
+		userService.save(user);
+		User user2 = new User(NEW_USER2_EMAIL,NEW_USER2_PASSWORD,NEW_USER2_NAME,NEW_USER2_SURNAME,NEW_USER2_CITY,
+				NEW_USER2_PHONE,NEW_USER2_TYPE);
+		user2.setVerified(true);
+		userService.save(user2);
+		
+		userService.sendFriendRequest(user.getId(), user2.getId());
+		
+		
+		this.mockMvc.perform(get(URL_PREFIX+"/getRequests/"+user2.getId())).andExpect(status().isOk())
+		.andExpect(jsonPath("$",hasSize(1)));
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testGetLoggedIn() throws Exception{
+		User user = new User(NEW_USER_EMAIL,NEW_USER_PASSWORD,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_CITY,
+				NEW_USER_PHONE,NEW_USER_TYPE);
+		user.setVerified(true);
+		userService.save(user);
+		
+		MockHttpSession mockHttpSession = new MockHttpSession(); 
+		mockHttpSession.setAttribute("loggedUser", user);
+		
+		this.mockMvc.perform(get(URL_PREFIX+"/isLoggedIn").session(mockHttpSession).requestAttr("loggedUser", user)).andExpect(status().isOk())
+		.andExpect(jsonPath("$.email").value(user.getEmail()))
+		.andExpect(jsonPath("$.password").value(user.getPassword()));
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testDeclineFriendRequest() throws Exception{
+		User user = new User(NEW_USER_EMAIL,NEW_USER_PASSWORD,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_CITY,
+				NEW_USER_PHONE,NEW_USER_TYPE);
+		user.setVerified(true);
+		userService.save(user);
+		User user2 = new User(NEW_USER2_EMAIL,NEW_USER2_PASSWORD,NEW_USER2_NAME,NEW_USER2_SURNAME,NEW_USER2_CITY,
+				NEW_USER2_PHONE,NEW_USER2_TYPE);
+		user2.setVerified(true);
+		userService.save(user2);
+		
+		userService.sendFriendRequest(user.getId(), user2.getId());
+		
+		MockHttpSession mockHttpSession = new MockHttpSession(); 
+		mockHttpSession.setAttribute("loggedUser", user2);
+		
+		this.mockMvc.perform(get(URL_PREFIX+"/declineRequest/"+user.getId()).session(mockHttpSession).requestAttr("loggedUser", user2)).andExpect(status().isOk())
+		.andExpect(jsonPath("$.id").value(user.getId()));
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(true)
+	public void testRemoveFriend() throws Exception{
+		User user = new User(NEW_USER_EMAIL,NEW_USER_PASSWORD,NEW_USER_NAME,NEW_USER_SURNAME,NEW_USER_CITY,
+				NEW_USER_PHONE,NEW_USER_TYPE);
+		user.setVerified(true);
+		userService.save(user);
+		User user2 = new User(NEW_USER2_EMAIL,NEW_USER2_PASSWORD,NEW_USER2_NAME,NEW_USER2_SURNAME,NEW_USER2_CITY,
+				NEW_USER2_PHONE,NEW_USER2_TYPE);
+		user2.setVerified(true);
+		userService.save(user2);
+		
+		userService.sendFriendRequest(user.getId(), user2.getId());
+		userService.approveFriendRequest(user.getId(), user2.getId());
+		
+		MockHttpSession mockHttpSession = new MockHttpSession(); 
+		mockHttpSession.setAttribute("loggedUser", user2);
+		
+		this.mockMvc.perform(get(URL_PREFIX+"/removeFriend/"+user.getId()).session(mockHttpSession).requestAttr("loggedUser", user2)).andExpect(status().isOk())
+		.andExpect(jsonPath("$.id").value(user.getId()));
 	}
 }

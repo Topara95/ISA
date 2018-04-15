@@ -13,4 +13,9 @@ public interface CulturalVenueRepository extends JpaRepository<CulturalVenue,Lon
 	
 	List<CulturalVenue> findByCvtype(CulturalVenueType cvt);
 	
+	List<CulturalVenue> findByCvtypeAndNameStartingWith(CulturalVenueType cvt, String name);
+	
+	List<CulturalVenue> findByCvtypeAndAddressStartingWith(CulturalVenueType cvt, String address);
+	
+	List<CulturalVenue> findByCvtypeAndNameAndAddressStartingWith(CulturalVenueType cvt, String name, String address);
 }

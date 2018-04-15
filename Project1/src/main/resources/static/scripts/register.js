@@ -17,7 +17,7 @@ $(document).on('submit','.form-register', function(e) {
 				$('.form-register').append(`<h3>User registered, verification mail sent.</h3><hr><i><a href="index.html">Return to homepage</a></i>`);
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("AJAX ERROR: " + errorThrown+"signin");
+				toastr.error("A user with this email already exists!");
 			}
 		});
 	}else{
@@ -33,6 +33,7 @@ function formToJSON() {
     "name":$('#name').val(),
     "surname":$('#surname').val(),
     "city":$('#city').val(),
-    "phone":$('#phone').val()
+    "phone":$('#phone').val(),
+    "usertype": 0
 	});
 }

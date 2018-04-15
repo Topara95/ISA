@@ -13,6 +13,10 @@ public interface CulturalVenueService {
 	
 	List<CulturalVenue> getAllCinemas();
 	
+	List<CulturalVenue> searchCinemas(String name, String address);
+	
+	List<CulturalVenue> searchTheaters(String name, String address);
+	
 	List<Event> getEvents(Long cvId);
 	
 	CulturalVenue findOne(Long id);

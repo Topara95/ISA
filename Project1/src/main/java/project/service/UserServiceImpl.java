@@ -3,6 +3,8 @@ package project.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NonUniqueResultException;
+
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.User;
+import project.domain.UserType;
 import project.repository.UserRepository;
 
 @Service
@@ -30,7 +33,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User save(User user) {
-		return userRepository.save(user);
+		User existing = userRepository.findByEmail(user.getEmail());
+		if(existing == null){
+			userRepository.save(user);
+			return user;
+		}
+		return null;
 	}
 
 

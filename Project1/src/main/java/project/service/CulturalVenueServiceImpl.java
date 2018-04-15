@@ -7,7 +7,6 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.CulturalVenue;
 import project.domain.CulturalVenueType;
@@ -45,6 +44,33 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 		CulturalVenue cv = cvrepository.findOne(cvId);
 		Hibernate.initialize(cv.getEvents());
 		return cv.getEvents();
+	}
+
+	@Override
+	public List<CulturalVenue> searchCinemas(String name, String address) {
+		if(!name.equals("nema") && !address.equals("nema")){
+			return cvrepository.findByCvtypeAndNameAndAddressStartingWith(CulturalVenueType.CINEMA, name, address);
+		}else if(!name.equals("nema") && address.equals("nema")){
+			return cvrepository.findByCvtypeAndNameStartingWith(CulturalVenueType.CINEMA, name);
+		}else if(name.equals("nema") && !address.equals("nema")){
+			return cvrepository.findByCvtypeAndAddressStartingWith(CulturalVenueType.CINEMA, address);
+		}else{
+			return cvrepository.findByCvtype(CulturalVenueType.CINEMA);
+		}
+		
+	}
+
+	@Override
+	public List<CulturalVenue> searchTheaters(String name, String address) {
+		if(!name.equals("nema") && !address.equals("nema")){
+			return cvrepository.findByCvtypeAndNameAndAddressStartingWith(CulturalVenueType.THEATER, name, address);
+		}else if(!name.equals("nema") && address.equals("nema")){
+			return cvrepository.findByCvtypeAndNameStartingWith(CulturalVenueType.THEATER, name);
+		}else if(name.equals("nema") && !address.equals("nema")){
+			return cvrepository.findByCvtypeAndAddressStartingWith(CulturalVenueType.THEATER, address);
+		}else{
+			return cvrepository.findByCvtype(CulturalVenueType.THEATER);
+		}
 	}
 
 }
