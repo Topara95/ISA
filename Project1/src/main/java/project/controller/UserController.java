@@ -55,7 +55,7 @@ public class UserController {
 		for(User user : users) {
 			usersdto.add(new UserDTO(user));
 		}
-		return new ResponseEntity<List<UserDTO>>(usersdto,HttpStatus.FOUND);
+		return new ResponseEntity<List<UserDTO>>(usersdto,HttpStatus.OK);
 	}
 	
 	
