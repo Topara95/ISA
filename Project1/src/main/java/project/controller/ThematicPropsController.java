@@ -3,6 +3,8 @@ package project.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import project.domain.ThematicProps;
+import project.domain.ThematicPropsType;
+import project.domain.User;
 import project.dto.ThematicPropsDTO;
 import project.service.ThematicPropsService;
 
@@ -22,7 +25,7 @@ import project.service.ThematicPropsService;
 public class ThematicPropsController {
 	
 	@Autowired
-	private ThematicPropsService thematicPropsService;	
+	private ThematicPropsService thematicPropsService;
 	
 	
 	@RequestMapping(method = RequestMethod.POST,
@@ -42,12 +45,37 @@ public class ThematicPropsController {
 		}
 		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsDTO,HttpStatus.OK);
 	}
-	/*
-	@RequestMapping(value="/reservation", method = RequestMethod.GET) 
-	public ResponseEntity<ThematicPropsDTO> PropsReservation() {
-		
+	
+	@RequestMapping( value = "/{culturalVenueId}/{tptype}",method = RequestMethod.GET)
+	public ResponseEntity<List<ThematicPropsDTO>> getAllThematicPropsByCV(@PathVariable Long culturalVenueId, @PathVariable ThematicPropsType tptype, HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("loggedUser");
+		List<ThematicPropsDTO> thematicPropsListDTO = new ArrayList<ThematicPropsDTO>();
+		if(tptype.name().equals("USED")) {
+			System.out.println("usao u polovne");
+			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedByNot(culturalVenueId, tptype, user.getId());
+			for(ThematicProps thematicProps : thematicPropsList) {
+				thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
+			}
+		} else {
+			System.out.println("usao u nove");
+			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptype(culturalVenueId, tptype);
+			for(ThematicProps thematicProps : thematicPropsList) {
+				thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
+			}
+		}
+		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsListDTO,HttpStatus.OK);		 
 	}
-	*/
+	
+	@RequestMapping(value="/my/{culturalVenueId}/{tptype}", method = RequestMethod.GET)
+	public ResponseEntity<List<ThematicPropsDTO>> getMyThematicProps(@PathVariable Long culturalVenueId, @PathVariable ThematicPropsType tptype, HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("loggedUser");
+		List<ThematicPropsDTO> thematicPropsListDTO = new ArrayList<ThematicPropsDTO>();
+		List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedBy(culturalVenueId, tptype, user.getId());
+		for(ThematicProps thematicProps : thematicPropsList) {
+			thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
+		}
+		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsListDTO,HttpStatus.OK);
+	}
 	
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public ResponseEntity<ThematicPropsDTO> deleteThematicProps(@PathVariable Long id) {

@@ -1,7 +1,5 @@
 package project.dto;
 
-import java.util.Date;
-
 import project.domain.ThematicProps;
 import project.domain.ThematicPropsType;
 
@@ -13,8 +11,9 @@ public class ThematicPropsDTO {
 	private String description;
 	private String date;
 	private String picture;
-	private String createdBy;
+	private Long createdBy;
 	private String reserved;
+	private Long culturalVenueId;
 	
 	public ThematicPropsDTO(ThematicProps thematicProps) {
 		this.id = thematicProps.getId();
@@ -25,7 +24,18 @@ public class ThematicPropsDTO {
 		this.picture = thematicProps.getPicture();	
 		this.createdBy = thematicProps.getCreatedBy();
 		this.reserved = thematicProps.getReserved();
+		this.culturalVenueId = thematicProps.getCulturalVenueId();
 	}
+
+	
+	public Long getCulturalVenueId() {
+		return culturalVenueId;
+	}
+
+	public void setCulturalVenueId(Long culturalVenueId) {
+		this.culturalVenueId = culturalVenueId;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -75,11 +85,11 @@ public class ThematicPropsDTO {
 		this.picture = picture;
 	}
 
-	public String getCreatedBy() {
+	public Long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 

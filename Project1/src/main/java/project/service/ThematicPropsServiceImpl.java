@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.ThematicProps;
+import project.domain.ThematicPropsType;
 import project.repository.ThematicPropsRepository;
 
 @Service
@@ -57,6 +58,28 @@ public class ThematicPropsServiceImpl implements ThematicPropsService{
 			oldThematicProps.setTptype(thematicProps.getTptype());
 		}
 		return thematicPropsRepository.save(oldThematicProps);
+	}
+
+	@Override
+	public List<ThematicProps> findByCulturalVenueId(Long culturalVenueId) {
+		return thematicPropsRepository.findByCulturalVenueId(culturalVenueId);
+	}
+
+	@Override
+	public List<ThematicProps> findByCulturalVenueIdAndTptype(Long culturalVenueId, ThematicPropsType tptype) {
+		return thematicPropsRepository.findByCulturalVenueIdAndTptype(culturalVenueId, tptype);
+	}
+
+	@Override
+	public List<ThematicProps> findByCulturalVenueIdAndTptypeAndCreatedBy(Long culturalVenueId,
+			ThematicPropsType tptype, Long createdBy) {
+		return thematicPropsRepository.findByCulturalVenueIdAndTptypeAndCreatedBy(culturalVenueId, tptype, createdBy);
+	}
+
+	@Override
+	public List<ThematicProps> findByCulturalVenueIdAndTptypeAndCreatedByNot(Long culturalVenueId,
+			ThematicPropsType tptype, Long createdBy) {
+		return thematicPropsRepository.findByCulturalVenueIdAndTptypeAndCreatedByNot(culturalVenueId, tptype, createdBy);	
 	}
 
 }

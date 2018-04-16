@@ -1,7 +1,6 @@
 package project.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,8 +19,11 @@ public class ThematicProps implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(nullable = true)
+	private Long createdBy;
+	
 	@Column(nullable = false)
-	private String createdBy;
+	private Long culturalVenueId;
 	
 	@Column(nullable = false)
 	private String name;
@@ -47,7 +49,7 @@ public class ThematicProps implements Serializable {
 	public ThematicProps() 
 	{}
 	
-	public ThematicProps(ThematicPropsType tptype,String createdBy,String reserved, String name,String description,String date,String picture) {
+	public ThematicProps(Long culturalVenueId, ThematicPropsType tptype,Long createdBy,String reserved, String name,String description,String date,String picture) {
 		this.tptype = tptype;
 		this.name = name;
 		this.description = description;
@@ -55,6 +57,17 @@ public class ThematicProps implements Serializable {
 		this.picture = picture;	
 		this.createdBy = createdBy;
 		this.reserved = reserved;
+		this.culturalVenueId = culturalVenueId;
+	}
+
+	
+	
+	public Long getCulturalVenueId() {
+		return culturalVenueId;
+	}
+
+	public void setCulturalVenueId(Long culturalVenueId) {
+		this.culturalVenueId = culturalVenueId;
 	}
 
 	public String getReserved() {
@@ -73,11 +86,11 @@ public class ThematicProps implements Serializable {
 		this.offers = offers;
 	}
 
-	public String getCreatedBy() {
+	public Long getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(Long createdBy) {
 		this.createdBy = createdBy;
 	}
 
