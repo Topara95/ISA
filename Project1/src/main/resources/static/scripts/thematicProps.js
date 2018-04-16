@@ -74,6 +74,7 @@ function formToJSON(user) {
 		"tptype" : $('#tipRekvizit').val(),
 		"picture" : $('#slikaRekvizit').val(),
 		"createdBy" : user.name,
-		"reserved" : "NO"
+		"reserved" : "NO",
+		"approved" : false
 	});
 }

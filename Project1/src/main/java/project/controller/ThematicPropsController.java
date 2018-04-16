@@ -89,4 +89,12 @@ public class ThematicPropsController {
 		ThematicProps modified = thematicPropsService.modifyThematicProps(thematicProps, id);
 		return new ResponseEntity<ThematicPropsDTO>(new ThematicPropsDTO(modified),HttpStatus.OK);
 	}
+	
+	@RequestMapping(value="/approve/{id}", method = RequestMethod.GET)
+	public ResponseEntity<ThematicPropsDTO> approveProp(@PathVariable Long id) {
+		ThematicProps thematicProps = thematicPropsService.findById(id);
+		thematicProps.setApproved(true);
+		ThematicPropsDTO thematicPropsDTO = new ThematicPropsDTO(thematicPropsService.save(thematicProps));
+		return new ResponseEntity<ThematicPropsDTO>(thematicPropsDTO,HttpStatus.ACCEPTED);
+	}
 }

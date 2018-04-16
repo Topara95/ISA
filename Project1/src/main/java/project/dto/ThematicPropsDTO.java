@@ -14,6 +14,7 @@ public class ThematicPropsDTO {
 	private Long createdBy;
 	private String reserved;
 	private Long culturalVenueId;
+	private Boolean approved;
 	
 	public ThematicPropsDTO(ThematicProps thematicProps) {
 		this.id = thematicProps.getId();
@@ -25,9 +26,20 @@ public class ThematicPropsDTO {
 		this.createdBy = thematicProps.getCreatedBy();
 		this.reserved = thematicProps.getReserved();
 		this.culturalVenueId = thematicProps.getCulturalVenueId();
+		this.approved = thematicProps.getApproved();
 	}
 
 	
+	public Boolean getApproved() {
+		return approved;
+	}
+
+
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
+	}
+
+
 	public Long getCulturalVenueId() {
 		return culturalVenueId;
 	}

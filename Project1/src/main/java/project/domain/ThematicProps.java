@@ -43,13 +43,16 @@ public class ThematicProps implements Serializable {
 	@Column(nullable = false)
 	private ThematicPropsType tptype;
 	
+	@Column(nullable = false)
+	private Boolean approved;
+	
 	@OneToMany
 	private List<Offer> offers;
 
 	public ThematicProps() 
 	{}
 	
-	public ThematicProps(Long culturalVenueId, ThematicPropsType tptype,Long createdBy,String reserved, String name,String description,String date,String picture) {
+	public ThematicProps(Long culturalVenueId, ThematicPropsType tptype,Long createdBy,String reserved, String name,String description,String date,String picture,Boolean approved) {
 		this.tptype = tptype;
 		this.name = name;
 		this.description = description;
@@ -58,10 +61,19 @@ public class ThematicProps implements Serializable {
 		this.createdBy = createdBy;
 		this.reserved = reserved;
 		this.culturalVenueId = culturalVenueId;
+		this.approved = approved;
 	}
 
 	
 	
+	public Boolean getApproved() {
+		return approved;
+	}
+
+	public void setApproved(Boolean approved) {
+		this.approved = approved;
+	}
+
 	public Long getCulturalVenueId() {
 		return culturalVenueId;
 	}
