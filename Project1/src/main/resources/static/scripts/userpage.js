@@ -4,6 +4,7 @@ var requests_url = "../api/users/getRequests/"+loggeduser.id
 var friends_url = "../api/users/getFriends/"+loggeduser.id
 var theaters_url = "../api/culturalVenues/getTheaters"
 var cinemas_url = "../api/culturalVenues/getCinemas"
+var reservations_url = "../api/reservations/getAllForLogged"
 
 $(document).on('submit','.editform', function(e) {
 	e.preventDefault();
@@ -237,6 +238,119 @@ function getCinemas(){
 	});
 }
 
+function getReservations(){
+	$.ajax({
+		 url: reservations_url,
+		 method: "GET",
+		 success: function(data){
+			 $(".reservationsTable").empty();
+			 for(i=0;i<data.length;i++){
+				 $(".reservationsTable").append(`<tr>
+                              <td><span class="font-weight-bold">`+data[i].projectionTime.eventProjection.projectionDate+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].projectionTime.time+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].projectionTime.eventProjection.event.name+`</span></td>
+                              <td><button onclick="generateDetails(`+data[i].id+`)" name=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#reservationsModal">Look</button></td>
+                              <td><button onclick="cancelReservation(`+data[i].id+`)" type="button" class="btn btn-danger btn-sm" >Cancel</button></td>
+                          </tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting reservations!");
+		 }
+	});
+}
+
+
+function cancelReservation(id){
+	$.ajax({
+		 url: "../api/reservations/cancel/"+id,
+		 method: "DELETE",
+		 success: function(data){
+			 getReservations();
+			 toastr.warning("Reservation has been canceled");
+		 },
+		 error: function(){
+			 alert("Error while canceling reservation!");
+		 }
+	});
+}
+
+function generateDetails(id){
+	$.ajax({
+		 url: "../api/reservations/"+id,
+		 method: "GET",
+		 success: function(data){
+			 var seats = [];
+			 for(i=0;i<data.seats.length;i++){
+				 var seatInfo = data.seats[i].row+"_"+data.seats[i].seatInRow;
+				 seats.push(seatInfo);
+			 }
+			 $("#rmodalbody").empty();
+				 $("#rmodalbody").append(`<form>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Date:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+data.projectionTime.eventProjection.projectionDate+`</h5>
+										    </div>
+										  </div>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Time:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+data.projectionTime.time+`</h5>
+										    </div>
+										  </div>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Venue:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+data.projectionTime.eventProjection.event.culturalVenue.name+`</h5>
+										    </div>
+										  </div>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Event:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+data.projectionTime.eventProjection.event.name+`</h5>
+										    </div>
+										  </div>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Hall:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+data.projectionTime.hall.hallId+`</h5>
+										    </div>
+										  </div>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Seats:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+seats+`</h5>
+										    </div>
+										  </div>
+										  <div class="form-row">
+										    <div class="col">
+										      <h5>Total price:</h5>
+										    </div>
+										    <div class="col">
+										      <h5>`+data.totalprice+` RSD</h5>
+										    </div>
+										  </div>
+										</form>`);
+		 },
+		 error: function(){
+			 alert("Error while getting reservation!");
+		 }
+	});
+}
+
 function generateRepertoire(id){
 	$.ajax({
 		 url: "../api/culturalVenues/"+id+"/getEvents",
@@ -311,28 +425,68 @@ $(document).on('click','#genProjectionTimes',function(e){
 	});
 });
 
-/*$(document).on('click','#genSeats',function(e){
-	var eventId = $('#events option:selected').attr('id')
-	var projectionId = $('#projectiondates option:selected').attr('id')
-	var timeId = $('#projectiontimes option:selected').attr('id')
-	//var hallId = $('#projectiontimes option:selected').attr('name')
+$(document).on('click','#searchTheaters',function(e){
+	e.preventDefault();
+	var name = $('#theaterName').val();
+	var address = $('#theaterAddress').val();
+	var loggedId = loggeduser.id;
+	if(name == ''){
+		name = "nema";
+	}
+	if(address ==''){
+		address="nema";
+	}
+	
 	$.ajax({
-		 url: "../api/events/"+eventId+"/eventProjections/"+projectionId+"/projectionTimes/"+timeId+"/seats",
+		 url: "../api/culturalVenues/searchTheaters/"+name+"/"+address,
 		 method: "GET",
 		 success: function(data){
-			 $("#seatsdiv").empty();
-			 if(data.length != 0){
-				 $("#seatsdiv").append(`<label for="seats">Seats: </label>`);
-				 $("#seatsdiv").append(`<select id="seats">
-	                              	</select>
-	                              	<button type="button" class="btn btn-info btn-sm" id="reserve">Continue</button>`);
-			 }
+			 $(".theatersTable").empty();
 			 for(i=0;i<data.length;i++){
-				 $("#seats").append(`<option id=`+data[i].id+`>`+data[i].row+` `+data[i].seatInRow+`</option>`);
+				 $(".theatersTable").append(`<tr>
+                         <td><span class="font-weight-bold">`+data[i].name+`</span></td>
+                        <td><span class="font-weight-bold">`+data[i].address+`</span></td>
+                        <td><span class="font-weight-bold">`+data[i].description+`</span></td>
+                        <td><button onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Look</button></td>
+                     </tr>`);
 			 }
+				 
 		 },
 		 error: function(){
-			 alert("Error while getting seats!");
+			 alert("Error searching theaters");
 		 }
 	});
-});*/
+});
+
+$(document).on('click','#searchCinemas',function(e){
+	e.preventDefault();
+	var name = $('#cinemaName').val();
+	var address = $('#cinemaAddress').val();
+	var loggedId = loggeduser.id;
+	if(name == ''){
+		name = "nema";
+	}
+	if(address ==''){
+		address="nema";
+	}
+	
+	$.ajax({
+		 url: "../api/culturalVenues/searchCinemas/"+name+"/"+address,
+		 method: "GET",
+		 success: function(data){
+			 $(".cinemasTable").empty();
+			 for(i=0;i<data.length;i++){
+				 $(".cinemasTable").append(`<tr>
+                         <td><span class="font-weight-bold">`+data[i].name+`</span></td>
+                        <td><span class="font-weight-bold">`+data[i].address+`</span></td>
+                        <td><span class="font-weight-bold">`+data[i].description+`</span></td>
+                        <td><button onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Look</button></td>
+                     </tr>`);
+			 }
+				 
+		 },
+		 error: function(){
+			 alert("Error searching cinemas");
+		 }
+	});
+});

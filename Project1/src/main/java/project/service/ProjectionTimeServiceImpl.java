@@ -70,9 +70,7 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 		//end
 		//saving reservation
 		User user = userrepository.findOne(userId);
-		Reservation reservation = new Reservation(user,pt);
-		Hibernate.initialize(reservation.getSeats());
-		reservation.getSeats().addAll(resSeats);
+		Reservation reservation = new Reservation(user,pt,resSeats);
 		reservationrepository.save(reservation);
 		Hibernate.initialize(user.getReservations());
 		user.getReservations().add(reservation);

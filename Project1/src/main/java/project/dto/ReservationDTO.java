@@ -13,6 +13,7 @@ public class ReservationDTO {
 	private UserDTO owner;
 	private ProjectionTimeDTO projectionTime;
 	private List<SeatDTO> seats;
+	private double totalprice;
 	
 	public ReservationDTO(Reservation reservation) {
 		this.id = reservation.getId();
@@ -23,6 +24,7 @@ public class ReservationDTO {
 		for(int i=0;i<reservation.getSeats().size();i++){
 			this.seats.add(new SeatDTO(reservation.getSeats().get(i)));
 		}
+		this.totalprice = reservation.getTotalprice();
 	}
 
 	public Long getId() {
@@ -55,6 +57,14 @@ public class ReservationDTO {
 
 	public void setSeats(List<SeatDTO> seats) {
 		this.seats = seats;
+	}
+
+	public double getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(double totalprice) {
+		this.totalprice = totalprice;
 	}
 	
 }

@@ -16,7 +16,7 @@ public class EventDTO {
 	private String poster;
 	private float averageRating;
 	private String description;
-	
+	private CulturalVenueDTO culturalVenue;
 	
 	public EventDTO(Event event) {
 		this.id = event.getId();
@@ -29,6 +29,7 @@ public class EventDTO {
 		this.poster = event.getPoster();
 		this.averageRating = event.getAverageRating();
 		this.description = event.getDescription();
+		this.culturalVenue = new CulturalVenueDTO(event.getCulturalVenue());
 	}
 
 
@@ -129,5 +130,15 @@ public class EventDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+
+	public CulturalVenueDTO getCulturalVenue() {
+		return culturalVenue;
+	}
+
+
+	public void setCulturalVenue(CulturalVenueDTO culturalVenue) {
+		this.culturalVenue = culturalVenue;
 	}
 }

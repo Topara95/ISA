@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,13 +34,17 @@ public class Reservation implements Serializable{
 	@OneToMany
 	private List<Invite> invites;
 	
+	@Column
+	private double totalprice;
+	
 	public Reservation(){};
 	
-	public Reservation(User owner, ProjectionTime projection){
+	public Reservation(User owner, ProjectionTime projection, List<Seat> seats){
 		this.owner = owner;
 		this.projectionTime = projection;
-		this.seats = new ArrayList<Seat>();
+		this.seats = seats;
 		this.invites = new ArrayList<Invite>();
+		this.totalprice = seats.size() * projection.getPrice();
 	}
 
 	public Long getId() {
@@ -80,5 +85,13 @@ public class Reservation implements Serializable{
 
 	public void setInvites(List<Invite> invites) {
 		this.invites = invites;
+	}
+
+	public double getTotalprice() {
+		return totalprice;
+	}
+
+	public void setTotalprice(double totalprice) {
+		this.totalprice = totalprice;
 	}
 }
