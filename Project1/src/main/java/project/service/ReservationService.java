@@ -10,7 +10,11 @@ public interface ReservationService {
 	
 	List<Reservation> getReservationsForUser(Long userId);
 	
+	List<Reservation> getVisitedReservationsForUser(Long userId);
+	
 	Reservation getReservation(Long resId);
 	
 	Reservation cancelReservation(Long resId);
+	
+	void checkVisits();
 }

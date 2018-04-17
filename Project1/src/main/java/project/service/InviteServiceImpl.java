@@ -123,6 +123,7 @@ public class InviteServiceImpl implements InviteService{
 		pt.getTakenSeats().remove(invite.getSeat());
 		reservation.getSeats().remove(invite.getSeat());
 		reservation.getInvites().remove(invite);
+		reservation.setTotalprice(reservation.getSeats().size()*pt.getPrice());
 		inviterepository.delete(inviteId);
 		//reservationrepository.save(reservation);
 		return invite;

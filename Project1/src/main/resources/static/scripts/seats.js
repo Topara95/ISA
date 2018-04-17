@@ -102,6 +102,8 @@ $(document).on('click','#reserveProjection',function(e){
 				 <button onclick="generateFriendsForInv()" type="button" id="inviteFriends" class="btn btn-primary">Invite friends</button>`)
 			 }
 			 sc.find('a.selected').status('unavailable');
+			 getReservations();
+			 getVisits();
 		 },
 		 error: function(){
 			 alert("Error while reserving seats!");

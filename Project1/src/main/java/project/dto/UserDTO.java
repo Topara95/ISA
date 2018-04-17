@@ -12,6 +12,7 @@ public class UserDTO {
 	private String city;
 	private String phone;
 	private UserType usertype;
+	private int points;
 	
 	public UserDTO(User user){
 		this.id = user.getId();
@@ -22,6 +23,7 @@ public class UserDTO {
 		this.city = user.getCity();
 		this.phone = user.getPhone();
 		this.usertype = user.getUsertype();
+		this.points = user.getPoints();
 	}
 
 	public Long getId() {
@@ -86,5 +88,13 @@ public class UserDTO {
 
 	public void setUsertype(UserType usertype) {
 		this.usertype = usertype;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }

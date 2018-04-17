@@ -14,6 +14,7 @@ public class ReservationDTO {
 	private ProjectionTimeDTO projectionTime;
 	private List<SeatDTO> seats;
 	private double totalprice;
+	private boolean visited;
 	
 	public ReservationDTO(Reservation reservation) {
 		this.id = reservation.getId();
@@ -25,6 +26,7 @@ public class ReservationDTO {
 			this.seats.add(new SeatDTO(reservation.getSeats().get(i)));
 		}
 		this.totalprice = reservation.getTotalprice();
+		this.visited = reservation.isVisited();
 	}
 
 	public Long getId() {
@@ -65,6 +67,14 @@ public class ReservationDTO {
 
 	public void setTotalprice(double totalprice) {
 		this.totalprice = totalprice;
+	}
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
 	}
 	
 }

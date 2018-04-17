@@ -27,7 +27,7 @@
 
   </head>
 
-<body onload="generateNavbar(); generateUserInfo(); getFriendRequests(); getFriends(); getTheaters(); getCinemas(); getReservations()">
+<body onload="generateNavbar(); generateUserInfo(); getFriendRequests(); getFriends(); getTheaters(); getCinemas(); getReservations(); getVisits()">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -94,47 +94,12 @@
                 <div class="tab-pane active" id="profile">
                     <h4 class="m-y-2">User Profile</h4>
                     <div class="row">
+                        
                         <div class="col-md-12">
-                            <h6>About</h6>
-                            <p>
-                                Web Designer, UI/UX Engineer
-                            </p>
-                            <h6>Hobbies</h6>
-                            <p>
-                                Indie music, skiing and hiking. I love the great outdoors.
-                            </p>
-                        </div>
-                        <div class="col-md-12">
-                            <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Recent Activity</h4>
-                            <table class="table table-hover table-striped">
-                                <tbody>                                    
-                                    <tr>
-                                        <td>
-                                            <strong>Abby</strong> joined ACME Project Team in <strong>`Collaboration`</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Gary</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Kensington</strong> deleted MyBoard3 in <strong>`Discussions`</strong>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>John</strong> deleted My Board1 in <strong>`Discussions`</strong>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Skell</strong> deleted his post Look at Why this is.. in <strong>`Discussions`</strong>
-                                        </td>
-                                    </tr>
+                            <h4 class="m-t-2"><span class="fa fa-clock-o ion-clock pull-xs-right"></span> Recent Visits</h4>
+                            <table  class="table table-hover table-striped">
+                                <tbody id="visits">                                    
+                                   
                                 </tbody>
                             </table>
                         </div>

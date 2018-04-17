@@ -37,6 +37,9 @@ public class Reservation implements Serializable{
 	@Column
 	private double totalprice;
 	
+	@Column
+	private boolean visited;
+	
 	public Reservation(){};
 	
 	public Reservation(User owner, ProjectionTime projection, List<Seat> seats){
@@ -44,6 +47,7 @@ public class Reservation implements Serializable{
 		this.projectionTime = projection;
 		this.seats = seats;
 		this.invites = new ArrayList<Invite>();
+		this.visited = false;
 		this.totalprice = seats.size() * projection.getPrice();
 	}
 
@@ -93,5 +97,13 @@ public class Reservation implements Serializable{
 
 	public void setTotalprice(double totalprice) {
 		this.totalprice = totalprice;
+	}
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
 	}
 }

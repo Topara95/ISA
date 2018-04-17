@@ -5,6 +5,7 @@ var friends_url = "../api/users/getFriends/"+loggeduser.id
 var theaters_url = "../api/culturalVenues/getTheaters"
 var cinemas_url = "../api/culturalVenues/getCinemas"
 var reservations_url = "../api/reservations/getAllForLogged"
+var visits_url = "../api/reservations/getVisitsForLogged"
 
 $(document).on('submit','.editform', function(e) {
 	e.preventDefault();
@@ -238,6 +239,28 @@ function getCinemas(){
 	});
 }
 
+
+function getVisits(){
+	$.ajax({
+		 url: visits_url,
+		 method: "GET",
+		 success: function(data){
+			 $("#visits").empty();
+			 for(i=0;i<data.length;i++){
+				 $("#visits").append(`<tr>
+                             <td><span class="font-weight-bold">`+data[i].projectionTime.eventProjection.projectionDate+`</span></td>
+                             <td><span class="font-weight-bold">`+data[i].projectionTime.time+`</span></td>
+                             <td><span class="font-weight-bold">`+data[i].projectionTime.eventProjection.event.name+`</span></td>
+                             <td><button onclick="generateDetails(`+data[i].id+`)" name=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#reservationsModal">Look</button></td>
+                         </tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting visits!");
+		 }
+	});
+}
+
 function getReservations(){
 	$.ajax({
 		 url: reservations_url,
@@ -270,7 +293,7 @@ function cancelReservation(id){
 			 toastr.warning("Reservation has been canceled");
 		 },
 		 error: function(){
-			 alert("Error while canceling reservation!");
+			 toastr.error("You can't cancel the reservation. Projection starts in less than 30 minutes!");
 		 }
 	});
 }
@@ -416,7 +439,7 @@ $(document).on('click','#genProjectionTimes',function(e){
 	                              	<button type="button" class="btn btn-info btn-sm" id="genSeats">Continue</button>`);
 			 }
 			 for(i=0;i<data.length;i++){
-				 $("#projectiontimes").append(`<option name=`+data[i].hall.id+` id=`+data[i].id+`>`+data[i].time+` Hall:`+data[i].hall.hallId+`</option>`);
+				 $("#projectiontimes").append(`<option name=`+data[i].hall.id+` id=`+data[i].id+`>`+data[i].time+` Hall:`+data[i].hall.hallId+` Price:`+data[i].price+`</option>`);
 			 }
 		 },
 		 error: function(){

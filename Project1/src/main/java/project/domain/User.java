@@ -48,6 +48,9 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private UserType usertype;
 	
+	@Column
+	private int points;
+	
 	@ManyToMany
     @JoinTable(name="friends", joinColumns=@JoinColumn(name="personId"), inverseJoinColumns=@JoinColumn(name="friendId"))
     private List<User> friends;
@@ -87,6 +90,7 @@ public class User implements Serializable {
 		this.receivedRequests = new ArrayList<User>();
 		this.usertype = usertype;
 		this.reservations = new ArrayList<Reservation>();
+		this.points = 0;
 	}
 
 	
@@ -208,6 +212,14 @@ public class User implements Serializable {
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 }

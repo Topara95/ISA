@@ -25,8 +25,8 @@ public class UserConstants {
 	public static final String DB_USER_EMAIL = "jovantopolic@gmail.com";
 	public static final String DB_USER_NAME = "Jovan";
 	public static final String DB_USER_SURNAME = "Topolic";
-	public static final Long DB_ID = 9L;
-	public static final Long DB_ID_FRIEND = 12L;
+	public static final Long DB_ID = 1L;
+	public static final Long DB_ID_FRIEND = 4L;
 	public static final int DB_1_FRIENDS = 2;
 	public static final int DB_REQUESTS_SIZE = 1;
 	

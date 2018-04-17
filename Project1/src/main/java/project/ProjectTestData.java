@@ -18,10 +18,12 @@ import project.domain.EventGenre;
 import project.domain.EventProjection;
 import project.domain.EventType;
 import project.domain.Hall;
+import project.domain.MembershipThreshold;
 import project.domain.ProjectionTime;
 import project.domain.Seat;
 import project.domain.User;
 import project.domain.UserType;
+import project.repository.MembershipThresholdRepository;
 import project.service.CulturalVenueService;
 import project.service.EventProjectionService;
 import project.service.EventService;
@@ -54,10 +56,16 @@ public class ProjectTestData {
 	@Autowired 
 	private SeatService seatservice;
 	
+	@Autowired
+	private MembershipThresholdRepository mtrepository;
+	
 	@PostConstruct
 	private void init() throws ParseException{
 		
 		if(userservice.findAll().size() == 0) {
+			
+			MembershipThreshold mt = new MembershipThreshold(5,50,100,true);
+			mtrepository.save(mt);
 		
 			User user1 = new User("jovantopolic@gmail.com","jova","Jovan","Topolic","Novi Sad","6611632",UserType.REGULAR);
 			user1.setVerified(true);
@@ -178,7 +186,7 @@ public class ProjectTestData {
 			
 			 //event projections
 			EventProjection ep1 = new EventProjection(e1,new SimpleDateFormat("yyyy-MM-dd").parse("2018-04-27"));
-			EventProjection ep2 = new EventProjection(e1,new SimpleDateFormat("yyyy-MM-dd").parse("2018-04-29"));
+			EventProjection ep2 = new EventProjection(e1,new SimpleDateFormat("yyyy-MM-dd").parse("2018-04-17"));
 			
 			EventProjection ep3 = new EventProjection(e2,new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-11"));
 			EventProjection ep4 = new EventProjection(e2,new SimpleDateFormat("yyyy-MM-dd").parse("2018-05-15"));
@@ -204,17 +212,24 @@ public class ProjectTestData {
 			ProjectionTime pt1 = new ProjectionTime(ep1,h1,new SimpleDateFormat("HH:mm").parse("18:00"),200);
 			ProjectionTime pt2 = new ProjectionTime(ep1,h1,new SimpleDateFormat("HH:mm").parse("21:00"),350);
 			ProjectionTime pt3 = new ProjectionTime(ep1,h2,new SimpleDateFormat("HH:mm").parse("18:00"),200);
+			// dodato za testiranje cancela
+			ProjectionTime pt4 = new ProjectionTime(ep2,h2,new SimpleDateFormat("HH:mm").parse("13:20"),500);
 			
 			ptservice.save(pt1);
 			ptservice.save(pt2);
 			ptservice.save(pt3);
+			ptservice.save(pt4);
 			
 			Hibernate.initialize(ep1.getProjectionTimes());
 			ep1.getProjectionTimes().add(pt1);
 			ep1.getProjectionTimes().add(pt2);
 			ep1.getProjectionTimes().add(pt3);
 			
+			Hibernate.initialize(ep2.getProjectionTimes());
+			ep2.getProjectionTimes().add(pt4);
+			
 			epservice.save(ep1);
+			epservice.save(ep2);
 		}
 	}
 	

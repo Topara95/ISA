@@ -13,4 +13,5 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long>{
 	
 	List<Reservation> findByOwner(User owner);
 	
+	List<Reservation> findByOwnerAndVisited(User owner, boolean visited);
 }

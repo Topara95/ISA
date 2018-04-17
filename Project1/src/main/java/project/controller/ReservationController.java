@@ -51,6 +51,17 @@ public class ReservationController {
 		return new ResponseEntity<List<ReservationDTO>>(reservationsDTO,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/getVisitsForLogged",method = RequestMethod.GET)
+	public ResponseEntity<List<ReservationDTO>> getVisitsforLoggedUser(HttpServletRequest request){
+		User logged = (User) request.getSession().getAttribute("loggedUser");
+		List<Reservation> reservations = reservationservice.getVisitedReservationsForUser(logged.getId());
+		List<ReservationDTO> reservationsDTO = new ArrayList<ReservationDTO>();
+		for(Reservation res : reservations) {
+			reservationsDTO.add(new ReservationDTO(res));
+		}
+		return new ResponseEntity<List<ReservationDTO>>(reservationsDTO,HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/{resId}",method = RequestMethod.GET)
 	public ResponseEntity<ReservationDTO> getReservation(@PathVariable Long resId){
 		Reservation res = reservationservice.getReservation(resId);
