@@ -38,4 +38,6 @@ public interface UserService {
 	List<User> getFriendRequests(Long id);
 	
 	List<User> searchUsersStartingWith(String name,String surname);
+	
+	User firstTimeChangePass(String oldPass,String newPass,User user);
 }

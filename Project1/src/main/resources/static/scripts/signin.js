@@ -11,7 +11,8 @@ $(document).on('submit','.form-signin', function(e) {
 		success : function(data) {
 			if(data != null){
 			sessionStorage.setItem('loggedUser',JSON.stringify(data));
-			window.location.href='index.html';
+			//window.location.href='index.html';
+			passChange(data);
 			}else{
 				
 			}
@@ -21,6 +22,18 @@ $(document).on('submit','.form-signin', function(e) {
 		}
 	});
 });
+
+function passChange(data) {
+	var tip = data.usertype;
+	console.log("passChange!")
+	console.log("tip " + tip);
+	console.log("changePass " + data.changedPassword);
+	if(tip == "FANZONEADMIN" && data.changedPassword == false) {
+		window.location.href='changePass.html';
+	} else {
+		window.location.href='index.html';
+	}
+}
 
 
 function formToJSON() {

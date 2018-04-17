@@ -24,6 +24,16 @@ public class CulturalVenueController {
 	@Autowired
 	private CulturalVenueService cvservice;
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CulturalVenueDTO>> getAll(){
+		List<CulturalVenueDTO> cvDTO = new ArrayList<CulturalVenueDTO>();
+		for(CulturalVenue theater : cvservice.getAll()){
+			cvDTO.add(new CulturalVenueDTO(theater));
+		}
+		return new ResponseEntity<List<CulturalVenueDTO>>(cvDTO,HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(value="/getTheaters", method = RequestMethod.GET)
 	public ResponseEntity<List<CulturalVenueDTO>> getTheaters(){
 		List<CulturalVenueDTO> theatersDTO = new ArrayList<CulturalVenueDTO>();

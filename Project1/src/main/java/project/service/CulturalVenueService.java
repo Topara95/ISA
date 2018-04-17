@@ -20,4 +20,6 @@ public interface CulturalVenueService {
 	List<Event> getEvents(Long cvId);
 	
 	CulturalVenue findOne(Long id);
+	
+	List<CulturalVenue> getAll();
 }

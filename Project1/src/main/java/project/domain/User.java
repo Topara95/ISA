@@ -51,6 +51,9 @@ public class User implements Serializable {
 	@Column
 	private int points;
 	
+	@Column
+	private boolean changedPassword;
+	
 	@ManyToMany
     @JoinTable(name="friends", joinColumns=@JoinColumn(name="personId"), inverseJoinColumns=@JoinColumn(name="friendId"))
     private List<User> friends;
@@ -91,9 +94,19 @@ public class User implements Serializable {
 		this.usertype = usertype;
 		this.reservations = new ArrayList<Reservation>();
 		this.points = 0;
+		this.changedPassword = false;
 	}
 
 	
+	
+	public boolean isChangedPassword() {
+		return changedPassword;
+	}
+
+	public void setChangedPassword(boolean changedPassword) {
+		this.changedPassword = changedPassword;
+	}
+
 	public List<ThematicProps> getPostedProps() {
 		return postedProps;
 	}

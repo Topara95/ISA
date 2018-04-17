@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NonUniqueResultException;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private Environment env;
-
 
 	@Override
 	public User save(User user) {
@@ -263,6 +263,19 @@ public class UserServiceImpl implements UserService{
 		}else {
 			return userRepository.findAll();
 		}
+	}
+
+
+	@Override
+	public User firstTimeChangePass(String oldPass, String newPass,User user) {
+		String password = user.getPassword();
+		if(password.equals(oldPass)) {
+			user.setPassword(newPass);
+			user.setChangedPassword(true);
+			userRepository.save(user);
+			return user;
+		}
+		return null;
 	}
 
 

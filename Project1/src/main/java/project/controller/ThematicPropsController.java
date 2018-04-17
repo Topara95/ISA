@@ -46,19 +46,20 @@ public class ThematicPropsController {
 		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsDTO,HttpStatus.OK);
 	}
 	
-	@RequestMapping( value = "/{culturalVenueId}/{tptype}",method = RequestMethod.GET)
-	public ResponseEntity<List<ThematicPropsDTO>> getAllThematicPropsByCV(@PathVariable Long culturalVenueId, @PathVariable ThematicPropsType tptype, HttpServletRequest request) {
+	@RequestMapping( value = "/{culturalVenueId}/{tptypeS}",method = RequestMethod.GET)
+	public ResponseEntity<List<ThematicPropsDTO>> getAllThematicPropsByCV(@PathVariable Long culturalVenueId, @PathVariable String tptypeS, HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("loggedUser");
+		ThematicPropsType tptype = null;
 		List<ThematicPropsDTO> thematicPropsListDTO = new ArrayList<ThematicPropsDTO>();
-		if(tptype.name().equals("USED")) {
+		if(tptypeS.equals("USED")) {
 			System.out.println("usao u polovne");
-			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedByNot(culturalVenueId, tptype, user.getId());
+			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedByNot(culturalVenueId, tptype.USED, user.getId());
 			for(ThematicProps thematicProps : thematicPropsList) {
 				thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
 			}
 		} else {
 			System.out.println("usao u nove");
-			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptype(culturalVenueId, tptype);
+			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedByNot(culturalVenueId, tptype.NEW, user.getId());
 			for(ThematicProps thematicProps : thematicPropsList) {
 				thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
 			}
@@ -66,14 +67,22 @@ public class ThematicPropsController {
 		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsListDTO,HttpStatus.OK);		 
 	}
 	
-	@RequestMapping(value="/my/{culturalVenueId}/{tptype}", method = RequestMethod.GET)
-	public ResponseEntity<List<ThematicPropsDTO>> getMyThematicProps(@PathVariable Long culturalVenueId, @PathVariable ThematicPropsType tptype, HttpServletRequest request) {
+	@RequestMapping(value="/my/{culturalVenueId}/{tptypeS}", method = RequestMethod.GET)
+	public ResponseEntity<List<ThematicPropsDTO>> getMyThematicProps(@PathVariable Long culturalVenueId, @PathVariable String tptypeS, HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("loggedUser");
+		ThematicPropsType tptype = null;
 		List<ThematicPropsDTO> thematicPropsListDTO = new ArrayList<ThematicPropsDTO>();
-		List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedBy(culturalVenueId, tptype, user.getId());
-		for(ThematicProps thematicProps : thematicPropsList) {
-			thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
-		}
+		if(tptypeS.equals("USED")) {			
+			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedBy(culturalVenueId, tptype.USED, user.getId());
+			for(ThematicProps thematicProps : thematicPropsList) {
+				thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
+			}
+		} else {
+			List<ThematicProps> thematicPropsList = thematicPropsService.findByCulturalVenueIdAndTptypeAndCreatedBy(culturalVenueId, tptype.NEW, user.getId());
+			for(ThematicProps thematicProps : thematicPropsList) {
+				thematicPropsListDTO.add(new ThematicPropsDTO(thematicProps));
+			}
+		}		
 		return new ResponseEntity<List<ThematicPropsDTO>>(thematicPropsListDTO,HttpStatus.OK);
 	}
 	

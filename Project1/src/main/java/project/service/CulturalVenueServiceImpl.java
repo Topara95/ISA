@@ -24,6 +24,7 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 		return cvrepository.save(venue);
 	}
 
+	
 	@Override
 	public List<CulturalVenue> getAllTheaters() {
 		return cvrepository.findByCvtype(CulturalVenueType.THEATER);
@@ -71,6 +72,12 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 		}else{
 			return cvrepository.findByCvtype(CulturalVenueType.THEATER);
 		}
+	}
+
+
+	@Override
+	public List<CulturalVenue> getAll() {
+		return cvrepository.findAll();
 	}
 
 }

@@ -19,7 +19,7 @@
     <!-- Custom styles for this template -->
     <link href="stylesheets/2-col-portfolio.css" rel="stylesheet">
 </head>
-<body>
+<body onload="onload()">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
      	 <div class="container">
        	 <a class="navbar-brand" href="index.html">ISA project</a>
@@ -38,6 +38,12 @@
             	</li>
            	 <li class="nav-item">
               	<a class="nav-link createThematicProps" href="#">Create Ad</a>
+             </li>
+             <li class="nav-item">
+             	<a class="nav-link" id="onHold" onclick="propsOnHold()">Props on hold</a>
+             </li>
+             <li class="nav-item">
+             	<a class="nav-link" onclick="myProps()">My thematic props</a>
              </li>
           	</ul>
        	 </div>

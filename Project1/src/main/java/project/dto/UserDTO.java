@@ -13,6 +13,7 @@ public class UserDTO {
 	private String phone;
 	private UserType usertype;
 	private int points;
+	private boolean changedPassword;
 	
 	public UserDTO(User user){
 		this.id = user.getId();
@@ -24,6 +25,15 @@ public class UserDTO {
 		this.phone = user.getPhone();
 		this.usertype = user.getUsertype();
 		this.points = user.getPoints();
+		this.changedPassword = user.isChangedPassword();
+	}
+	
+	public boolean isChangedPassword() {
+		return changedPassword;
+	}
+
+	public void setChangedPassword(boolean changedPassword) {
+		this.changedPassword = changedPassword;
 	}
 
 	public Long getId() {

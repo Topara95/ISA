@@ -173,6 +173,13 @@ public class UserController {
 		return new ResponseEntity<UserDTO>(removedDTO,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value="/firstTimeChangePass/{newPass}/{oldPass}",method = RequestMethod.PUT)
+	public ResponseEntity<UserDTO> firstTimeChangePass(@PathVariable String newPass,@PathVariable String oldPass, HttpServletRequest request) {
+	    User user = (User)request.getSession().getAttribute("loggedUser");
+	    User user1 = userService.firstTimeChangePass(oldPass, newPass, user);
+	    return new ResponseEntity<UserDTO>(new UserDTO(user1),HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/test/",
 			method = RequestMethod.GET
 			)
