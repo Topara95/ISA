@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.Hall;
 import project.domain.Seat;
@@ -29,6 +28,12 @@ public class SeatServiceImpl implements SeatService{
 	public List<Seat> findByHall(Long hallId) {
 		Hall hall = hallrepository.findOne(hallId);
 		return seatrepository.findByHall(hall);
+	}
+
+	@Override
+	public Seat findByHallAndRowAndSeatInRow(Long hallId, int row, int seatInRow) {
+		Hall hall = hallrepository.findOne(hallId);
+		return seatrepository.findByHallAndRowAndSeatInRow(hall, row, seatInRow);
 	}
 
 }

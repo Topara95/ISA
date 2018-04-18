@@ -22,6 +22,7 @@ import project.dto.ProjectionTimeDTO;
 import project.dto.ReservationDTO;
 import project.dto.SeatDTO;
 import project.service.ProjectionTimeService;
+import project.service.ReservationService;
 import project.service.SeatService;
 
 @RestController
@@ -30,6 +31,9 @@ public class ProjectionTimeController {
 
 	@Autowired
 	private ProjectionTimeService ptservice;
+	
+	@Autowired
+	private ReservationService resservice;
 	
 	@Autowired
 	private SeatService seatservice;
@@ -59,6 +63,7 @@ public class ProjectionTimeController {
 		User loggedUser = (User) request.getSession().getAttribute("loggedUser");
 		Reservation reservation = ptservice.reserveSeats(projectionId, seatInfo, loggedUser.getId());
 		ReservationDTO reservationDTO = new ReservationDTO(reservation);
+		resservice.sendReservationMail(loggedUser.getId(), reservation.getId());
 		return new ResponseEntity<ReservationDTO>(reservationDTO,HttpStatus.OK);
 	}
 	

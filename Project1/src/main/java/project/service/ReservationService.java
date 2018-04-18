@@ -17,4 +17,6 @@ public interface ReservationService {
 	Reservation cancelReservation(Long resId);
 	
 	void checkVisits();
+	
+	void sendReservationMail(Long userId, Long reservationId);
 }

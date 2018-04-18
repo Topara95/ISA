@@ -2,6 +2,8 @@ var user = JSON.parse(sessionStorage.getItem('loggedUser'));
 var inv_counter = 0;
 $(document).on('click','#genSeats',function(e){
 	//
+	$("#projectiontimes").attr('disabled',true);
+	$(this).attr('disabled',true);
 	var list=[];
 	var eventId = $('#events option:selected').attr('id')
 	var projectionId = $('#projectiondates option:selected').attr('id')
@@ -104,6 +106,7 @@ $(document).on('click','#reserveProjection',function(e){
 			 sc.find('a.selected').status('unavailable');
 			 getReservations();
 			 getVisits();
+			 toastr.success("Reservation completed! Check your email or your reservations tab for more informations!");
 		 },
 		 error: function(){
 			 alert("Error while reserving seats!");

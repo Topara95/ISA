@@ -1,16 +1,18 @@
 package project.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.Invite;
 import project.domain.MembershipThreshold;
@@ -41,6 +43,13 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	@Autowired
 	private MembershipThresholdRepository mtrepository;
+	
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	@Autowired
+	private Environment env;
+	
 	
 	@Override
 	public Reservation save(Reservation reservation) {
@@ -173,6 +182,24 @@ public class ReservationServiceImpl implements ReservationService{
 			user.setUsertype(UserType.REGULAR);
 		}
 		userrepository.save(user);
+	}
+
+	@Override
+	@Async
+	@Transactional
+	public void sendReservationMail(Long userId, Long reservationId) {
+		User user = userrepository.findOne(userId);
+		Reservation reservation = reservationrepository.findOne(reservationId);
+		SimpleMailMessage mail = new SimpleMailMessage();
+		Hibernate.initialize(reservation.getSeats());
+		mail.setTo(user.getEmail());
+		mail.setFrom(env.getProperty("spring.mail.username"));
+		mail.setSubject("Potvrda rezervacije");
+		mail.setText("Pozdrav " + user.getName() +"\n\n Uspešno ste izvršili rezervaciju "+reservation.getSeats().size() +" sedišta za "+
+		reservation.getProjectionTime().getEventProjection().getEvent().getName()+
+		"\n za projekciju dana "+reservation.getProjectionTime().getEventProjection().getProjectionDate() +" u "+reservation.getProjectionTime().getTime() +" časova."
+				+ "\n\n Odustanak od rezervacije je moguć najkasnije do pola sata pre početka projekcije");
+		javaMailSender.send(mail);
 	}
 	
 }

@@ -397,6 +397,8 @@ function generateRepertoire(id){
 
 $(document).on('click','#genProjectionDates',function(e){
 	e.preventDefault();
+	$("#events").attr('disabled',true);
+	$(this).attr('disabled',true);
 	var id = $('#events option:selected').attr('id')
 	$.ajax({
 		 url: "../api/events/"+id+"/eventProjections",
@@ -423,6 +425,8 @@ $(document).on('click','#genProjectionDates',function(e){
 });
 
 $(document).on('click','#genProjectionTimes',function(e){
+	$("#projectiondates").attr('disabled',true);
+	$(this).attr('disabled',true);
 	var eventId = $('#events option:selected').attr('id')
 	var projectionId = $('#projectiondates option:selected').attr('id')
 	$.ajax({
