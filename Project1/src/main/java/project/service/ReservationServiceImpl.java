@@ -204,5 +204,10 @@ public class ReservationServiceImpl implements ReservationService{
 				+ "\n\n Odustanak od rezervacije je moguć najkasnije do pola sata pre početka projekcije");
 		javaMailSender.send(mail);
 	}
+
+	@Override
+	public List<Reservation> getAll() {
+		return reservationrepository.findAll();
+	}
 	
 }

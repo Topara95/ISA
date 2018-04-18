@@ -62,9 +62,13 @@ public class ProjectionTimeController {
 	public ResponseEntity<ReservationDTO> reserveSeats(@RequestBody List<String> seatInfo, @PathVariable Long projectionId, HttpServletRequest request){
 		User loggedUser = (User) request.getSession().getAttribute("loggedUser");
 		Reservation reservation = ptservice.reserveSeats(projectionId, seatInfo, loggedUser.getId());
-		ReservationDTO reservationDTO = new ReservationDTO(reservation);
-		resservice.sendReservationMail(loggedUser.getId(), reservation.getId());
-		return new ResponseEntity<ReservationDTO>(reservationDTO,HttpStatus.OK);
+		if(reservation != null) {
+			ReservationDTO reservationDTO = new ReservationDTO(reservation);
+			resservice.sendReservationMail(loggedUser.getId(), reservation.getId());
+			return new ResponseEntity<ReservationDTO>(reservationDTO,HttpStatus.OK);
+		}
+		ReservationDTO resDTO = null;
+		return new ResponseEntity<ReservationDTO>(resDTO,HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value="/{projectionId}/takenSeats",method = RequestMethod.GET)

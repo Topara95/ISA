@@ -19,4 +19,6 @@ public interface ReservationService {
 	void checkVisits();
 	
 	void sendReservationMail(Long userId, Long reservationId);
+	
+	List<Reservation> getAll();
 }
