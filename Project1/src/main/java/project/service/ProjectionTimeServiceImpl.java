@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.EventProjection;
@@ -38,23 +40,26 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 	private UserRepository userrepository;
 	
 	@Override
+	@Transactional(readOnly = true)
 	public List<ProjectionTime> findByEventProjection(Long eventProjectionId) {
 		EventProjection ep = eprepository.findOne(eventProjectionId);
 		return ptrepository.findByEventProjection(ep);
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
 	public ProjectionTime save(ProjectionTime projectionTime) {
 		return ptrepository.save(projectionTime);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ProjectionTime findOne(Long ptId) {
 		return ptrepository.findOne(ptId);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW, isolation=Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
 	public Reservation reserveSeats(Long projectiontimeId,List<String> seatinfo, Long userId) {
 		//adding to taken seats
 		ProjectionTime pt = ptrepository.findOne(projectiontimeId);
@@ -80,6 +85,7 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService{
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Seat> getTakenSeats(Long projectiontimeId) {
 		ProjectionTime pt = ptrepository.findOne(projectiontimeId);
 		Hibernate.initialize(pt.getTakenSeats());

@@ -53,6 +53,49 @@ function generateUserInfo(){
 	document.getElementById("password-confirm").value = loggeduser.password;
 }
 
+function generateProfile(){
+	$("#profilediv").append(`<div class="row">
+						    <div class="col-md-2">
+						      <label><h6>Email:</h6></label>
+						    </div>
+						    <div class="col-md-10">
+						      <i>`+loggeduser.email+`</i>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-md-2">
+						      <label><h6>Name:</h6></label>
+						    </div>
+						    <div class="col-md-10">
+						      <i>`+loggeduser.name+`</i>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-md-2">
+						      <label><h6>Surname:</h6></label>
+						    </div>
+						    <div class="col-md-10">
+						      <i>`+loggeduser.surname+`</i>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-md-2">
+						      <label><h6>Address:</h6></label>
+						    </div>
+						    <div class="col-md-10">
+						      <i>`+loggeduser.city+`</i>
+						    </div>
+						  </div>
+						  <div class="row">
+						    <div class="col-md-2">
+						      <label><h6>Phone:</h6></label>
+						    </div>
+						    <div class="col-md-10">
+						      <i>`+loggeduser.phone+`</i>
+						    </div>
+						  </div>`);
+}
+
 function getFriendRequests(){
 	$.ajax({
 		 url: requests_url,
@@ -375,6 +418,8 @@ function generateDetails(id){
 }
 
 function generateRepertoire(id){
+	$("#events").attr('disabled',false);
+	$("#genProjectionDates").attr('disabled',false);
 	$.ajax({
 		 url: "../api/culturalVenues/"+id+"/getEvents",
 		 method: "GET",

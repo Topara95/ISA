@@ -12,6 +12,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.Invite;
@@ -52,6 +54,7 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
 	public Reservation save(Reservation reservation) {
 		return reservationrepository.save(reservation);
 	}
