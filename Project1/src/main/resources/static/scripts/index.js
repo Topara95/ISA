@@ -1,6 +1,13 @@
 var islogged_url = "../api/users/isLoggedIn"
 var logout_url = "../api/users/logout"
 
+function createCV(data) {
+	var id = data.id;
+	//alert(id);
+	sessionStorage.setItem('createVenueType',id);
+	window.location.href = "createVenue.html";
+}	
+	
 function generateNavbar(){
 	 $.ajax({
 		 url: islogged_url,

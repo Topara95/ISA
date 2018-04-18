@@ -4,6 +4,7 @@ function citaj() {
 	$("#culturalVenueSelect").empty();
 	$.ajax({
 		  method : 'GET',
+		  async : false,
 		  url : "../api/culturalVenues",
 		  success : function(data){
 			  console.log("uspjesno!");
@@ -22,7 +23,7 @@ function citaj() {
 		$("#slikaRekvizit").val(oglas.picture);
 		$("#datum").val(oglas.date);
 		$("#tipRekvizit").val(oglas.tptype);
-		$("#culturalVenueSelect select").val(oglas.culturalVenue);
+		$("#culturalVenueSelect").val(oglas.culturalVenueId);
 		document.getElementById("dugmeNapravi").hidden = "hidden";
 		document.getElementById("dugmeIzmjeni").hidden = "";
 		
@@ -39,7 +40,7 @@ function podijeli(data) {
 	console.log("usao u podjelu");
 	var list = data == null ? [] : (data instanceof Array ? data : [ data ]);
 	$.each(list, function(index, culVe) {
-	$("#culturalVenueSelect").append(`<option name=`+culVe.id+` value=`+culVe.id+`>`+culVe.name+`</option>`);
+	$("#culturalVenueSelect").append(`<option id=`+culVe.id+` name=`+culVe.id+` value=`+culVe.id+`>`+culVe.name+`</option>`);
 	});
 }
 

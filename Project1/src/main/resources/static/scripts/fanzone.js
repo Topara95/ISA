@@ -1,8 +1,10 @@
 function onload() {
 	var user = JSON.parse(sessionStorage.getItem("loggedUser"));
-	if(user.usertype != "FANZONEADMIN") {
+	if(user.usertype == "FANZONEADMIN") {
 		document.getElementById("onHold").hidden = "";
+		console.log("usao u if");
 	} else {
+		console.log("usao u else");
 		document.getElementById("onHold").hidden = "hidden";
 	}
 }
@@ -104,6 +106,7 @@ function myProps() {
 function readVenues() {
 	$.ajax({
 		  method : 'GET',
+		  async : false,
 		  url : "../api/culturalVenues",
 		  success : function(data){
 			  //console.log("uspjesno!");
@@ -120,7 +123,7 @@ function podijeliObjekte(data) {
 	//console.log("usao u podjelu");
 	var list = data == null ? [] : (data instanceof Array ? data : [ data ]);
 	$.each(list, function(index, culVe) {
-	$("#culVenues").append(`<option name=`+culVe.id+` value=`+culVe.id+`>`+culVe.name+`</option>`);
+	$("#culVenues").append(`<option id=`+culVe.id+` name=`+culVe.id+` value=`+culVe.id+`>`+culVe.name+`</option>`);
 	});
 }
 //thematicProps
@@ -129,7 +132,7 @@ function props1(){
 	var tptype = $('input[name=type]:checked').val();
 	props();
 	$("#"+tptype).attr('checked', true);
-	$('#culVenues select').val(culValID);
+	document.getElementById(culValID).selected = true;
 	$.ajax({
 		  method : 'GET',
 		  url : "../api/props/"+culValID+"/"+tptype,
@@ -149,7 +152,7 @@ function props2(){
 	var tptype = $('input[name=type]:checked').val();
 	myProps();
 	$("#"+tptype).attr('checked', true);
-	$('#culVenues select').val(culValID);
+	document.getElementById(culValID).selected = true;
 	$.ajax({
 		  method : 'GET',
 		  url : "../api/props/my/"+culValID+"/"+tptype,
