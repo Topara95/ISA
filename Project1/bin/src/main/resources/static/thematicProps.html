@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/thematicProps.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+	<meta charset="ISO-8859-1">
+	<title>ThematicProps</title>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/thematicProps.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/2-col-portfolio.css" rel="stylesheet">
+</head>
+<body onload="citaj()">
+<h2 id="naslov"></h2>
+
+<div class="jumbotron" id="strana">
+<form method="post" class = "thematicPropsForm">
+    <div class="form-group row">
+        <label class="col-1 col-form-label">Name:</label>
+        <div class="col-11">
+            <input class="form-control" type="text" value="" id="naziv" required>
+        </div>
+    </div>
+     <div class="form-group">
+    	<label>Type:</label>
+    	<select id="tipRekvizit" class="form-control">
+  			<option value="NEW">New</option>
+ 			<option value="USED">Used</option>
+		</select>
+    </div>
+    <div class="form-group">
+    	<label>Cultural venue:</label>
+    	<select id="culturalVenueSelect" class="form-control">
+  			
+		</select>
+    </div>
+    <div class="form-group">
+        <label>Description:</label>
+        <textarea class="form-control" rows="5" id="opis"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Date:</label>
+        <input class="form-control" type="datetime-local" id="datum">
+    </div>
+    <div class="form-group">
+    	<label>Picture:</label>
+    	<input type="file" name="picture" id="slikaRekvizit" class="form-control"/>
+    </div>
+    <a type="submit" name="submit" class="btn btn-info potvrda" id="dugmeNapravi">Create thematic prop</a>
+    <a type="submit" name="submit" class="btn btn-info potvrda" id="dugmeIzmjeni">Edit thematic prop</a>
+    </form>
+</div>
+</body>
+</html>

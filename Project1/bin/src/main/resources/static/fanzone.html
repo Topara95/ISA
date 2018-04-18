@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="scripts/fanzone.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+	<meta charset="ISO-8859-1">
+	<title>FanZone</title>
+	
+	<!-- Bootstrap core CSS -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/fanzone.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/2-col-portfolio.css" rel="stylesheet">
+</head>
+<body onload="onload()">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+     	 <div class="container">
+       	 <a class="navbar-brand" href="index.html">ISA project</a>
+        	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+         	 <span class="navbar-toggler-icon"></span>
+        	</button>
+        	<div class="collapse navbar-collapse" id="navbarResponsive">
+          	<ul class="navbar-nav ml-auto navitems">
+            	<li class="nav-item active">
+             	 <a class="nav-link fanzoneButton" href="#">FanZone
+             	   <span class="sr-only">(current)</span>
+             	 </a>
+           	 </li>
+           	 <li class="nav-item">
+            	  <a class="nav-link" onclick="props()">Thematic props</a>
+            	</li>
+           	 <li class="nav-item">
+              	<a class="nav-link createThematicProps" href="#">Create Ad</a>
+             </li>
+             <li class="nav-item">
+             	<a class="nav-link" id="onHold" onclick="propsOnHold()">Props on hold</a>
+             </li>
+             <li class="nav-item">
+             	<a class="nav-link" onclick="myProps()">My thematic props</a>
+             </li>
+          	</ul>
+       	 </div>
+     	 </div>
+    </nav>
+    
+     <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-6 portfolio-item">
+          <div class="card h-200 welcome">
+            <img class="card-img-top" id="welcome" src="images/cheerblue.png" alt="">
+          </div>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- Pagination -->
+      <ul class="pagination justify-content-center">
+        
+      </ul>
+
+    </div>
+    <!-- /.container -->
+    
+</body>
+</html>

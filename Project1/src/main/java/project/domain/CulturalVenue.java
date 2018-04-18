@@ -33,6 +33,9 @@ public class CulturalVenue implements Serializable{
 	@Column(nullable = true)
 	private String description;
 	
+	@Column(nullable = true)
+	private String averageGrade;
+	
 	@OneToMany(targetEntity = Hall.class)
 	private List<Hall> halls;
 	
@@ -43,11 +46,12 @@ public class CulturalVenue implements Serializable{
 		
 	}
 	
-	public CulturalVenue(CulturalVenueType cvtype, String name, String address, String description){
+	public CulturalVenue(CulturalVenueType cvtype, String name, String address, String description, String averageGrade){
 		this.cvtype = cvtype;
 		this.name = name;
 		this.address = address;
 		this.description = description;
+		this.averageGrade = averageGrade;
 		this.halls = new ArrayList<Hall>();
 		this.events = new ArrayList<Event>();
 	}
@@ -107,5 +111,15 @@ public class CulturalVenue implements Serializable{
 	public void setEvents(List<Event> events) {
 		this.events = events;
 	}
+
+	public String getAverageGrade() {
+		return averageGrade;
+	}
+
+	public void setAverageGrade(String averageGrade) {
+		this.averageGrade = averageGrade;
+	}
+	
+	
 
 }

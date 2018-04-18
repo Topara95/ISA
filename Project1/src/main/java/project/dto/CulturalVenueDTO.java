@@ -10,6 +10,7 @@ public class CulturalVenueDTO {
 	private String name;
 	private String address;
 	private String description;
+	private String averageGrade;
 	
 	public CulturalVenueDTO(CulturalVenue venue){
 		this.id = venue.getId();
@@ -17,6 +18,7 @@ public class CulturalVenueDTO {
 		this.name = venue.getName();
 		this.address = venue.getAddress();
 		this.description = venue.getDescription();
+		this.averageGrade = venue.getAverageGrade();
 	}
 
 	public Long getId() {
@@ -58,6 +60,16 @@ public class CulturalVenueDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getAverageGrade() {
+		return averageGrade;
+	}
+
+	public void setAverageGrade(String averageGrade) {
+		this.averageGrade = averageGrade;
+	}
+	
+	
 	
 	
 }
