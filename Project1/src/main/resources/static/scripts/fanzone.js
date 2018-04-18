@@ -48,14 +48,27 @@ function podijeliOglaseNaCekanju(data) {
 	$.each(list, function(index, oglas) {
 	//console.log(oglas.name);
 	if(oglas.approved == false) {
-		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		if(oglas.picture!="") {
+		$(".welcome").append(`<div style="text-align:center"><h2>Thematic props on hold</h2></div><br>
+				<div class="panel panel-default form-group" id="pojedinacni">
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div id="batoni">
    					<button onclick="odobriOglas(this)" type="button" class="btn btn-success rekvizitButtoni" id="odobri`+oglas.id+`" name="odobri`+oglas.id+`">Approve</button>
    					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Decline and delete</button></div>
 				</div>`);
+		} else {
+			$(".welcome").append(`<div style="text-align:center"><h2>Thematic props on hold</h2></div><br>
+					<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni">
+	   					<button onclick="odobriOglas(this)" type="button" class="btn btn-success rekvizitButtoni" id="odobri`+oglas.id+`" name="odobri`+oglas.id+`">Approve</button>
+	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Decline and delete</button></div>
+					</div>`);
+		}
 	}
 	});
 }
@@ -85,20 +98,22 @@ function odobriOglas(data) {
 //thematicProps
 function props() {
 	$(".welcome").empty();
-	$(".welcome").append(`<div><select id="culVenues" class="form-control"></select></div><br>`);
-	$(".welcome").append(`<div id="type"><label><input type="radio" id="USED" name="type" value="USED">Used</label>
+	$(".welcome").append(`<div style="text-align:center"><h2>Thematic props</h2></div><br>
+						  <div><select id="culVenues" class="form-control"></select></div><br>`);
+	$(".welcome").append(`<div style="text-align:center" id="type"><label><input type="radio" id="USED" name="type" value="USED">Used</label>
     							<label><input type="radio" id="NEW" name="type" value="NEW">New</label></div><br>
-    					  <div><button onclick="props1()" type="button" class="btn btn-success izbrisi">Submit</button></div>`);
+    					  <div style="text-align:center"><button onclick="props1()" type="button" class="btn btn-success izbrisi">Submit</button></div>`);
 	$("#USED").attr('checked', true);
 	readVenues();
 }
 //my thematic props
 function myProps() {
 	$(".welcome").empty();
-	$(".welcome").append(`<div><select id="culVenues" class="form-control"></select></div><br>`);
-	$(".welcome").append(`<div id="type"><label><input type="radio" id="USED" name="type" value="USED">Used</label>
+	$(".welcome").append(`<div style="text-align:center"><h2>My thematic props</h2></div><br>
+						  <div><select id="culVenues" class="form-control"></select></div><br>`);
+	$(".welcome").append(`<div style="text-align:center" id="type"><label><input type="radio" id="USED" name="type" value="USED">Used</label>
     							<label><input type="radio" id="NEW" name="type" value="NEW">New</label></div><br>
-    					  <div><button onclick="props2()" type="button" class="btn btn-success izbrisi">Submit</button></div>`);
+    					  <div style="text-align:center"><button onclick="props2()" type="button" class="btn btn-success izbrisi">Submit</button></div>`);
 	$("#USED").attr('checked', true);
 	readVenues();
 }
@@ -173,8 +188,9 @@ function podijeliOglase(data) {
 	$.each(list, function(index, oglas) {
 	//console.log(oglas.name);
 	if(oglas.tptype == "NEW" && oglas.approved == true) {
+		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div id="batoni">
@@ -182,9 +198,21 @@ function podijeliOglase(data) {
    					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
    					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
 				</div>`);
+		} else {
+			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni">
+	   					<button type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.name+`">Make an offer</button>
+	   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+					</div>`);
+		}
 	} else if(oglas.tptype == "USED" && oglas.approved == true) {
+		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div id="batoni">
@@ -192,6 +220,17 @@ function podijeliOglase(data) {
    					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
    					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
 				</div>`);
+		}else {
+			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni">
+	   					<button type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.name+`">Make an offer</button>
+	   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+					</div>`);
+		}
 	}
 		});
 	console.log("zavrsio!");

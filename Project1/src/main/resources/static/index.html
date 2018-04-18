@@ -52,15 +52,15 @@
         </div>
       </div>
     </nav>
-
+    <div class="row">
     <!-- Page Content -->
-    <div class="container">
+    <div class="container col-sm-8">
 
       <!-- Page Heading -->
       <h1 class="my-4">Kulturna dešavanja
         <small>Novi Sad</small>
       </h1>
-
+      
       <div class="row">
         <div class="col-lg-6 portfolio-item">
           <div class="card h-100">
@@ -70,7 +70,7 @@
                 <a href="cinemaList.html">Bioskopi</a>
               </h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-              <br><br><br><a type="button" style="background-color:green;color:white" id="createBio" onclick="createCV(this)">Create new</a>
+              <br><br><br><a type="button" style="background-color:green;color:white" id="CINEMA" onclick="createCV(this)">Create new</a>
             </div>
           </div>
         </div>
@@ -82,13 +82,13 @@
                 <a href="theaterList.html">Pozorišta</a>
               </h4>
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit aliquam aperiam nulla perferendis dolor nobis numquam, rem expedita, aliquid optio, alias illum eaque. Non magni, voluptates quae, necessitatibus unde temporibus.</p>
-              <br><a type="button" style="background-color:green;color:white" id="createPoz" onclick="createCV(this)">Create new</a>
+              <br><a type="button" style="background-color:green;color:white" id="THEATER" onclick="createCV(this)">Create new</a>
             </div>
           </div>
         </div>
       </div>
       <!-- /.row -->
-
+		
       <!-- Pagination -->
       <ul class="pagination justify-content-center">
         
@@ -96,7 +96,19 @@
 
     </div>
     <!-- /.container -->
-
+   	 	<div class="col-sm-3" id="prostor" style="text-align:center;margin-right:10px">
+   	 		<div style="border:2px solid black;margin-top:35px" >
+  				<h2 style="color:black">Credit rating<br></h2>
+  				<label id="goldL" style="color:gold;font-size:23px"><b>GOLD: </b></label><input hidden="hidden" style="width:80px;margin-left:10px" type="text" placeholder="GOLD" name="goldInput" id="goldInput"><br>
+  				<label id="silverL" style="color:silver;font-size:20px"><b>SILVER: </b></label><input hidden="hidden" style="width:80px;margin-left:10px" type="text" placeholder="SILVER" name="silverInput" id="silverInput"><br>
+  				<label id="bronzeL" style="color:#cc6633;font-size:17px"><b>BRONZE: </b></label><input hidden="hidden" style="width:80px;margin-left:10px" type="text" placeholder="BRONZE" name="bronzeInput" id="bronzeInput"><br>
+  				<button style="margin-bottom:10px" id="editThreshold" onclick="changeRatings()" class="btn btn-warning">Edit</button>
+  				<button hidden="hidden" style="margin-bottom:10px" id="potvrdaThreshold" onclick="potvrdaRatings()" class="btn btn-success">Confirm</button><br><br><br>
+  				<h2 style="color:black">Users<br></h2>
+   				<ul style="margin-left:5px;width:220px" id="spisak" class="form-control list-unstyled"></ul>
+			</div>
+  		</div>
+	</div>
 
   </body>
 
