@@ -80,4 +80,21 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 		return cvrepository.findAll();
 	}
 
+
+	@Override
+	public CulturalVenue modify(CulturalVenue venue, Long id) {
+		CulturalVenue cv = cvrepository.findOne(id);
+		if(venue.getName() != null) {
+			cv.setName(venue.getName());
+		}
+		if(venue.getAddress() != null) {
+			cv.setAddress(venue.getAddress());
+		}
+		if(venue.getDescription() != null) {
+			cv.setDescription(venue.getDescription());
+		}
+		
+		return cvrepository.save(cv);
+	}
+
 }

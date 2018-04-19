@@ -35,6 +35,19 @@ public class CulturalVenueController {
 		return new ResponseEntity<CulturalVenueDTO>(culVenDTO,HttpStatus.OK);
 	}
 	
+	
+	@RequestMapping(value = "/{cvId}",
+			method = RequestMethod.PUT, 
+			consumes = MediaType.APPLICATION_JSON_VALUE, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CulturalVenueDTO> modify(@RequestBody CulturalVenue venue,@PathVariable Long cvId) {
+		//System.out.println(venue.getCvtype().name());
+		CulturalVenue cv = cvservice.modify(venue, cvId);
+		CulturalVenueDTO culVenDTO = new CulturalVenueDTO(cv);
+		return new ResponseEntity<CulturalVenueDTO>(culVenDTO,HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<CulturalVenueDTO>> getAll(){
 		List<CulturalVenueDTO> cvDTO = new ArrayList<CulturalVenueDTO>();

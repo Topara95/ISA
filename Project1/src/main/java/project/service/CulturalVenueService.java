@@ -9,6 +9,8 @@ public interface CulturalVenueService {
 	
 	CulturalVenue save(CulturalVenue venue);
 	
+	CulturalVenue modify(CulturalVenue venue,Long id);
+	
 	List<CulturalVenue> getAllTheaters();
 	
 	List<CulturalVenue> getAllCinemas();
