@@ -57,6 +57,7 @@ function formToJSON4(g,s,b) {
 	
 function generateNavbar(){
 	var user = JSON.parse(sessionStorage.getItem("loggedUser"));
+	if(user!=null) {
 	vratiKorisnike();
 	$.ajax({
 		  method : 'GET',
@@ -85,6 +86,7 @@ function generateNavbar(){
 		document.getElementById("THEATER").hidden = "hidden";
 		document.getElementById("CINEMA").hidden = "hidden";
 		document.getElementById("editThreshold").hidden = "hidden";
+	}
 	}
 	 $.ajax({
 		 url: islogged_url,

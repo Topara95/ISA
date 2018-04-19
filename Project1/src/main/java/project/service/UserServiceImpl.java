@@ -96,6 +96,9 @@ public class UserServiceImpl implements UserService{
 		if(user.getPhone()!=null){
 			old.setPhone(user.getPhone());
 		}
+		if(user.getUsertype()!=null){
+			old.setUsertype(user.getUsertype());
+		}
 		
 		//userRepository.delete(old);
 		return userRepository.save(old);
