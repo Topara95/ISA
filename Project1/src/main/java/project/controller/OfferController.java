@@ -28,16 +28,26 @@ public class OfferController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Offer> save(@RequestBody Offer offer) {
+		System.out.println("usao u kreiranje!");
 		Offer offer1 = offerService.findByCreatedByAndPropId(offer.getCreatedBy(), offer.getPropId());
-		
+		//System.out.println("nasao sam " + offer1.getId());
 		if(offer1!=null) {
-			offer1.setOfferedMoney(offer.getOfferedMoney());
-			offer1 = offerService.save(offer1);
 			return new ResponseEntity<Offer>(offer1, HttpStatus.OK);
 		}
 		
 		Offer offer2 = offerService.save(offer);
+		System.out.println("sacuvao" + offer2.getId());
 		return new ResponseEntity<Offer>(offer2, HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.PUT,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Offer> modify(@RequestBody Offer offer) {
+		Offer offer1 = offerService.findByCreatedByAndPropId(offer.getCreatedBy(), offer.getPropId());
+		offer1.setOfferedMoney(offer.getOfferedMoney());
+		offer1 = offerService.save(offer1);
+		return new ResponseEntity<Offer>(offer1, HttpStatus.OK);
 	}
 	
 	@RequestMapping(
