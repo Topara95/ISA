@@ -18,7 +18,7 @@ $(document).on('submit','.form-signin', function(e) {
 			}
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("AJAX ERROR: " + errorThrown+"signin");
+			toastr.error("Username or password not valid!");
 		}
 	});
 });

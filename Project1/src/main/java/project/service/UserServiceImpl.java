@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService{
 					return null;
 				}
 			}
-			for(User req : user.getFriends()) {
+			for(User req : getFriends(receiver)) {
 				if(req.getId() == sender) {
 					return null;
 				}
@@ -258,11 +258,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<User> searchUsersStartingWith(String name, String surname) {
 		if(!name.equals("nema") && !surname.equals("nema")) {
-			return userRepository.findByNameAndSurnameStartingWith(name, surname);
+			return userRepository.findByNameContainingAndSurnameContaining(name, surname);
 		}else if(name.equals("nema") && !surname.equals("nema")) {
-			return userRepository.findBySurnameStartingWith(surname);
+			return userRepository.findBySurnameContaining(surname);
 		}else if(!name.equals("nema") && surname.equals("nema")) {
-			return userRepository.findByNameStartingWith(name);
+			return userRepository.findByNameContaining(name);
 		}else {
 			return userRepository.findAll();
 		}

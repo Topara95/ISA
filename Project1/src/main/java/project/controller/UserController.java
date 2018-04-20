@@ -99,7 +99,7 @@ public class UserController {
 		for(User user : searched) {
 			searcheddto.add(new UserDTO(user));
 		}
-		if(searched!=null) {
+		if(searched.size() != 0) {
 			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.OK);
 		}else {
 			return new ResponseEntity<List<UserDTO>>(searcheddto,HttpStatus.NOT_FOUND);
@@ -109,9 +109,13 @@ public class UserController {
 	@RequestMapping(value="/sendFriendRequest/{receiverId}",method = RequestMethod.GET)
 	public ResponseEntity<String> sendFriendRequest(@PathVariable Long receiverId,HttpServletRequest request){
 		User sender = (User) request.getSession().getAttribute("loggedUser");		
-		userService.sendFriendRequest(sender.getId(), receiverId);
-		return new ResponseEntity<String>("zahtev uspesno poslat",HttpStatus.ACCEPTED);
-		
+		User receiver = userService.sendFriendRequest(sender.getId(), receiverId);
+		if(receiver!=null){
+			return new ResponseEntity<String>("zahtev uspesno poslat",HttpStatus.ACCEPTED);
+		}
+		else{
+			return new ResponseEntity<String>("vec poslat",HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@RequestMapping(value="/approveFriendRequest/{pendingId}",method = RequestMethod.GET)
