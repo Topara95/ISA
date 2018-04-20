@@ -13,4 +13,5 @@ public interface OfferRepository extends JpaRepository<Offer,Long>{
 	Offer findByCreatedByAndPropId(Long createdBy,Long propId);
 	Offer findById(Long id);
 	List<Offer> findByPropId(Long propId);
+	List<Offer> findByIdNot(Long id);
 }

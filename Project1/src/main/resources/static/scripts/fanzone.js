@@ -173,13 +173,14 @@ function podijeliOglase(data) {
 	var list = data == null ? [] : (data instanceof Array ? data : [ data ]);
 	$.each(list, function(index, oglas) {
 	//console.log(oglas.name);
+	if(oglas.reserved == "YES") {
 	if(oglas.tptype == "NEW" && oglas.approved == true) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label></div>
+	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="padding-left:15px;color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-	 			<div id="batoni">
+	 			<div hidden="hidden" id="batoni1`+oglas.id+`">
    					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
    					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
    					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -190,9 +191,9 @@ function podijeliOglase(data) {
 		} else {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label></div>
+		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="padding-left:15px;color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-		 			<div id="batoni">
+		 			<div hidden="hidden" id="batoni1`+oglas.id+`">
 	   					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
 	   					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
 	   					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -205,9 +206,9 @@ function podijeliOglase(data) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
+	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="padding-left:15px;color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-	 			<div id="batoni">
+	 			<div hidden="hidden" id="batoni1`+oglas.id+`">
    					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
    					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
    					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -218,9 +219,9 @@ function podijeliOglase(data) {
 		}else {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
+		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="padding-left:15px;color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-		 			<div id="batoni">
+		 			<div hidden="hidden" id="batoni1`+oglas.id+`">
 	   					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
 	   					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
 	   					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -229,6 +230,67 @@ function podijeliOglase(data) {
 					<button hidden="hidden" style="margin-top:5px" onclick="posaljiPonudu(this)" type="button" class="btn btn-success" id="posalji`+oglas.id+`">Accept</button></div>
 					<div class="comment-container" id="ponuda1`+oglas.id+`"><ul id="listaPonuda1`+oglas.id+`" class="comments-list"></ul></div>`);
 		}
+	}
+		//NEREZERVISANI!
+	} else {
+		if(oglas.tptype == "NEW" && oglas.approved == true) {
+			if(oglas.picture!="") {
+			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni1`+oglas.id+`">
+	   					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
+	   					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+	   					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+					</div>
+					<div style="margin-left:20px"><textarea hidden="hidden" style="width:100px" id="money`+oglas.id+`" class="form-control" rows="1"></textarea>
+					<button hidden="hidden" style="margin-top:5px" onclick="posaljiPonudu(this)" type="button" class="btn btn-success" id="posalji`+oglas.id+`">Accept</button></div>
+					<div class="comment-container" id="ponuda1`+oglas.id+`"><ul id="listaPonuda1`+oglas.id+`" class="comments-list"></ul></div>`);
+			} else {
+				$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+			 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+			 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+			 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+			 			<div id="batoni1`+oglas.id+`">
+		   					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
+		   					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+		   					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+						</div>
+						<div style="margin-left:20px"><textarea hidden="hidden" style="width:100px" id="money`+oglas.id+`" class="form-control" rows="1"></textarea>
+						<button hidden="hidden" style="margin-top:5px" onclick="posaljiPonudu(this)" type="button" class="btn btn-success" id="posalji`+oglas.id+`">Accept</button></div>
+						<div class="comment-container" id="ponuda1`+oglas.id+`"><ul id="listaPonuda1`+oglas.id+`" class="comments-list"></ul></div>`);
+			}
+		} else if(oglas.tptype == "USED" && oglas.approved == true) {
+			if(oglas.picture!="") {
+			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni1`+oglas.id+`">
+	   					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
+	   					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+	   					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+					</div>
+					<div style="margin-left:20px"><textarea hidden="hidden" style="width:100px" id="money`+oglas.id+`" class="form-control" rows="1"></textarea>
+					<button hidden="hidden" style="margin-top:5px" onclick="posaljiPonudu(this)" type="button" class="btn btn-success" id="posalji`+oglas.id+`">Accept</button></div>
+					<div class="comment-container" id="ponuda1`+oglas.id+`"><ul id="listaPonuda1`+oglas.id+`" class="comments-list"></ul></div>`);
+			}else {
+				$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+			 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+			 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+			 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+			 			<div id="batoni1`+oglas.id+`">
+		   					<button onclick="ponudiPonude(this)" type="button" class="btn btn-success rekvizitButtoni" name="ponudi`+oglas.id+`">Make an offer</button>
+		   					<button hidden="hidden" onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+		   					<button hidden="hidden" onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+						</div>
+						<div style="margin-left:20px"><textarea hidden="hidden" style="width:100px" id="money`+oglas.id+`" class="form-control" rows="1"></textarea>
+						<button hidden="hidden" style="margin-top:5px" onclick="posaljiPonudu(this)" type="button" class="btn btn-success" id="posalji`+oglas.id+`">Accept</button></div>
+						<div class="comment-container" id="ponuda1`+oglas.id+`"><ul id="listaPonuda1`+oglas.id+`" class="comments-list"></ul></div>`);
+			}
+		}
+	
 	}
 		});
 	console.log("zavrsio!");
@@ -277,13 +339,14 @@ function podijeliMojeOglase(data) {
 	var list = data == null ? [] : (data instanceof Array ? data : [ data ]);
 	$.each(list, function(index, oglas) {
 	//console.log(oglas.name);
+	if(oglas.reserved == "YES") {
 	if(oglas.tptype == "NEW" && oglas.approved == true) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label></div>
+	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-	 			<div id="batoni">
+	 			<div hidden="hidden" id="batoni`+oglas.id+`">
    					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
    					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
    					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -292,9 +355,9 @@ function podijeliMojeOglase(data) {
 		} else {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label></div>
+		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-		 			<div id="batoni">
+		 			<div hidden="hidden" id="batoni`+oglas.id+`">
 	   					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
 	   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
 	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -305,9 +368,9 @@ function podijeliMojeOglase(data) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
+	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-	 			<div id="batoni">
+	 			<div hidden="hidden" id="batoni`+oglas.id+`">
    					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
    					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
    					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -316,9 +379,9 @@ function podijeliMojeOglase(data) {
 		}else {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
 		 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
-		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
+		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
-		 			<div id="batoni">
+		 			<div hidden="hidden" id="batoni`+oglas.id+`">
 	   					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
 	   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
 	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
@@ -326,8 +389,78 @@ function podijeliMojeOglase(data) {
 					<div class="comment-container" id="ponuda`+oglas.id+`"><ul id="listaPonuda`+oglas.id+`" class="comments-list"></ul></div>`);
 		}
 	}
+	//nerezervisan
+	} else {
+		if(oglas.tptype == "NEW" && oglas.approved == true) {
+			if(oglas.picture!="") {
+			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni`+oglas.id+`">
+	   					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
+	   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+					</div>
+					<div class="comment-container" id="ponuda`+oglas.id+`"><ul id="listaPonuda`+oglas.id+`" class="comments-list"></ul></div>`);
+			} else {
+				$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+			 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+			 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+			 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+			 			<div id="batoni`+oglas.id+`">
+		   					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
+		   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+		   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+						</div>
+						<div class="comment-container" id="ponuda`+oglas.id+`"><ul id="listaPonuda`+oglas.id+`" class="comments-list"></ul></div>`);
+			}
+		} else if(oglas.tptype == "USED" && oglas.approved == true) {
+			if(oglas.picture!="") {
+			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+		 			<div id="batoni`+oglas.id+`">
+	   					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
+	   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+	   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+					</div>
+					<div class="comment-container" id="ponuda`+oglas.id+`"><ul id="listaPonuda`+oglas.id+`" class="comments-list"></ul></div>`);
+			}else {
+				$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
+			 			<div id="divNaziv" class="panel-heading"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+			 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
+			 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
+			 			<div id="batoni`+oglas.id+`">
+		   					<button onclick="dajPonudu(this)" type="button" class="btn btn-success rekvizitButtoni" name="daj`+oglas.id+`">Offers</button>
+		   					<button onclick="izmjeniOglas(this)" type="button" class="btn btn-warning izbrisi" id="izmjeni`+oglas.id+`" name="izmjeni`+oglas.id+`">Edit</button>
+		   					<button onclick="izbrisiOglas(this)" type="button" class="btn btn-danger izbrisi" name="izbrisi`+oglas.id+`">Delete</button></div>
+						</div>
+						<div class="comment-container" id="ponuda`+oglas.id+`"><ul id="listaPonuda`+oglas.id+`" class="comments-list"></ul></div>`);
+			}
+		}
+		
+	}
 		});
 	console.log("zavrsio!");
+}
+
+function acceptPonudu(obj){
+	var rekvizit = sessionStorage.getItem("rekvizitPonuda");
+	var pokusaj = obj.id;
+	var id = pokusaj.split("prihvati")[1];
+	$.ajax({
+		method : 'GET',
+		url : "../api/offer/accept/"+id,
+		success : function(data){
+			console.log("uspjesno!");
+			window.location.href = "fanzone.html";
+		},
+		error: function(){
+			console.log("neuspesno");
+		}
+	});
 }
 
 function ponudiPonude(obj) {
@@ -353,6 +486,7 @@ function ponudiPonude(obj) {
 function dajPonudu(obj) {
 	var pokusaj = obj.name;
 	var id = pokusaj.split("daj")[1];	
+	sessionStorage.setItem("rekvizitPonuda",id);
 		$.ajax({
 			method : 'GET',
 			url : "../api/offer/"+id,
@@ -377,7 +511,7 @@ function podijeliPonude(data,id) {
 					<div class="comment-box" >
 						<div class="comment-head">
 							<div class="comment-name><h6 by-author"><b>`+oglas.createdBy+`</b></h6><label style="margin-left:50px"><b>Offer: `+oglas.offeredMoney+` RSD</b></label>
-								<button style="margin-left:100px" type="button" class="btn btn-success" id="prihvati`+oglas.id+`">Accept</button>
+								<button onclick="acceptPonudu(this)" style="margin-left:100px" type="button" class="btn btn-success" id="prihvati`+oglas.id+`">Accept</button>
 							</div>							
 						</div>
 					</div>
@@ -405,14 +539,32 @@ function podijeliPonude1(data,id) {
 					<div class="comment-box" >
 						<div class="comment-head">
 							<div class="comment-name><h6 by-author"><b>`+oglas.createdBy+`</b></h6><label style="margin-left:50px"><b>Offer: `+oglas.offeredMoney+` RSD</b></label>
-							<textarea id="vrijednost`+oglas.id+`" style="margin-left:10px;width:100px" class="form-control" rows="1"></textarea>
+							<textarea id="vrijednost`+oglas.id+`" style="margin-left:10px;width:150px" class="form-control" rows="1"></textarea>
 							<button style="margin-left:20px" onclick="promjenaPonude(this)" type="button" class="btn btn-warning" id="promjeniPonudu`+oglas.id+`">Edit</button>
+							<button style="margin-left:10px" onclick="brisanjePonude(this)" type="button" class="btn btn-danger" id="izbrisiPonudu`+oglas.id+`">Delete</button>
 							</div>							
 						</div>
 					</div>
 				</li>`);
 		}
 		
+	});
+}
+
+function brisanjePonude(obj) {
+	var pokusaj = obj.id;
+	//console.log("pokusaj na "+pokusaj);
+	var id = pokusaj.split("izbrisiPonudu")[1];
+	$.ajax({
+		method : 'GET',
+		url : "../api/offer/delete/"+id,
+		success : function(data){
+			console.log("uspjesno!");
+			window.location.href = "fanzone.html";
+		},
+		error: function(){
+			console.log("neuspesno");
+		}
 	});
 }
 

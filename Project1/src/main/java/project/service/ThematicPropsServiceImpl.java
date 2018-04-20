@@ -60,6 +60,9 @@ public class ThematicPropsServiceImpl implements ThematicPropsService{
 		if(thematicProps.getCulturalVenueId() != null) {
 			oldThematicProps.setCulturalVenueId(thematicProps.getCulturalVenueId());
 		}
+		if(thematicProps.getReserved() != null) {
+			oldThematicProps.setReserved(thematicProps.getReserved());
+		}
 		return thematicPropsRepository.save(oldThematicProps);
 	}
 
