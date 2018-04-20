@@ -347,6 +347,13 @@ function getVisits(){
                              <td><span class="font-weight-bold">`+data[i].projectionTime.time+`</span></td>
                              <td><span class="font-weight-bold">`+data[i].projectionTime.eventProjection.event.name+`</span></td>
                              <td><button onclick="generateDetails(`+data[i].id+`)" name=`+data[i].id+` type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#reservationsModal">Look</button></td>
+                             <td><select id="combo`+data[i].id+`">
+                             	<option id="5" name="5" value="5">5</option>
+                             	<option id="4" name="4" value="4">4</option>
+                             	<option id="3" name="3" value="3">3</option>
+                             	<option id="2" name="2" value="2">2</option>
+                             	<option id="1" name="1" value="1">1</option>
+                             </select>
                          </tr>`);
 			 }
 		 },

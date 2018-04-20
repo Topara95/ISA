@@ -10,4 +10,7 @@ public interface EventService {
 	
 	List<Event> findAll();
 	
+	Event deleteEvent(Long id);
+	
+	Event modify(Event event,Long id);
 }

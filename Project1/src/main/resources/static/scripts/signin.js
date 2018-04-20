@@ -30,6 +30,8 @@ function passChange(data) {
 	console.log("changePass " + data.changedPassword);
 	if(tip == "FANZONEADMIN" && data.changedPassword == false) {
 		window.location.href='changePass.html';
+	} else if(tip == "VENUEADMIN" && data.changedPassword == false) {
+		window.location.href='changePass.html';
 	} else {
 		window.location.href='index.html';
 	}

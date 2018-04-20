@@ -79,10 +79,12 @@ function generateNavbar(){
 		  
 	});
 	if(user.usertype == "SYSTEMADMIN") {
+		console.log("admir samm");
 		document.getElementById("THEATER").hidden = "";
 		document.getElementById("CINEMA").hidden = "";
 		document.getElementById("editThreshold").hidden = "";
 	} else {
+		console.log("admir nisam");
 		document.getElementById("THEATER").hidden = "hidden";
 		document.getElementById("CINEMA").hidden = "hidden";
 		document.getElementById("editThreshold").hidden = "hidden";
