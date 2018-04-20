@@ -20,7 +20,7 @@ function citaj() {
 		$("#naslov").append(`Edit thematic prop`);
 		$("#naziv").val(oglas.name);
 		$("#opis").val(oglas.description);
-		$("#slikaRekvizit").val(oglas.picture);
+		//$("#slikaRekvizit").val(oglas.picture);
 		$("#datum").val(oglas.date);
 		$("#tipRekvizit").val(oglas.tptype);
 		$("#culturalVenueSelect").val(oglas.culturalVenueId);
@@ -86,23 +86,43 @@ $(document).on('click','#dugmeIzmjeni',function(e) {
 });
 
 function formToJSON2(user) {
-	return JSON.stringify({
-		"name" : $('#naziv').val(),
-		"description" : $('#opis').val(),
-		"date" : $('#datum').val(),
-		"tptype" : $('#tipRekvizit').val(),
-		"picture" : $('#slikaRekvizit').val(),
-		"culturalVenueId" : $('#culturalVenueSelect option:selected').attr('name')
-	});
+	var slika = $('#slikaRekvizit').val()
+	if(slika != ""){
+		slika = slika.substring(12);
+		//alert(id);
+		return JSON.stringify({
+			"name" : $('#naziv').val(),
+			"description" : $('#opis').val(),
+			"date" : $('#datum').val(),
+			"tptype" : $('#tipRekvizit').val(),
+			"picture" : slika,
+			"culturalVenueId" : $('#culturalVenueSelect option:selected').attr('name')
+		});
+	} else {
+		return JSON.stringify({
+			"name" : $('#naziv').val(),
+			"description" : $('#opis').val(),
+			"date" : $('#datum').val(),
+			"tptype" : $('#tipRekvizit').val(),
+			"culturalVenueId" : $('#culturalVenueSelect option:selected').attr('name')
+		});
+	}
+	
 }
 
 function formToJSON(user) {
+	var slika = $('#slikaRekvizit').val()
+	if(slika != ""){
+		slika = slika.substring(12);
+		//alert(id);
+	}
+	//alert($('#slikaRekvizit').val());
 	return JSON.stringify({
 		"name" : $('#naziv').val(),
 		"description" : $('#opis').val(),
 		"date" : $('#datum').val(),
 		"tptype" : $('#tipRekvizit').val(),
-		"picture" : $('#slikaRekvizit').val(),
+		"picture" : slika,
 		"createdBy" : user.id,
 		"reserved" : "NO",
 		"approved" : false,

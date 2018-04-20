@@ -35,7 +35,7 @@ function podijeliOglaseNaCekanju(data) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div style="text-align:center"><h2>Thematic props on hold</h2></div><br>
 				<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div id="batoni">
@@ -177,7 +177,7 @@ function podijeliOglase(data) {
 	if(oglas.tptype == "NEW" && oglas.approved == true) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="padding-left:15px;color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div hidden="hidden" id="batoni1`+oglas.id+`">
@@ -205,7 +205,7 @@ function podijeliOglase(data) {
 	} else if(oglas.tptype == "USED" && oglas.approved == true) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="padding-left:15px;color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div hidden="hidden" id="batoni1`+oglas.id+`">
@@ -236,7 +236,7 @@ function podijeliOglase(data) {
 		if(oglas.tptype == "NEW" && oglas.approved == true) {
 			if(oglas.picture!="") {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 		 			<div id="batoni1`+oglas.id+`">
@@ -264,7 +264,7 @@ function podijeliOglase(data) {
 		} else if(oglas.tptype == "USED" && oglas.approved == true) {
 			if(oglas.picture!="") {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 		 			<div id="batoni1`+oglas.id+`">
@@ -343,7 +343,7 @@ function podijeliMojeOglase(data) {
 	if(oglas.tptype == "NEW" && oglas.approved == true) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div hidden="hidden" id="batoni`+oglas.id+`">
@@ -367,7 +367,7 @@ function podijeliMojeOglase(data) {
 	} else if(oglas.tptype == "USED" && oglas.approved == true) {
 		if(oglas.picture!="") {
 		$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-	 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+	 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 	 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 	 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 	 			<div hidden="hidden" id="batoni`+oglas.id+`">
@@ -394,7 +394,7 @@ function podijeliMojeOglase(data) {
 		if(oglas.tptype == "NEW" && oglas.approved == true) {
 			if(oglas.picture!="") {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 		 			<label id="odmakniMe" style="color:green"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 		 			<div id="batoni`+oglas.id+`">
@@ -418,7 +418,7 @@ function podijeliMojeOglase(data) {
 		} else if(oglas.tptype == "USED" && oglas.approved == true) {
 			if(oglas.picture!="") {
 			$(".welcome").append(`<div class="panel panel-default form-group" id="pojedinacni">
-		 			<div id="divNaziv" class="panel-heading"><img src="/images/cinema.jpg" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
+		 			<div id="divNaziv" class="panel-heading"><img src="/images/`+oglas.picture+`" style="width:120px;height:100px;padding-right:15px;padding-bottom:10px"><label id="odmakniMe"><b>`+oglas.name+`</b><br><label>
 		 			<label id="odmakniMe" style="color:yellow"><b>`+oglas.tptype+`</b><label><label hidden="hidden" id="reserved`+oglas.id+`" style="color:red"><b>RESERVED</b></label></div>
 		 			<div id="divOpis" class="panel-body"><textarea readonly id="divOpis2" class="form-control" rows="6">`+oglas.description+`</textarea></div>
 		 			<div id="batoni`+oglas.id+`">
