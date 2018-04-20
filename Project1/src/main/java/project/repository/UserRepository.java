@@ -22,10 +22,10 @@ public interface UserRepository extends JpaRepository<User,Long>{
 	
 	List<User> findByNameAndSurname(String name, String surname);
 	
-	List<User> findByNameStartingWith(String name);
+	List<User> findByNameContaining(String name);
 	
-	List<User> findBySurnameStartingWith(String surname);
+	List<User> findBySurnameContaining(String surname);
 	
-	List<User> findByNameAndSurnameStartingWith(String name, String surname);
+	List<User> findByNameContainingAndSurnameContaining(String name, String surname);
 }
 

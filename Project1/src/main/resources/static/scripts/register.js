@@ -21,7 +21,7 @@ $(document).on('submit','.form-register', function(e) {
 			}
 		});
 	}else{
-		alert("Passwords must match");
+		toastr.warning("Passwords must match!");
 	}
 });
 

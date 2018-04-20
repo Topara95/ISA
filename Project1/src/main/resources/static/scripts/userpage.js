@@ -19,6 +19,7 @@ $(document).on('submit','.editform', function(e) {
 			dataType : "json",
 			data:formToJSON(),
 			success : function(data) {
+				toastr.success("Your information was successfuly edited!");
 				location.reload();
 				sessionStorage.setItem('loggedUser',JSON.stringify(data));
 			},
@@ -27,7 +28,7 @@ $(document).on('submit','.editform', function(e) {
 			}
 		});
 	}else{
-		alert("Passwords must match");
+		toastr.warning("Passwords must match!");
 	}
 });
 

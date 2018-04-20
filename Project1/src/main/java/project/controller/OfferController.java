@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import project.domain.Offer;
+import project.domain.ThematicProps;
 import project.dto.OfferDTO;
+import project.dto.ThematicPropsDTO;
 import project.service.OfferService;
 
 @RestController
@@ -61,5 +63,18 @@ public class OfferController {
 			offerListDTO.add(new OfferDTO(offer));
 		}
 		return new ResponseEntity<List<OfferDTO>>(offerListDTO,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Offer> deleteOffer(@PathVariable Long id) {
+		Offer offer = offerService.deleteOffer(id);	
+		return new ResponseEntity<Offer>(offer,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/accept/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Offer> acceptOffer(@PathVariable Long id) {
+		Offer offer = offerService.acceptOffer(id);
+		return new ResponseEntity<Offer>(offer,HttpStatus.OK);
+		
 	}
 }

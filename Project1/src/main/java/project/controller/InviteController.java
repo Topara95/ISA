@@ -20,17 +20,26 @@ public class InviteController {
 	private InviteService inviteservice;
 	
 	@RequestMapping(value="/{invId}/accept",method = RequestMethod.GET)
-	public ResponseEntity<InviteDTO> acceptInvite(@PathVariable Long invId){
+	public ResponseEntity<String> acceptInvite(@PathVariable Long invId){
 		Invite inv = inviteservice.acceptInvite(invId);
 		InviteDTO inviteDTO = new InviteDTO(inv);
-		return new ResponseEntity<InviteDTO>(inviteDTO,HttpStatus.OK);
+		if(inviteDTO.getId() != null){
+			return new ResponseEntity<String>("invite accepted",HttpStatus.OK);
+		}else{
+			return new ResponseEntity<String>("error",HttpStatus.BAD_REQUEST);
+		}
+		
 	}
 	
 	@RequestMapping(value="/{invId}/decline",method = RequestMethod.GET)
-	public ResponseEntity<InviteDTO> declineInvite(@PathVariable Long invId){
+	public ResponseEntity<String> declineInvite(@PathVariable Long invId){
 		Invite inv = inviteservice.declineInvite(invId);
 		InviteDTO inviteDTO = new InviteDTO(inv);
-		return new ResponseEntity<InviteDTO>(inviteDTO,HttpStatus.OK);
+		if(inviteDTO.getId() != null){
+			return new ResponseEntity<String>("invite declined",HttpStatus.OK);
+		}else{
+			return new ResponseEntity<String>("error",HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 }

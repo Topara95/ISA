@@ -50,11 +50,11 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 	@Override
 	public List<CulturalVenue> searchCinemas(String name, String address) {
 		if(!name.equals("nema") && !address.equals("nema")){
-			return cvrepository.findByCvtypeAndNameAndAddressStartingWith(CulturalVenueType.CINEMA, name, address);
+			return cvrepository.findByCvtypeAndNameContainingAndAddressContaining(CulturalVenueType.CINEMA, name, address);
 		}else if(!name.equals("nema") && address.equals("nema")){
-			return cvrepository.findByCvtypeAndNameStartingWith(CulturalVenueType.CINEMA, name);
+			return cvrepository.findByCvtypeAndNameContaining(CulturalVenueType.CINEMA, name);
 		}else if(name.equals("nema") && !address.equals("nema")){
-			return cvrepository.findByCvtypeAndAddressStartingWith(CulturalVenueType.CINEMA, address);
+			return cvrepository.findByCvtypeAndAddressContaining(CulturalVenueType.CINEMA, address);
 		}else{
 			return cvrepository.findByCvtype(CulturalVenueType.CINEMA);
 		}
@@ -64,11 +64,11 @@ public class CulturalVenueServiceImpl implements CulturalVenueService{
 	@Override
 	public List<CulturalVenue> searchTheaters(String name, String address) {
 		if(!name.equals("nema") && !address.equals("nema")){
-			return cvrepository.findByCvtypeAndNameAndAddressStartingWith(CulturalVenueType.THEATER, name, address);
+			return cvrepository.findByCvtypeAndNameContainingAndAddressContaining(CulturalVenueType.THEATER, name, address);
 		}else if(!name.equals("nema") && address.equals("nema")){
-			return cvrepository.findByCvtypeAndNameStartingWith(CulturalVenueType.THEATER, name);
+			return cvrepository.findByCvtypeAndNameContaining(CulturalVenueType.THEATER, name);
 		}else if(name.equals("nema") && !address.equals("nema")){
-			return cvrepository.findByCvtypeAndAddressStartingWith(CulturalVenueType.THEATER, address);
+			return cvrepository.findByCvtypeAndAddressContaining(CulturalVenueType.THEATER, address);
 		}else{
 			return cvrepository.findByCvtype(CulturalVenueType.THEATER);
 		}

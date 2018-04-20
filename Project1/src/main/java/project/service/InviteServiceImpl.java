@@ -10,6 +10,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import project.domain.Invite;
@@ -116,6 +117,7 @@ public class InviteServiceImpl implements InviteService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Invite declineInvite(Long inviteId) {
 		Invite invite = inviterepository.findOne(inviteId);
 		Reservation reservation = invite.getReservation();

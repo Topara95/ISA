@@ -12,10 +12,14 @@ public interface OfferService {
 	
 	Offer findById(Long id);
 	
+	List<Offer> findByIdNot(Long id);
+	
 	Offer deleteOffer(Long id);
 	
 	List<Offer> findByPropId(Long propId);
 	
 	Offer findByCreatedByAndPropId(Long createdBy,Long propId);
+	
+	Offer acceptOffer(Long id);
 
 }
