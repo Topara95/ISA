@@ -71,6 +71,7 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Reservation cancelReservation(Long resId) {
 		Date date = new Date();
 		boolean invalid = false;
