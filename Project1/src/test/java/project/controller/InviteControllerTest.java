@@ -92,9 +92,7 @@ public class InviteControllerTest {
 		
 		Invite invite = inviteservice.sendInvite(reservation.getId(), user2.getId());
 		
-		mockMvc.perform(get(URL_PREFIX+"/"+invite.getId()+"/accept")).andExpect(status().isOk())
-		.andExpect(jsonPath("$.id").value(invite.getId()))
-		.andExpect(jsonPath("$.accepted").value(true));
+		mockMvc.perform(get(URL_PREFIX+"/"+invite.getId()+"/accept")).andExpect(status().isOk());
 	}
 	
 	@Test
@@ -114,9 +112,7 @@ public class InviteControllerTest {
 		
 		Invite invite = inviteservice.sendInvite(reservation.getId(), user2.getId());
 		
-		mockMvc.perform(get(URL_PREFIX+"/"+invite.getId()+"/decline")).andExpect(status().isOk())
-		.andExpect(jsonPath("$.id").value(invite.getId()))
-		.andExpect(jsonPath("$.accepted").value(false));
+		mockMvc.perform(get(URL_PREFIX+"/"+invite.getId()+"/decline")).andExpect(status().isOk());
 	}
 	
 }

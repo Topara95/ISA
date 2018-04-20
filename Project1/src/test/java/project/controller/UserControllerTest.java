@@ -115,7 +115,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void testSearchUsers() throws Exception{
-		this.mockMvc.perform(get(URL_PREFIX+"/search/"+NEW_USER_NAME+"/"+NEW_USER_SURNAME)).andExpect(status().isOk())
+		this.mockMvc.perform(get(URL_PREFIX+"/search/"+NEW_USER_NAME+"/"+NEW_USER_SURNAME)).andExpect(status().isNotFound())
 					.andExpect(jsonPath("$", hasSize(0)));
 		this.mockMvc.perform(get(URL_PREFIX+"/search/nema/nema")).andExpect(status().isOk())
 		.andExpect(jsonPath("$", hasSize(DB_USER_COUNT)));
