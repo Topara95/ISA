@@ -368,7 +368,7 @@ function getVisits(){
 function ocjeniEvent(obj) {
 	var pokusaj = obj.name;
 	var id = pokusaj.split("ocjeni")[1];
-	alert(id);
+	//alert(id);
 	var ocjena = $("#combo"+id+" option:selected").attr('name');
 	//alert(ocjena);
 	$.ajax({
