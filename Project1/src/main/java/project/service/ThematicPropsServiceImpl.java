@@ -49,6 +49,7 @@ public class ThematicPropsServiceImpl implements ThematicPropsService{
 			oldThematicProps.setDescription(thematicProps.getDescription());
 		}
 		if(thematicProps.getDate()!=null) {
+			System.out.println(oldThematicProps.getDate());
 			oldThematicProps.setDate(thematicProps.getDate());
 		}
 		if(thematicProps.getPicture()!=null) {

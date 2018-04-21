@@ -2,12 +2,10 @@ package project;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
 import org.hibernate.Hibernate;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +17,11 @@ import project.domain.EventProjection;
 import project.domain.EventType;
 import project.domain.Hall;
 import project.domain.MembershipThreshold;
+import project.domain.Offer;
 import project.domain.ProjectionTime;
 import project.domain.Seat;
+import project.domain.ThematicProps;
+import project.domain.ThematicPropsType;
 import project.domain.User;
 import project.domain.UserType;
 import project.repository.MembershipThresholdRepository;
@@ -28,8 +29,10 @@ import project.service.CulturalVenueService;
 import project.service.EventProjectionService;
 import project.service.EventService;
 import project.service.HallService;
+import project.service.OfferService;
 import project.service.ProjectionTimeService;
 import project.service.SeatService;
+import project.service.ThematicPropsService;
 import project.service.UserService;
 
 @Component
@@ -57,6 +60,12 @@ public class ProjectTestData {
 	private SeatService seatservice;
 	
 	@Autowired
+	private OfferService offerService;
+	
+	@Autowired 
+	private ThematicPropsService thematicPropsService;
+	
+	@Autowired
 	private MembershipThresholdRepository mtrepository;
 	
 	@PostConstruct
@@ -64,7 +73,7 @@ public class ProjectTestData {
 		
 		if(userservice.findAll().size() == 0) {
 			
-			MembershipThreshold mt = new MembershipThreshold(5,50,100,true);
+			MembershipThreshold mt = new MembershipThreshold(100,200,300,true);
 			mtrepository.save(mt);
 		
 			User user1 = new User("jovantopolic@gmail.com","jova","Jovan","Topolic","Novi Sad","6611632",UserType.REGULAR);
@@ -230,6 +239,48 @@ public class ProjectTestData {
 			
 			epservice.save(ep1);
 			epservice.save(ep2);
+			
+			//------------------Nebojsa-------------------
+			
+			User user5 = new User("nijacic95@gmail.com","sone","Nebojsa","Ijacic","Novi Sad","62311632",UserType.FANZONEADMIN);
+			user5.setVerified(true);
+			userservice.save(user5);
+			
+			User user6 = new User("neznam1230@gmail.com","sone","Kosta","Kostic","Novi Sad","12311632",UserType.SYSTEMADMIN);
+			user6.setVerified(true);
+			userservice.save(user6);
+			
+			User user7 = new User("neznam0321@gmail.com","sone","Marko","Markovic","Novi Sad","154541632",UserType.FANZONEADMIN);
+			user7.setVerified(true);
+			userservice.save(user7);
+			
+			ThematicProps prop1 = new ThematicProps(cv1.getId(),ThematicPropsType.NEW,user5.getId(),"NO","Prop1","Description1","2016-01-01T01:01","cinema.jpg",true);
+			ThematicProps prop2 = new ThematicProps(cv1.getId(),ThematicPropsType.USED,user6.getId(),"NO","Prop2","Description2","2016-01-01T01:01","loginicon.png",true);
+			ThematicProps prop3 = new ThematicProps(cv1.getId(),ThematicPropsType.USED,user1.getId(),"NO","Prop3","Description3","2016-01-01T01:01","remove.png",true);
+			ThematicProps prop4 = new ThematicProps(cv2.getId(),ThematicPropsType.NEW,user5.getId(),"NO","Prop4","Description4","2016-01-01T01:01","",true);
+			ThematicProps prop5 = new ThematicProps(cv3.getId(),ThematicPropsType.USED,user5.getId(),"NO","Prop5","Description5","2016-01-01T01:01","",true);
+			
+			thematicPropsService.save(prop1);
+			thematicPropsService.save(prop2);
+			thematicPropsService.save(prop3);
+			thematicPropsService.save(prop4);
+			thematicPropsService.save(prop5);
+			
+			Offer offer1 = new Offer(user1.getId(),200,prop1.getId(),cv1.getId(),false,false);
+			Offer offer2 = new Offer(user6.getId(),210,prop1.getId(),cv1.getId(),false,false);
+			Offer offer3 = new Offer(user5.getId(),1000,prop2.getId(),cv1.getId(),false,false);
+			Offer offer4 = new Offer(user1.getId(),800,prop2.getId(),cv1.getId(),false,false);
+			Offer offer5 = new Offer(user6.getId(),760,prop3.getId(),cv1.getId(),false,false);
+			Offer offer6 = new Offer(user5.getId(),750,prop3.getId(),cv1.getId(),false,false);
+			Offer offer7 = new Offer(user1.getId(),340,prop5.getId(),cv3.getId(),false,false);
+			
+			offerService.save(offer1);
+			offerService.save(offer2);
+			offerService.save(offer3);
+			offerService.save(offer4);
+			offerService.save(offer5);
+			offerService.save(offer6);
+			offerService.save(offer7);
 		}
 	}
 	
