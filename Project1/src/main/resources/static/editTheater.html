@@ -24,9 +24,11 @@
 			<input type="text" placeholder="Name" name="name" id="name" required>
 			<input type="text" placeholder="Address" name="address" id="address" required>	
 			<input type="text" placeholder="Description" name="description" id="description" required>
+			<input type="submit" name="submit" onclick="promjeni()" id="submit">
 			<h3 style="color:black">Event<br></h3>
    			<ul style="margin-left:5px;width:600px;text-align:left" id="spisakEventC" class="form-control list-unstyled"></ul>							
-			<input type="submit" name="submit" onclick="promjeni()" id="submit">
+			<a type="button" class="btn btn-success" id="theater" onclick="prebaciMe(this)">New</a>
+			
 	</div>
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,6 +50,9 @@ public class Event implements Serializable {
 	@Column(nullable = true)
 	private String description;
 	
+	@ElementCollection
+	private List<Integer> grades; 
+	
 	@OneToMany
 	private List<EventProjection> projections;
 	
@@ -70,6 +74,16 @@ public class Event implements Serializable {
 		this.description = description;
 		projections = new ArrayList<EventProjection>();
 		this.culturalVenue = culturalVenue;
+		this.grades = new ArrayList<Integer>();
+	}
+	
+
+	public List<Integer> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Integer> grades) {
+		this.grades = grades;
 	}
 
 	public Long getId() {

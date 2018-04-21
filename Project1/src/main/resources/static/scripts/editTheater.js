@@ -81,3 +81,25 @@ function formToJSON2() {
 		"address" : $('#address').val(),		
 	});
 }
+
+function prebaciMe(obj){
+	var id1 = obj.id;
+	sessionStorage.setItem("vrtsaVenue",id1);
+	window.location.href = "createEvent.html";
+}
+
+function deleteEvent(obj){
+	var id1 = obj.id;
+	var id = id1.split("delete")[1];
+		$.ajax({
+			method : 'GET',
+			url : "../api/events/delete/"+id,
+			success : function(data){
+				console.log("uspjesno!");
+				window.location.href = 'editTheater.html';
+			},
+			error: function(){
+				console.log("neuspesno");
+			}
+		});
+}

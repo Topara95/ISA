@@ -281,6 +281,13 @@ public class ProjectTestData {
 			offerService.save(offer5);
 			offerService.save(offer6);
 			offerService.save(offer7);
+			
+			//Duka
+			User user8 = new User("vlacina2@gmail.com","duca","Dusko","Vlacina","Novi Sad","62311632",UserType.VENUEADMIN);
+			user8.setVerified(true);
+			userservice.save(user8);
+			
+			
 		}
 	}
 	

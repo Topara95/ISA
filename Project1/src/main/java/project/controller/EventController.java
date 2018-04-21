@@ -44,6 +44,13 @@ public class EventController {
 		return new ResponseEntity<EventDTO>(eventDTO,HttpStatus.CREATED);
 	}
 	
+	@RequestMapping(value="/rate/{id}/{grade}", method = RequestMethod.GET)
+	public ResponseEntity<EventDTO> rateEvent(@PathVariable Long id,@PathVariable int grade) {
+		Event event = eventservice.rateEvent(id, grade);
+		EventDTO event1 = new EventDTO(event);
+		return new ResponseEntity<EventDTO>(event1,HttpStatus.OK);
+	}
+	
 	@RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
 	public ResponseEntity<EventDTO> deleteEvents(@PathVariable Long id) {
 		Event event = eventservice.deleteEvent(id);

@@ -7,10 +7,10 @@
     <meta name="author" content="">
     
     <script src="scripts/jquery-3.3.1.min.js"></script>
-    <script src="scripts/editCinema.js"></script>
+    <script src="scripts/createEvent.js"></script>
     <script src="scripts/bootstrap.min.js"></script>
 	<meta charset="ISO-8859-1">
-	<title>Edit Cinema</title>
+	<title>Add Event</title>
 	<!-- Bootstrap core CSS -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="stylesheets/editCinema.css" rel="stylesheet">
@@ -18,18 +18,19 @@
     <!-- Custom styles for this template -->
     <link href="stylesheets/2-col-portfolio.css" rel="stylesheet">
 </head>
-<body onload="citaj()">
-	<h1>Edit Cinema</h1>
+<body onload="ucitaj()">
+	<h1>Add Event</h1>
 	<div class="venue">
 			<input type="text" placeholder="Name" name="name" id="name" required>
-			<input type="text" placeholder="Address" name="address" id="address" required>	
+			<input type="text" placeholder="Actors" name="actors" id="actors" required>	
+			<select style="width:200px;margin-bottom:30px" id="izbor" name="izbor">
+
+  			</select>	
+			<input type="text" placeholder="Director" name="director" id="director" required>
+			<input type="text" placeholder="Duration" name="duration" id="duration" required>
+			<input type="text" placeholder="Poster" name="poster" id="poster" required>
 			<input type="text" placeholder="Description" name="description" id="description" required>
-			<input type="submit" name="submit" onclick="promjeni()" id="submit">	
-			<h3 style="color:black">Event<br></h3>
-   			<ul style="margin-left:5px;width:600px;text-align:left" id="spisakEventC" class="form-control list-unstyled"></ul>	
-   			<a type="button" class="btn btn-success" id="cinema" onclick="prebaciMe(this)">New</a>	
-  
-   			
+			<input type="submit" name="submit" onclick="kreiraj()" id="submit">
 	</div>
 </body>
 </html>

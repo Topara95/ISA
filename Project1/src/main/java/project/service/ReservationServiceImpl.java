@@ -176,6 +176,7 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	public void setMembership(User user) {
 		MembershipThreshold mt = mtrepository.findByValid(true);
+		if(user.getUsertype() != UserType.FANZONEADMIN && user.getUsertype() != UserType.VENUEADMIN && user.getUsertype() != UserType.SYSTEMADMIN) {
 		if(user.getPoints() >= mt.getGoldThreshold()) {
 			user.setUsertype(UserType.REGULAR_GOLD);
 		}else if(user.getPoints() >= mt.getSilverThreshold()) {
@@ -185,7 +186,9 @@ public class ReservationServiceImpl implements ReservationService{
 		}else {
 			user.setUsertype(UserType.REGULAR);
 		}
-		userrepository.save(user);
+			userrepository.save(user);
+		}
+		
 	}
 
 	@Override
